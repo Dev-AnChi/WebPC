@@ -656,29 +656,34 @@ h2 {
   100% { top: 75%; opacity: 0.95; }
 }
 
-/* Floating Object 3: Figure Mascot (Bottom Left Foreground) */
-.stage-figure {
+/* Floating Object 3: High-End White RGB GPU (Foreground Tech Hero) */
+.stage-gpu {
   position: absolute;
-  bottom: 5%;
-  left: 0%;
-  width: 220px;
-  z-index: 15;
-  filter: drop-shadow(0 22px 38px rgba(144, 85, 255, 0.32)) drop-shadow(0 0 25px rgba(168, 85, 247, 0.35));
-  animation: floatFigure 5.8s ease-in-out infinite 1.4s;
-  transform: translateZ(105px);
+  bottom: 2%;
+  left: -4%;
+  width: 260px;
+  z-index: 18;
+  filter: drop-shadow(0 20px 38px rgba(0, 102, 255, 0.38)) drop-shadow(0 0 22px rgba(0, 210, 255, 0.45));
+  animation: floatGpu 6.2s ease-in-out infinite 1.2s;
+  transform: translateZ(110px);
   pointer-events: auto;
+  transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.stage-figure img {
+.stage-gpu:hover {
+  filter: drop-shadow(0 25px 45px rgba(0, 102, 255, 0.55)) drop-shadow(0 0 32px rgba(0, 210, 255, 0.7));
+}
+
+.stage-gpu img {
   width: 100%;
   height: auto;
   object-fit: contain;
   display: block;
 }
 
-@keyframes floatFigure {
-  0%, 100% { transform: translateZ(100px) translateY(0px) rotate(1deg); }
-  50% { transform: translateZ(100px) translateY(-20px) rotate(-2deg); }
+@keyframes floatGpu {
+  0%, 100% { transform: translateZ(110px) translateY(0px) rotate(-2deg); }
+  50% { transform: translateZ(110px) translateY(-20px) rotate(2.5deg); }
 }
 
 /* Floating Glass Badges */
@@ -1546,3 +1551,761 @@ h2 {
   .grid4, .product-grid, .form-grid { grid-template-columns: 1fr; }
   .feature-strip { justify-content: flex-start; }
 }
+
+/* ==========================================================================
+   === TECH FLOATING MOTION PATH & SPRITE ANIMATIONS ===
+   ========================================================================== */
+
+/* Motion Path Curves Definitions */
+:root {
+  --path-orbit-alpha: path('M 80 300 C -30 160, 140 10, 360 30 C 580 50, 620 220, 500 350 C 370 480, 190 440, 80 300 Z');
+  --path-orbit-beta: path('M 520 120 C 640 260, 460 420, 260 390 C 70 350, 10 190, 130 90 C 260 -10, 410 -10, 520 120 Z');
+  --path-orbit-gamma: path('M 30 200 C 120 70, 360 80, 540 190 C 440 330, 200 360, 30 200 Z');
+  --path-orbit-cta: path('M 120 40 C 280 -20, 480 30, 540 100 C 480 180, 240 190, 80 140 C -10 100, 20 60, 120 40 Z');
+}
+
+/* Base Sprite Container */
+.tech-sprite {
+  position: absolute;
+  pointer-events: auto;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, offset-distance, opacity;
+  transition: filter 0.3s ease;
+}
+
+.tech-sprite:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.9)) !important;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   SPRITE 1: ANIMATED INFINITY MIRROR FAN
+   ========================================================================== */
+.sprite-fan {
+  width: 58px;
+  height: 58px;
+  filter: drop-shadow(0 8px 18px rgba(0, 102, 255, 0.35)) drop-shadow(0 0 10px rgba(0, 210, 255, 0.4));
+}
+
+.fan-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.fan-frame {
+  fill: rgba(255, 255, 255, 0.85);
+  stroke: #00d2ff;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 4px rgba(0, 210, 255, 0.5));
+}
+
+.fan-ring {
+  fill: none;
+  stroke: url(#fanGrad1);
+  stroke-width: 2;
+  opacity: 0.9;
+  animation: fanRingPulse 3s ease-in-out infinite alternate;
+}
+
+.fan-ring-inner {
+  fill: #0c1a40;
+  stroke: #9055ff;
+  stroke-width: 1.5;
+}
+
+.fan-blades {
+  transform-origin: 50px 50px;
+  animation: fanSpin 1.8s linear infinite;
+}
+
+.fan-blades .blade {
+  fill: rgba(255, 255, 255, 0.9);
+  stroke: rgba(0, 210, 255, 0.7);
+  stroke-width: 0.8;
+  opacity: 0.92;
+}
+
+.fan-hub {
+  fill: #0e2254;
+  stroke: #00d2ff;
+  stroke-width: 1.5;
+}
+
+.fan-hub-core {
+  fill: #00f2fe;
+  filter: drop-shadow(0 0 6px #00f2fe);
+  animation: hubPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes fanSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fanRingPulse {
+  0% { opacity: 0.6; stroke-width: 1.5; }
+  100% { opacity: 1; stroke-width: 2.5; filter: drop-shadow(0 0 8px #9055ff); }
+}
+
+@keyframes hubPulse {
+  0% { fill: #00d2ff; transform: scale(0.9); transform-origin: 50px 50px; }
+  100% { fill: #f472b6; transform: scale(1.15); transform-origin: 50px 50px; }
+}
+
+/* ==========================================================================
+   SPRITE 2: ANIMATED DDR5 RGB RAM STICK
+   ========================================================================== */
+.sprite-ram {
+  width: 72px;
+  height: 28px;
+  filter: drop-shadow(0 8px 20px rgba(144, 85, 255, 0.35)) drop-shadow(0 0 12px rgba(0, 210, 255, 0.3));
+}
+
+.ram-heatsink {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #edf3ff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 50, 150, 0.15);
+  position: relative;
+}
+
+.ram-rgb-bar {
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(90deg, #00d2ff, #0066ff, #9055ff, #f472b6, #00d2ff);
+  background-size: 200% 100%;
+  animation: ramRgbFlow 2.8s linear infinite;
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.8);
+}
+
+.ram-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(220, 235, 255, 0.8));
+}
+
+.ram-text {
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #0b2559;
+}
+
+.ram-notch {
+  width: 12px;
+  height: 3px;
+  background: linear-gradient(90deg, #0066ff, #9055ff);
+  border-radius: 2px;
+}
+
+.ram-pins {
+  height: 3px;
+  width: 90%;
+  margin: 0 auto;
+  background: repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 2px, transparent 2px, transparent 4px);
+}
+
+@keyframes ramRgbFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ==========================================================================
+   SPRITE 3: HOLOGRAPHIC CPU CORE DIE
+   ========================================================================== */
+.sprite-cpu {
+  width: 52px;
+  height: 52px;
+  filter: drop-shadow(0 8px 18px rgba(0, 102, 255, 0.35)) drop-shadow(0 0 10px rgba(0, 210, 255, 0.4));
+}
+
+.cpu-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cpu-substrate {
+  fill: rgba(255, 255, 255, 0.92);
+  stroke: #0066ff;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 5px rgba(0, 102, 255, 0.3));
+}
+
+.cpu-die {
+  fill: #0c1c45;
+  stroke: #00f2fe;
+  stroke-width: 1.2;
+}
+
+.circuit-trace {
+  stroke: #00d2ff;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  animation: tracePulse 2s ease-in-out infinite alternate;
+}
+
+.cpu-core-pulse {
+  fill: #9055ff;
+  filter: drop-shadow(0 0 8px #9055ff);
+  animation: coreGlow 2.2s ease-in-out infinite alternate;
+  transform-origin: 40px 40px;
+}
+
+@keyframes tracePulse {
+  0% { stroke: #00d2ff; opacity: 0.5; stroke-width: 1; }
+  100% { stroke: #ffffff; opacity: 1; stroke-width: 1.8; filter: drop-shadow(0 0 4px #00d2ff); }
+}
+
+@keyframes coreGlow {
+  0% { fill: #9055ff; transform: scale(0.85); }
+  100% { fill: #00f2fe; transform: scale(1.2); filter: drop-shadow(0 0 10px #00f2fe); }
+}
+
+/* ==========================================================================
+   SPRITE 4 & 5: CRYSTAL SHARDS (PRISMATIC NANO CRYSTALS)
+   ========================================================================== */
+.sprite-crystal {
+  width: 32px;
+  height: 44px;
+}
+
+.crystal-facet {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 100% 35%, 80% 100%, 20% 100%, 0% 35%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(0, 210, 255, 0.7) 40%, rgba(144, 85, 255, 0.8) 75%, rgba(244, 114, 182, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(0, 210, 255, 0.4);
+  animation: crystalTumble 6s ease-in-out infinite alternate;
+}
+
+.sprite-crystal.shard-2 .crystal-facet {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(144, 85, 255, 0.75) 50%, rgba(0, 210, 255, 0.8) 100%);
+  animation-duration: 7.5s;
+  animation-delay: -1.5s;
+}
+
+.sprite-crystal.shard-3 .crystal-facet {
+  clip-path: polygon(30% 0%, 70% 0%, 100% 40%, 50% 100%, 0% 40%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(244, 114, 182, 0.7) 40%, rgba(0, 102, 255, 0.8) 100%);
+  animation-duration: 8.5s;
+  animation-delay: -3s;
+}
+
+@keyframes crystalTumble {
+  0% { transform: rotate3d(1, 1, 0, -15deg) scale(0.9); filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.4)); }
+  50% { transform: rotate3d(1, -1, 1, 18deg) scale(1.08); filter: drop-shadow(0 0 18px rgba(144, 85, 255, 0.6)); }
+  100% { transform: rotate3d(-1, 1, 0, -10deg) scale(0.95); filter: drop-shadow(0 0 12px rgba(244, 114, 182, 0.5)); }
+}
+
+/* ==========================================================================
+   SPRITE 6: LIGHT RIBBONS & ORBITAL ENERGY TRAILS
+   ========================================================================== */
+.light-ribbon-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 580px;
+  height: 580px;
+  pointer-events: none;
+  z-index: 8;
+  overflow: visible;
+}
+
+.ribbon-path {
+  fill: none;
+  stroke: url(#ribbonGrad);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 140 280;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.8)) drop-shadow(0 0 18px rgba(144, 85, 255, 0.5));
+  animation: ribbonDash 9s linear infinite;
+}
+
+.ribbon-path-2 {
+  fill: none;
+  stroke: url(#ribbonGrad2);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 100 240;
+  stroke-dashoffset: 120;
+  filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.7));
+  animation: ribbonDashRev 12s linear infinite;
+}
+
+@keyframes ribbonDash {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -840; }
+}
+
+@keyframes ribbonDashRev {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 680; }
+}
+
+/* ==========================================================================
+   SPRITE 7: HOLOGRAPHIC HUD TELEMETRY TAGS
+   ========================================================================== */
+.hologram-tag {
+  position: absolute;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  box-shadow: 0 6px 18px rgba(0, 80, 200, 0.12), inset 0 0 10px rgba(0, 210, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0d2258;
+  letter-spacing: 0.05em;
+  pointer-events: auto;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.hologram-tag:hover {
+  transform: scale(1.1) !important;
+  border-color: #00d2ff;
+  box-shadow: 0 10px 25px rgba(0, 210, 255, 0.35);
+}
+
+.tag-signal {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00d2ff;
+  box-shadow: 0 0 8px #00d2ff;
+  animation: pulseDot 1.6s infinite;
+}
+
+.tag-signal.purple {
+  background: #a855f7;
+  box-shadow: 0 0 8px #a855f7;
+}
+
+/* ==========================================================================
+   MOTION PATH ORBITAL APPLIED CLASSES
+   ========================================================================== */
+/* Hero Orbit 1 (Alpha - Clockwise full orbital path) */
+.motion-orbit-fan {
+  offset-path: var(--path-orbit-alpha);
+  offset-rotate: 0deg;
+  animation: followOrbitAlpha 18s linear infinite;
+}
+
+/* Hero Orbit 2 (Beta - Counter-clockwise RAM) */
+.motion-orbit-ram {
+  offset-path: var(--path-orbit-beta);
+  offset-rotate: auto 25deg;
+  animation: followOrbitBeta 15s linear infinite;
+}
+
+/* Hero Orbit 3 (Gamma - CPU Core Die) */
+.motion-orbit-cpu {
+  offset-path: var(--path-orbit-gamma);
+  offset-rotate: auto;
+  animation: followOrbitGamma 22s linear infinite;
+}
+
+/* Hero Orbit Crystal Shards */
+.motion-orbit-crystal-1 {
+  offset-path: var(--path-orbit-alpha);
+  offset-rotate: 0deg;
+  animation: followOrbitAlpha 18s linear infinite -6s;
+}
+
+.motion-orbit-crystal-2 {
+  offset-path: var(--path-orbit-beta);
+  offset-rotate: 0deg;
+  animation: followOrbitBeta 15s linear infinite -7.5s;
+}
+
+.motion-orbit-crystal-3 {
+  offset-path: var(--path-orbit-gamma);
+  offset-rotate: 0deg;
+  animation: followOrbitGamma 22s linear infinite -11s;
+}
+
+/* Hero Motion Path Keyframes with 3D Depth Layering */
+@keyframes followOrbitAlpha {
+  0% {
+    offset-distance: 0%;
+    transform: scale(0.85);
+    opacity: 0.75;
+    z-index: 6;
+  }
+  35% {
+    transform: scale(0.72);
+    opacity: 0.6;
+    z-index: 6;
+    filter: blur(0.8px);
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 1;
+    z-index: 26;
+    filter: blur(0);
+  }
+  100% {
+    offset-distance: 100%;
+    transform: scale(0.85);
+    opacity: 0.75;
+    z-index: 6;
+  }
+}
+
+@keyframes followOrbitBeta {
+  0% {
+    offset-distance: 100%;
+    transform: scale(1.12);
+    opacity: 1;
+    z-index: 26;
+    filter: blur(0);
+  }
+  45% {
+    transform: scale(0.75);
+    opacity: 0.65;
+    z-index: 6;
+    filter: blur(0.8px);
+  }
+  85% {
+    transform: scale(1.1);
+    opacity: 1;
+    z-index: 26;
+    filter: blur(0);
+  }
+  100% {
+    offset-distance: 0%;
+    transform: scale(1.12);
+    opacity: 1;
+    z-index: 26;
+  }
+}
+
+@keyframes followOrbitGamma {
+  0% {
+    offset-distance: 0%;
+    transform: scale(0.8);
+    opacity: 0.7;
+    z-index: 6;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+    z-index: 28;
+    filter: blur(0);
+  }
+  100% {
+    offset-distance: 100%;
+    transform: scale(0.8);
+    opacity: 0.7;
+    z-index: 6;
+  }
+}
+
+/* ==========================================================================
+   DECORATIVE FLOATING PARTICLES & SHARDS IN SECTIONS 2 & 3
+   ========================================================================== */
+.section-floating-accents {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.float-accent {
+  position: absolute;
+  pointer-events: auto;
+  transition: transform 0.4s ease;
+}
+
+.float-accent:hover {
+  transform: scale(1.2) rotate(15deg) !important;
+}
+
+.accent-crystal-left {
+  top: 15%;
+  left: 3%;
+  animation: floatLevitate1 7s ease-in-out infinite;
+}
+
+.accent-ram-right {
+  top: 30%;
+  right: 2%;
+  animation: floatLevitate2 8s ease-in-out infinite 1s;
+}
+
+.accent-fan-center {
+  bottom: 10%;
+  left: 6%;
+  animation: floatLevitate3 6.5s ease-in-out infinite 0.5s;
+}
+
+@keyframes floatLevitate1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-22px) rotate(8deg); }
+}
+
+@keyframes floatLevitate2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(-6deg); }
+}
+
+@keyframes floatLevitate3 {
+  0%, 100% { transform: translateY(0px) scale(0.95); }
+  50% { transform: translateY(-20px) scale(1.08); }
+}
+
+/* Card Hover Tech Accents */
+.product::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00d2ff, #9055ff, transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 4;
+}
+
+.product:hover::before {
+  opacity: 1;
+}
+
+.product-tech-chip {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #0066ff;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 210, 255, 0.5);
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+}
+
+.product:hover .product-tech-chip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   SECTION 4: FINAL CTA SHOWCASE SECTION
+   ========================================================================== */
+.final-cta-section {
+  position: relative;
+  margin: 60px auto 40px;
+  padding: 0;
+  z-index: 3;
+}
+
+.final-cta-surface {
+  position: relative;
+  border-radius: 32px;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(240, 248, 255, 0.88) 50%, rgba(246, 242, 255, 0.92) 100%);
+  border: 1.5px solid rgba(220, 238, 255, 0.95);
+  box-shadow: 0 30px 70px -15px rgba(0, 70, 180, 0.16), 0 0 40px rgba(0, 210, 255, 0.12);
+  backdrop-filter: blur(25px);
+  text-align: center;
+  overflow: hidden;
+}
+
+.final-cta-surface::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 210, 255, 0.25) 0%, rgba(144, 85, 255, 0.15) 50%, transparent 75%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.final-cta-content {
+  position: relative;
+  z-index: 3;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.final-cta-content h2 {
+  font-size: clamp(32px, 3.4vw, 50px);
+  margin-bottom: 16px;
+  letter-spacing: -0.04em;
+}
+
+.final-cta-content p {
+  font-size: 16px;
+  color: #4a618a;
+  max-width: 620px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+.final-cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 5;
+}
+
+/* Motion Path Orbit around Final CTA */
+.cta-orbit-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 640px;
+  height: 240px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.motion-orbit-cta-fan {
+  offset-path: var(--path-orbit-cta);
+  offset-rotate: 0deg;
+  animation: followOrbitCta 16s linear infinite;
+}
+
+.motion-orbit-cta-ram {
+  offset-path: var(--path-orbit-cta);
+  offset-rotate: auto;
+  animation: followOrbitCta 16s linear infinite -5.3s;
+}
+
+.motion-orbit-cta-crystal {
+  offset-path: var(--path-orbit-cta);
+  offset-rotate: 0deg;
+  animation: followOrbitCta 16s linear infinite -10.6s;
+}
+
+@keyframes followOrbitCta {
+  0% {
+    offset-distance: 0%;
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+    filter: drop-shadow(0 0 14px rgba(0, 210, 255, 0.8));
+  }
+  100% {
+    offset-distance: 100%;
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 900px) {
+  .light-ribbon-orbit { width: 440px; height: 440px; }
+  .final-cta-surface { padding: 45px 25px; }
+  .cta-orbit-stage { width: 100%; }
+}
+
+/* ==========================================================================
+   CONVERGING LIGHT STREAKS FOR CTA STAGE
+   ========================================================================== */
+.cta-light-streaks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-streak {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00d2ff, #9055ff, #ffffff, transparent);
+  filter: drop-shadow(0 0 10px #00d2ff) drop-shadow(0 0 20px #9055ff);
+  opacity: 0.75;
+  animation: streakPulse 4s ease-in-out infinite;
+}
+
+.cta-streak.streak-left-top {
+  top: 18%;
+  left: -20%;
+  width: 70%;
+  transform: rotate(20deg);
+  animation-delay: 0s;
+}
+
+.cta-streak.streak-right-top {
+  top: 18%;
+  right: -20%;
+  width: 70%;
+  transform: rotate(-20deg);
+  animation-delay: 1.5s;
+}
+
+.cta-streak.streak-left-bottom {
+  bottom: 22%;
+  left: -15%;
+  width: 65%;
+  transform: rotate(-14deg);
+  animation-delay: 2.2s;
+}
+
+.cta-streak.streak-right-bottom {
+  bottom: 22%;
+  right: -15%;
+  width: 65%;
+  transform: rotate(14deg);
+  animation-delay: 0.8s;
+}
+
+@keyframes streakPulse {
+  0%, 100% { opacity: 0.25; transform: scaleX(0.85); }
+  50% { opacity: 0.95; transform: scaleX(1.15); filter: drop-shadow(0 0 15px #00f2fe) drop-shadow(0 0 25px #a855f7); }
+}
+
+/* Staggered ScrollTrigger Grid Transitions */
+.stagger-child {
+  opacity: 0;
+  transform: perspective(1000px) translateY(45px) rotateX(7deg) scale(0.97);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0s);
+  will-change: opacity, transform;
+}
+
+.visible .stagger-child, .stagger-child.visible {
+  opacity: 1;
+  transform: none;
+}
+
+

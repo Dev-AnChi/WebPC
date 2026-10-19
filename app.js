@@ -19,9 +19,79 @@ const items = [
 
 const img = n => 'assets/' + n;
 
+// Tech Vector Sprites & Hologram Generators
+const sprites = {
+  fan: () => `
+    <div class="tech-sprite sprite-fan" title="ARGB Infinity Fan">
+      <svg viewBox="0 0 100 100" class="fan-svg">
+        <defs>
+          <linearGradient id="fanGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00d2ff"/>
+            <stop offset="50%" stop-color="#9055ff"/>
+            <stop offset="100%" stop-color="#f472b6"/>
+          </linearGradient>
+        </defs>
+        <circle cx="50" cy="50" r="46" class="fan-frame"/>
+        <circle cx="50" cy="50" r="38" class="fan-ring"/>
+        <circle cx="50" cy="50" r="28" class="fan-ring-inner"/>
+        <g class="fan-blades">
+          <path d="M 50 50 C 45 35, 30 25, 20 20 C 35 15, 48 25, 50 50 Z" class="blade"/>
+          <path d="M 50 50 C 65 45, 75 30, 80 20 C 85 35, 75 48, 50 50 Z" class="blade"/>
+          <path d="M 50 50 C 55 65, 70 75, 80 80 C 65 85, 52 75, 50 50 Z" class="blade"/>
+          <path d="M 50 50 C 35 55, 25 70, 20 80 C 15 65, 25 52, 50 50 Z" class="blade"/>
+        </g>
+        <circle cx="50" cy="50" r="14" class="fan-hub"/>
+        <circle cx="50" cy="50" r="6" class="fan-hub-core"/>
+      </svg>
+    </div>`,
+  ram: () => `
+    <div class="tech-sprite sprite-ram" title="DDR5 6400MHz RGB">
+      <div class="ram-heatsink">
+        <div class="ram-rgb-bar"></div>
+        <div class="ram-body">
+          <span class="ram-text">DDR5</span>
+          <div class="ram-notch"></div>
+        </div>
+        <div class="ram-pins"></div>
+      </div>
+    </div>`,
+  cpu: () => `
+    <div class="tech-sprite sprite-cpu" title="Holographic CPU Die">
+      <svg viewBox="0 0 80 80" class="cpu-svg">
+        <rect x="6" y="6" width="68" height="68" rx="8" class="cpu-substrate"/>
+        <rect x="18" y="18" width="44" height="44" rx="4" class="cpu-die"/>
+        <path d="M 6 25 H 18 M 6 40 H 18 M 6 55 H 18 M 62 25 H 74 M 62 40 H 74 M 62 55 H 74" class="circuit-trace"/>
+        <path d="M 25 6 V 18 M 40 6 V 18 M 55 6 V 18 M 25 62 V 74 M 40 62 V 74 M 55 62 V 74" class="circuit-trace"/>
+        <circle cx="40" cy="40" r="8" class="cpu-core-pulse"/>
+      </svg>
+    </div>`,
+  crystal: (shardClass = 'shard-1') => `
+    <div class="tech-sprite sprite-crystal ${shardClass}" title="Prismatic Crystal Shard">
+      <div class="crystal-facet"></div>
+    </div>`,
+  ribbon: () => `
+    <svg viewBox="0 0 600 600" class="light-ribbon-orbit">
+      <defs>
+        <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.9"/>
+          <stop offset="50%" stop-color="#9055ff" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#f472b6" stop-opacity="0.9"/>
+        </linearGradient>
+        <linearGradient id="ribbonGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#f472b6" stop-opacity="0.8"/>
+          <stop offset="50%" stop-color="#0066ff" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#00f2fe" stop-opacity="0.85"/>
+        </linearGradient>
+      </defs>
+      <path d="M 100 320 C 20 180, 160 30, 360 40 C 560 50, 610 220, 500 360 C 390 500, 190 460, 100 320 Z" class="ribbon-path"/>
+      <path d="M 500 140 C 620 270, 460 440, 270 410 C 90 370, 20 210, 130 100 C 240 -10, 410 -10, 500 140 Z" class="ribbon-path-2"/>
+    </svg>`
+};
+
 const card = x => `
 <article class="product" data-tilt="card">
   <span class="badge">${x.badge}</span>
+  <span class="product-tech-chip">✦ ${x.category === 'pc' ? 'PCIe 5.0' : 'RESIN 8K'}</span>
   <figure>
     <img loading="lazy" src="${img(x.img)}" alt="${x.name}">
   </figure>
@@ -248,11 +318,13 @@ function initHeroParallax() {
   if (!heroStage || !heroScene) return;
 
   const pcCase = document.getElementById('stagePc');
+  const pcShadow = document.querySelector('.pc-shadow');
   const printer = document.getElementById('stagePrinter');
-  const figure = document.getElementById('stageFigure');
+  const gpu = document.getElementById('stageGpu');
   const badge1 = document.getElementById('stageBadge1');
   const badge2 = document.getElementById('stageBadge2');
   const badge3 = document.getElementById('stageBadge3');
+  const orbitHalo = document.querySelector('.orbit-halo');
 
   let targetRotX = 0;
   let targetRotY = 0;
@@ -284,29 +356,62 @@ function initHeroParallax() {
     currentRotX += (targetRotX - currentRotX) * 0.08;
     currentRotY += (targetRotY - currentRotY) * 0.08;
 
-    heroScene.style.transform = `rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg)`;
+    const scrollY = window.scrollY;
+    const heroProgress = Math.min(1.2, Math.max(0, scrollY / 650));
 
-    // Multi-layer Depth Parallax shifts
+    // 3D Scene tilt combining cursor position and scroll depth
+    heroScene.style.transform = `rotateX(${(currentRotX - heroProgress * 4).toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg)`;
+
     const px = currentRotY;
     const py = currentRotX;
 
+    // Centerpiece PC Case: Lifts upward, slightly rotates and scales on scroll
     if (pcCase) {
-      pcCase.style.transform = `translate(-50%, -50%) translateZ(40px) translate3d(${(px * 1.5).toFixed(1)}px, ${(-py * 1.5).toFixed(1)}px, 0)`;
+      const pcY = -heroProgress * 65 - py * 1.5;
+      const pcX = px * 1.5;
+      const pcScale = 1 - heroProgress * 0.075;
+      const pcRot = heroProgress * 4.2;
+      pcCase.style.transform = `translate(-50%, -50%) translateZ(40px) translate3d(${pcX.toFixed(1)}px, ${pcY.toFixed(1)}px, 0) scale(${pcScale.toFixed(3)}) rotate(${pcRot.toFixed(2)}deg)`;
     }
+
+    // Dynamic PC Shadow reacts to anti-gravity elevation
+    if (pcShadow) {
+      const shadowScale = Math.max(0.4, 1 - heroProgress * 0.4);
+      const shadowOpacity = Math.max(0.1, 0.6 - heroProgress * 0.45);
+      pcShadow.style.transform = `translateX(-50%) scale(${shadowScale.toFixed(3)})`;
+      pcShadow.style.opacity = shadowOpacity.toFixed(2);
+    }
+
+    // Foreground High-End White RGB GPU drifts with enhanced parallax
+    if (gpu) {
+      const gpuY = -heroProgress * 95 + py * 3.2;
+      const gpuX = -px * 3.2;
+      const gpuScale = 1 + heroProgress * 0.06;
+      const gpuRot = -heroProgress * 6.5;
+      gpu.style.transform = `translateZ(110px) translate3d(${gpuX.toFixed(1)}px, ${gpuY.toFixed(1)}px, 0) scale(${gpuScale.toFixed(3)}) rotate(${gpuRot.toFixed(2)}deg)`;
+    }
+
+    // 3D Printer floats independently
     if (printer) {
-      printer.style.transform = `translateZ(75px) translate3d(${(px * 2.8).toFixed(1)}px, ${(-py * 2.8).toFixed(1)}px, 0)`;
+      const printerY = -heroProgress * 45 - py * 2.8;
+      const printerX = px * 2.8;
+      printer.style.transform = `translateZ(75px) translate3d(${printerX.toFixed(1)}px, ${printerY.toFixed(1)}px, 0)`;
     }
-    if (figure) {
-      figure.style.transform = `translateZ(105px) translate3d(${(-px * 3.2).toFixed(1)}px, ${(py * 3.2).toFixed(1)}px, 0)`;
+
+    // Holographic Orbital Rings spin dynamically with scroll velocity
+    if (orbitHalo) {
+      orbitHalo.style.transform = `translate(-50%, -50%) rotateX(68deg) rotateY(15deg) rotateZ(${(scrollY * 0.12).toFixed(1)}deg)`;
     }
+
+    // Holographic Telemetry Badges depth drift
     if (badge1) {
-      badge1.style.transform = `translateZ(90px) translate3d(${(px * 2.2).toFixed(1)}px, ${(-py * 2.2).toFixed(1)}px, 0)`;
+      badge1.style.transform = `translateZ(90px) translate3d(${(px * 2.2).toFixed(1)}px, ${(-py * 2.2 - heroProgress * 30).toFixed(1)}px, 0)`;
     }
     if (badge2) {
-      badge2.style.transform = `translateZ(95px) translate3d(${(-px * 2.4).toFixed(1)}px, ${(py * 2.4).toFixed(1)}px, 0)`;
+      badge2.style.transform = `translateZ(95px) translate3d(${(-px * 2.4).toFixed(1)}px, ${(py * 2.4 - heroProgress * 50).toFixed(1)}px, 0)`;
     }
     if (badge3) {
-      badge3.style.transform = `translateZ(65px) translate3d(${(px * 1.8).toFixed(1)}px, ${(-py * 1.8).toFixed(1)}px, 0)`;
+      badge3.style.transform = `translateZ(65px) translate3d(${(px * 1.8).toFixed(1)}px, ${(-py * 1.8 - heroProgress * 20).toFixed(1)}px, 0)`;
     }
 
     requestAnimationFrame(animateHeroParallax);
@@ -356,6 +461,35 @@ function home() {
           <div class="orbit-halo"></div>
           <div class="orbit-halo-2"></div>
 
+          <!-- Light Ribbons & Orbital Energy Trails -->
+          ${sprites.ribbon()}
+
+          <!-- Motion Path Animated Tech Sprites -->
+          <div class="motion-orbit-fan">
+            ${sprites.fan()}
+          </div>
+
+          <div class="motion-orbit-ram">
+            ${sprites.ram()}
+          </div>
+
+          <div class="motion-orbit-cpu">
+            ${sprites.cpu()}
+          </div>
+
+          <!-- Floating Prismatic Crystal Shards on Staggered Motion Paths -->
+          <div class="motion-orbit-crystal-1">
+            ${sprites.crystal('shard-1')}
+          </div>
+
+          <div class="motion-orbit-crystal-2">
+            ${sprites.crystal('shard-2')}
+          </div>
+
+          <div class="motion-orbit-crystal-3">
+            ${sprites.crystal('shard-3')}
+          </div>
+
           <!-- Central Levitating PC Case -->
           <div class="stage-pc" id="stagePc">
             <img src="${img('pc-white-rgb.png')}" alt="NEXUS High-End PC RGB" loading="eager">
@@ -368,9 +502,9 @@ function home() {
             <div class="laser-beam"></div>
           </div>
 
-          <!-- Foreground Levitating Mascot / Figure -->
-          <div class="stage-figure" id="stageFigure">
-            <img src="${img('figure-crystal-blue.png')}" alt="Resin Fantasy Figure">
+          <!-- Foreground Levitating White RGB GPU -->
+          <div class="stage-gpu" id="stageGpu">
+            <img src="${img('gpu-white-rgb.png')}" alt="RTX 40 White RGB Gaming GPU">
           </div>
 
           <!-- Holographic Floating Glass Badges -->
@@ -388,6 +522,16 @@ function home() {
             <div class="status-dot green"></div>
             <span>◈ AURA SYNC · 100% TESTED</span>
           </div>
+
+          <!-- Hologram HUD Tech Tags -->
+          <div class="hologram-tag" style="top: 24%; left: 2%; z-index: 24;">
+            <span class="tag-signal"></span>
+            <span>PCIe Gen 5.0</span>
+          </div>
+          <div class="hologram-tag" style="bottom: 18%; right: -2%; z-index: 24;">
+            <span class="tag-signal purple"></span>
+            <span>6400 MT/s CL30</span>
+          </div>
         </div>
       </div>
     </div>
@@ -395,22 +539,35 @@ function home() {
 
   <div class="section-beam"></div>
 
-  <!-- SERVICES SECTION -->
-  <section class="container section center" id="services">
+  <!-- SERVICES SECTION (PC BUILD SHOWCASE) -->
+  <section class="container section center" id="services" style="position: relative;">
+    <!-- Decorative Floating Accents -->
+    <div class="section-floating-accents">
+      <div class="float-accent accent-crystal-left">
+        ${sprites.crystal('shard-2')}
+      </div>
+      <div class="float-accent accent-ram-right">
+        ${sprites.ram()}
+      </div>
+      <div class="float-accent accent-fan-center">
+        ${sprites.fan()}
+      </div>
+    </div>
+
     <span class="eyebrow">DỊCH VỤ NỔI BẬT</span>
     <h2>Giải pháp <span class="gradient">công nghệ & sáng tạo</span></h2>
     <p class="section-sub">Từ PC build đến mô hình in 3D, tất cả trong một không gian riêng.</p>
     
-    <div class="grid4 reveal">
+    <div class="grid4 reveal stagger-grid">
       ${[
-        ['pc-white-rgb.png', 'Build PC theo yêu cầu', 'Lựa chọn cấu hình hợp ngân sách, đẹp và mạnh.', 'pc.html'],
-        ['gpu-white-rgb.png', 'Nâng cấp linh kiện', 'Tư vấn VGA, CPU, RAM, SSD và nâng cấp hiệu năng.', 'contact.html'],
-        ['gear-setup-white.png', 'Tối ưu góc máy', 'Hỗ trợ lựa chọn thiết bị và setup gọn gàng.', 'contact.html'],
-        ['printer-figure.png', 'In mô hình 3D', 'Nhận ý tưởng, file 3D hoặc in mô hình sưu tầm.', 'models.html']
+        ['pc-white-rgb.png', 'Build PC theo yêu cầu', 'Lựa chọn cấu hình hợp ngân sách, đẹp và mạnh.', 'pc.html', '0.08s'],
+        ['gpu-white-rgb.png', 'Nâng cấp linh kiện', 'Tư vấn VGA, CPU, RAM, SSD và nâng cấp hiệu năng.', 'contact.html', '0.2s'],
+        ['gear-setup-white.png', 'Tối ưu góc máy', 'Hỗ trợ lựa chọn thiết bị và setup gọn gàng.', 'contact.html', '0.32s'],
+        ['printer-figure.png', 'In mô hình 3D', 'Nhận ý tưởng, file 3D hoặc in mô hình sưu tầm.', 'models.html', '0.44s']
       ]
         .map(
           z => `
-        <a class="service" href="${z[3]}">
+        <a class="service stagger-child" style="--delay: ${z[4]};" href="${z[3]}">
           <img src="${img(z[0])}" alt="${z[1]}">
           <div>
             <h3>${z[1]}</h3>
@@ -436,8 +593,8 @@ function home() {
 
   <!-- PROMO BANNERS -->
   <section class="container section">
-    <div class="banner-row reveal">
-      <a class="promo" style="background-image:url('${img('combo-pc-figure.png')}')" href="pc.html">
+    <div class="banner-row reveal stagger-grid">
+      <a class="promo stagger-child" style="--delay: 0.1s; background-image:url('${img('combo-pc-figure.png')}')" href="pc.html">
         <div>
           <small>KHÁM PHÁ PC</small>
           <h3>PC Build & Linh kiện</h3>
@@ -445,7 +602,7 @@ function home() {
           <span class="pill">Xem PC Build →</span>
         </div>
       </a>
-      <a class="promo" style="background-image:url('${img('combo-printer-figure.png')}')" href="models.html">
+      <a class="promo stagger-child" style="--delay: 0.25s; background-image:url('${img('combo-printer-figure.png')}')" href="models.html">
         <div>
           <small>THẾ GIỚI MÔ HÌNH</small>
           <h3>Mô hình 3D & In theo yêu cầu</h3>
@@ -462,8 +619,50 @@ function home() {
       <h2>Một vài mẫu <span class="gradient">nổi bật</span></h2>
       <a href="pc.html" class="pill">Xem tất cả →</a>
     </div>
-    <div class="grid4 reveal">
-      ${[items[0], items[1], items[6], items[7]].map(card).join('')}
+    <div class="grid4 reveal stagger-grid">
+      ${[items[0], items[1], items[6], items[7]].map((x, i) => `
+        <div class="stagger-child" style="--delay: ${(i * 0.12).toFixed(2)}s;">
+          ${card(x)}
+        </div>
+      `).join('')}
+    </div>
+  </section>
+
+  <div class="section-beam"></div>
+
+  <!-- SECTION 4: FINAL CTA SHOWCASE SECTION -->
+  <section class="container section final-cta-section reveal">
+    <div class="final-cta-surface">
+      <!-- Converging Light Streaks -->
+      <div class="cta-light-streaks">
+        <div class="cta-streak streak-left-top"></div>
+        <div class="cta-streak streak-right-top"></div>
+        <div class="cta-streak streak-left-bottom"></div>
+        <div class="cta-streak streak-right-bottom"></div>
+      </div>
+
+      <!-- Motion Path Orbit around CTA -->
+      <div class="cta-orbit-stage">
+        <div class="motion-orbit-cta-fan">
+          ${sprites.fan()}
+        </div>
+        <div class="motion-orbit-cta-ram">
+          ${sprites.ram()}
+        </div>
+        <div class="motion-orbit-cta-crystal">
+          ${sprites.crystal('shard-1')}
+        </div>
+      </div>
+
+      <div class="final-cta-content">
+        <span class="eyebrow">✦ KHỞI TẠO BỘ PC TRONG MƠ CỦA BẠN</span>
+        <h2>Sẵn sàng kiến tạo <span class="gradient">Góc Setup Đẳng Cấp?</span></h2>
+        <p>Từ cấu hình gaming tối thượng đến các tác phẩm in 3D độc bản, đội ngũ NEXUS PC luôn đồng hành cùng bạn để biến mọi ý tưởng thành hiện thực.</p>
+        <div class="final-cta-actions">
+          <a class="btn primary" href="contact.html">Bắt đầu tư vấn cấu hình →</a>
+          <a class="btn secondary" href="pc.html">Khám phá cấu hình mẫu</a>
+        </div>
+      </div>
     </div>
   </section>
 </main>`);
