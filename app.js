@@ -3,18 +3,18 @@ const $$ = s => Array.from(document.querySelectorAll(s));
 const money = n => Number(n).toLocaleString('vi-VN') + 'đ';
 
 const items = [
-  { id: 1, category: 'pc', name: 'NEXUS Aurora Gaming', price: 24990000, desc: 'PC gaming RGB, thiết kế kính trong, cấu hình cân đối.', img: 'pcmixed.webp', badge: 'Nổi bật', tags: ['Gaming', '32GB RAM', '1TB SSD'], kind: 'gaming' },
-  { id: 2, category: 'pc', name: 'NEXUS Creator White', price: 32990000, desc: 'Case trắng thanh lịch cho đồ họa và sáng tạo.', img: 'pcblue.webp', badge: 'Mới', tags: ['Đồ họa', '32GB RAM', 'RTX'], kind: 'creative' },
-  { id: 3, category: 'pc', name: 'NEXUS Sky Studio', price: 18990000, desc: 'Góc làm việc gọn đẹp, hiệu năng ổn định.', img: 'pcstudio.webp', badge: 'Đề xuất', tags: ['Văn phòng', 'Tiết kiệm'], kind: 'office' },
-  { id: 4, category: 'pc', name: 'NEXUS Dream Setup', price: 39990000, desc: 'Bộ PC gaming cao cấp với không gian thiết kế riêng.', img: 'showroom.webp', badge: 'Showcase', tags: ['Gaming', 'RGB'], kind: 'gaming' },
-  { id: 5, category: 'pc', name: 'NEXUS Frost White', price: 29990000, desc: 'PC RGB trắng với hệ thống tản nhiệt nổi bật.', img: 'pcwhite.webp', badge: 'Mới', tags: ['Gaming', '32GB RAM'], kind: 'gaming' },
+  { id: 1, category: 'pc', name: 'NEXUS Aurora Gaming', price: 24990000, desc: 'PC gaming RGB, thiết kế kính trong, cấu hình cân đối.', img: 'pc-white-rgb.png', badge: 'Nổi bật', tags: ['Gaming', '32GB RAM', '1TB SSD'], kind: 'gaming' },
+  { id: 2, category: 'pc', name: 'NEXUS Creator White', price: 32990000, desc: 'Case trắng thanh lịch cho đồ họa và sáng tạo.', img: 'combo-pc-figure.png', badge: 'Mới', tags: ['Đồ họa', '32GB RAM', 'RTX'], kind: 'creative' },
+  { id: 3, category: 'pc', name: 'NEXUS Sky Studio', price: 18990000, desc: 'Góc làm việc gọn đẹp, hiệu năng ổn định.', img: 'pc-white-rgb.png', badge: 'Đề xuất', tags: ['Văn phòng', 'Tiết kiệm'], kind: 'office' },
+  { id: 4, category: 'pc', name: 'NEXUS Dream Setup', price: 39990000, desc: 'Bộ PC gaming cao cấp với không gian thiết kế riêng.', img: 'combo-pc-figure.png', badge: 'Showcase', tags: ['Gaming', 'RGB'], kind: 'gaming' },
+  { id: 5, category: 'pc', name: 'NEXUS Frost White', price: 29990000, desc: 'PC RGB trắng với hệ thống tản nhiệt nổi bật.', img: 'pc-white-rgb.png', badge: 'Mới', tags: ['Gaming', '32GB RAM'], kind: 'gaming' },
   { id: 6, category: 'pc', name: 'NEXUS Compact Custom', price: 15990000, desc: 'Cấu hình minh họa để tùy chỉnh theo nhu cầu.', img: 'hero.webp', badge: 'Build riêng', tags: ['Văn phòng', 'Tiết kiệm'], kind: 'office' },
-  { id: 7, category: 'figure', name: 'Crystal Blue Fantasy', price: 1290000, desc: 'Figure phong cách pha lê xanh, làm điểm nhấn setup.', img: 'figure.webp', badge: 'Figure', tags: ['Resin', 'Trưng bày'], kind: 'figure' },
-  { id: 8, category: 'figure', name: 'Fairy Crystal Statue', price: 1590000, desc: 'Mô hình fantasy chi tiết dùng để trưng bày.', img: 'fairy.webp', badge: 'Yêu thích', tags: ['Resin', 'Fantasy'], kind: 'figure' },
+  { id: 7, category: 'figure', name: 'Crystal Blue Fantasy', price: 1290000, desc: 'Figure phong cách pha lê xanh, làm điểm nhấn setup.', img: 'figure-crystal-blue.png', badge: 'Figure', tags: ['Resin', 'Trưng bày'], kind: 'figure' },
+  { id: 8, category: 'figure', name: 'Fairy Crystal Statue', price: 1590000, desc: 'Mô hình fantasy chi tiết dùng để trưng bày.', img: 'figure-fairy-stand.png', badge: 'Yêu thích', tags: ['Resin', 'Fantasy'], kind: 'figure' },
   { id: 9, category: 'figure', name: 'Ice Cat Girl', price: 890000, desc: 'Mô hình chủ đề anime tông trắng xanh.', img: 'cat.webp', badge: 'Mới', tags: ['Anime', 'Decor'], kind: 'figure' },
-  { id: 10, category: 'figure', name: 'NEXUS Studio Edition', price: 1990000, desc: 'Tác phẩm mô hình lấy cảm hứng studio in 3D.', img: 'studio3d.webp', badge: 'Studio', tags: ['In theo yêu cầu'], kind: 'service' },
-  { id: 11, category: 'figure', name: 'Custom Resin Figure', price: 0, desc: 'Nhận in mô hình theo bản vẽ hoặc yêu cầu.', img: 'printer.webp', badge: 'Đặt riêng', tags: ['Resin', 'Tư vấn'], kind: 'service' },
-  { id: 12, category: 'figure', name: 'Creative Idol Concept', price: 990000, desc: 'Mẫu minh họa phong cách anime cho bộ sưu tập.', img: 'idol.webp', badge: 'Concept', tags: ['Anime', 'Resin'], kind: 'figure' }
+  { id: 10, category: 'figure', name: 'NEXUS Studio Edition', price: 1990000, desc: 'Tác phẩm mô hình lấy cảm hứng studio in 3D.', img: 'combo-printer-figure.png', badge: 'Studio', tags: ['In theo yêu cầu'], kind: 'service' },
+  { id: 11, category: 'figure', name: 'Custom Resin Figure', price: 0, desc: 'Nhận in mô hình theo bản vẽ hoặc yêu cầu.', img: 'printer-figure.png', badge: 'Đặt riêng', tags: ['Resin', 'Tư vấn'], kind: 'service' },
+  { id: 12, category: 'figure', name: 'Creative Idol Concept', price: 990000, desc: 'Mẫu minh họa phong cách anime cho bộ sưu tập.', img: 'figure-crystal-blue.png', badge: 'Concept', tags: ['Anime', 'Resin'], kind: 'figure' }
 ];
 
 const img = n => 'assets/' + n;
@@ -358,19 +358,19 @@ function home() {
 
           <!-- Central Levitating PC Case -->
           <div class="stage-pc" id="stagePc">
-            <img src="${img('pcwhite.webp')}" alt="NEXUS High-End PC RGB" loading="eager">
+            <img src="${img('pc-white-rgb.png')}" alt="NEXUS High-End PC RGB" loading="eager">
             <div class="pc-shadow"></div>
           </div>
 
           <!-- Independent Floating 3D Printer with Laser Scan -->
           <div class="stage-printer" id="stagePrinter">
-            <img src="${img('printer.webp')}" alt="Resin 8K 3D Printer">
+            <img src="${img('printer-figure.png')}" alt="Resin 8K 3D Printer">
             <div class="laser-beam"></div>
           </div>
 
           <!-- Foreground Levitating Mascot / Figure -->
           <div class="stage-figure" id="stageFigure">
-            <img src="${img('figure.webp')}" alt="Resin Fantasy Figure">
+            <img src="${img('figure-crystal-blue.png')}" alt="Resin Fantasy Figure">
           </div>
 
           <!-- Holographic Floating Glass Badges -->
@@ -403,10 +403,10 @@ function home() {
     
     <div class="grid4 reveal">
       ${[
-        ['pcblue.webp', 'Build PC theo yêu cầu', 'Lựa chọn cấu hình hợp ngân sách, đẹp và mạnh.', 'pc.html'],
-        ['gpu.webp', 'Nâng cấp linh kiện', 'Tư vấn VGA, CPU, RAM, SSD và nâng cấp hiệu năng.', 'contact.html'],
-        ['gear.webp', 'Tối ưu góc máy', 'Hỗ trợ lựa chọn thiết bị và setup gọn gàng.', 'contact.html'],
-        ['printer.webp', 'In mô hình 3D', 'Nhận ý tưởng, file 3D hoặc in mô hình sưu tầm.', 'models.html']
+        ['pc-white-rgb.png', 'Build PC theo yêu cầu', 'Lựa chọn cấu hình hợp ngân sách, đẹp và mạnh.', 'pc.html'],
+        ['gpu-white-rgb.png', 'Nâng cấp linh kiện', 'Tư vấn VGA, CPU, RAM, SSD và nâng cấp hiệu năng.', 'contact.html'],
+        ['gear-setup-white.png', 'Tối ưu góc máy', 'Hỗ trợ lựa chọn thiết bị và setup gọn gàng.', 'contact.html'],
+        ['printer-figure.png', 'In mô hình 3D', 'Nhận ý tưởng, file 3D hoặc in mô hình sưu tầm.', 'models.html']
       ]
         .map(
           z => `
@@ -437,7 +437,7 @@ function home() {
   <!-- PROMO BANNERS -->
   <section class="container section">
     <div class="banner-row reveal">
-      <a class="promo" style="background-image:url('${img('pcstudio.webp')}')" href="pc.html">
+      <a class="promo" style="background-image:url('${img('combo-pc-figure.png')}')" href="pc.html">
         <div>
           <small>KHÁM PHÁ PC</small>
           <h3>PC Build & Linh kiện</h3>
@@ -445,7 +445,7 @@ function home() {
           <span class="pill">Xem PC Build →</span>
         </div>
       </a>
-      <a class="promo" style="background-image:url('${img('studio3d.webp')}')" href="models.html">
+      <a class="promo" style="background-image:url('${img('combo-printer-figure.png')}')" href="models.html">
         <div>
           <small>THẾ GIỚI MÔ HÌNH</small>
           <h3>Mô hình 3D & In theo yêu cầu</h3>
@@ -607,7 +607,7 @@ function detail() {
         <img id="detailImg" src="${img(x.img)}" alt="${x.name}">
       </div>
       <div class="thumbs">
-        ${[x.img, x.category === 'pc' ? 'pcwhite.webp' : 'fairy.webp', x.category === 'pc' ? 'pcstudio.webp' : 'studio3d.webp']
+        ${[x.img, x.category === 'pc' ? 'pc-white-rgb.png' : 'figure-crystal-blue.png', x.category === 'pc' ? 'combo-pc-figure.png' : 'figure-fairy-stand.png']
           .map((a, i) => `<button class="${i === 0 ? 'active' : ''}" data-img="${a}"><img src="${img(a)}"></button>`)
           .join('')}
       </div>
