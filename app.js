@@ -31,10 +31,10 @@ const heroModes = {
     desc: 'Thiết kế kính trong suốt hai mặt không cột chắn góc, trang bị luồng gió 9 quạt ARGB đối lưu và linh kiện tone trắng nguyên khối cực kỳ cuốn hút.',
     image: 'pc-white-rgb.png',
     specs: [
-      { label: 'CPU', val: 'Intel Core i7-14700KF' },
-      { label: 'VGA', val: 'RTX 4070 Ti Super 16G White' },
-      { label: 'RAM', val: '32GB DDR5-6400 ARGB' },
-      { label: 'Tản nhiệt', val: 'AIO 360 Liquid Infinity Mirror' }
+      { icon: '🧠', label: 'CPU', val: 'Intel Core i7-14700KF', pos: 'pos-cpu' },
+      { icon: '🎮', label: 'VGA', val: 'RTX 4070 Ti Super 16G White', pos: 'pos-vga' },
+      { icon: '⚡', label: 'RAM', val: '32GB DDR5 6400 ARGB', pos: 'pos-ram' },
+      { icon: '❄️', label: 'TẢN NHIỆT', val: 'AIO 360 Liquid Infinity Mirror', pos: 'pos-cooler' }
     ],
     hotspots: [
       { top: '24%', left: '50%', title: 'AIO Liquid 360', desc: 'Mặt gương vô cực Infinity Mirror, 3 fan ARGB thủy lực êm ái dưới 22dB.' },
@@ -52,10 +52,10 @@ const heroModes = {
     desc: 'Mang tinh hoa nghệ thuật vào góc máy: Mô hình Crystal Blue sắc nét từng đường nét seated bên cạnh cỗ máy gaming tone trắng băng tuyết.',
     image: 'combo-pc-figure.png',
     specs: [
-      { label: 'Chủ đề', val: 'Crystal Blue & Snow White' },
-      { label: 'Figure', val: 'Resin 8K Điêu Khắc Thủ Công' },
-      { label: 'Đế Led', val: 'Pha Lê Tròn Chiếu Sáng Đa Tầng' },
-      { label: 'Hiệu năng', val: 'Render 3D & Gaming 4K Siêu Mượt' }
+      { icon: '🎨', label: 'Chủ đề', val: 'Crystal Blue & Snow White', pos: 'pos-cpu' },
+      { icon: '💎', label: 'Figure', val: 'Resin 8K Điêu Khắc Thủ Công', pos: 'pos-vga' },
+      { icon: '✨', label: 'Đế Led', val: 'Pha Lê Tròn Chiếu Sáng Đa Tầng', pos: 'pos-ram' },
+      { icon: '⚡', label: 'Hiệu năng', val: 'Render 3D & Gaming 4K Siêu Mượt', pos: 'pos-cooler' }
     ],
     hotspots: [
       { top: '56%', left: '33%', title: 'Figure Resin 8K Thủ Công', desc: 'Tái hiện sắc nét từng sợi tóc và nếp gấp váy, phủ bóng nano chống trầy.' },
@@ -72,10 +72,10 @@ const heroModes = {
     desc: 'Hệ thống máy in 3D công nghệ Resin 8K công nghiệp khép kín, lọc mùi than hoạt tính và kiểm soát nhiệt độ buồng in chuẩn xác cho độ mịn màng bề mặt tuyệt đối.',
     image: 'printer-figure.png',
     specs: [
-      { label: 'Độ phân giải', val: 'Màn hình 8K đơn sắc (0.02mm)' },
-      { label: 'Vật liệu', val: 'Resin dẻo chống giòn cao cấp' },
-      { label: 'Xử lý', val: 'Rửa siêu âm & Sấy UV 360°' },
-      { label: 'Dịch vụ', val: 'Sơn phủ chi tiết theo yêu cầu' }
+      { icon: '🎯', label: 'Độ nét', val: 'Màn hình 8K đơn sắc (0.02mm)', pos: 'pos-cpu' },
+      { icon: '🧪', label: 'Vật liệu', val: 'Resin dẻo chống giòn cao cấp', pos: 'pos-vga' },
+      { icon: '💡', label: 'Xử lý', val: 'Rửa siêu âm & Sấy UV 360°', pos: 'pos-ram' },
+      { icon: '🎨', label: 'Dịch vụ', val: 'Sơn phủ chi tiết theo file 3D', pos: 'pos-cooler' }
     ],
     hotspots: [
       { top: '28%', left: '50%', title: 'Cụm Đầu In Trục Z Kép', desc: 'Thanh trượt tuyến tính kép khử hoàn toàn rung lắc và vân ngang bề mặt.' },
@@ -92,10 +92,10 @@ const heroModes = {
     desc: 'Hoàn thiện góc setup mơ ước với bộ phụ kiện gaming tone trắng cao cấp, switch bôi trơn sẵn mượt mà và hệ thống led viền huyền ảo.',
     image: 'gear-setup-white.png',
     specs: [
-      { label: 'Bàn phím', val: 'Gasket Mount Custom White' },
-      { label: 'Chuột', val: 'Paw3395 26000DPI Siêu Nhẹ 55g' },
-      { label: 'Tai nghe', val: 'Âm thanh vòm 7.1 Surround' },
-      { label: 'Kết nối', val: 'Tri-Mode: 2.4G / BT 5.2 / Type-C' }
+      { icon: '⌨️', label: 'Bàn phím', val: 'Gasket Mount Custom White', pos: 'pos-cpu' },
+      { icon: '🖱️', label: 'Chuột', val: 'Paw3395 26000DPI Siêu Nhẹ 55g', pos: 'pos-vga' },
+      { icon: '🎧', label: 'Tai nghe', val: 'Âm thanh vòm 7.1 Surround', pos: 'pos-ram' },
+      { icon: '📶', label: 'Kết nối', val: 'Tri-Mode: 2.4G / BT 5.2 / Type-C', pos: 'pos-cooler' }
     ],
     hotspots: [
       { top: '65%', left: '28%', title: 'Bàn Phím Cơ Vỏ Trong Suốt', desc: 'Keycap PBT Double-shot xuyên led, cấu trúc Gasket tiêu âm đầm tay.' },
@@ -270,92 +270,210 @@ function footer() {
 </footer>`;
 }
 
-function initEffects() {
-  // 1. High Performance Subtle Particle System
+// ==========================================================================
+// DYNAMIC CYBER WORLD BACKGROUND ENGINE (AMBIENT CONSTELLATION & MORPH PULSE)
+// ==========================================================================
+function initCyberWorldEngine() {
   const canvas = document.getElementById('canvasParticles');
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+  if (!canvas) return;
 
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
+  const ctx = canvas.getContext('2d');
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let w = window.innerWidth;
+  let h = window.innerHeight;
 
-    const particles = [];
-    const count = Math.min(Math.floor(width / 36), 36);
+  let currentWorld = 0;
+  let targetWorld = 0;
+  let morphProgress = 1;
+  let shockwaves = [];
+  let time = 0;
 
-    const colors = [
-      'rgba(0, 210, 255, 0.35)',
-      'rgba(0, 102, 255, 0.25)',
-      'rgba(168, 85, 247, 0.3)',
-      'rgba(255, 255, 255, 0.4)'
-    ];
+  // 7 Unique Stage World Color Themes matching the White Cyber Showroom aesthetic
+  const worldThemes = [
+    { neon: '#00d2ff', line: 'rgba(0, 180, 255, 0.22)', core: 'rgba(0, 102, 255, 0.35)', pulse: '#00d2ff' }, // 0: Hero
+    { neon: '#00f5d4', line: 'rgba(0, 245, 212, 0.20)', core: 'rgba(0, 168, 140, 0.35)', pulse: '#00f5d4' }, // 1: Services
+    { neon: '#f59e0b', line: 'rgba(245, 158, 11, 0.20)', core: 'rgba(217, 119, 6, 0.35)', pulse: '#fbbf24' }, // 2: Configurator
+    { neon: '#a855f7', line: 'rgba(168, 85, 247, 0.22)', core: 'rgba(124, 58, 237, 0.35)', pulse: '#c084fc' }, // 3: Showcase
+    { neon: '#0284c7', line: 'rgba(2, 132, 199, 0.22)', core: 'rgba(3, 105, 161, 0.35)', pulse: '#38bdf8' }, // 4: Products
+    { neon: '#2563eb', line: 'rgba(37, 99, 235, 0.22)', core: 'rgba(29, 78, 216, 0.35)', pulse: '#60a5fa' }, // 5: Process
+    { neon: '#f43f5e', line: 'rgba(244, 63, 94, 0.22)', core: 'rgba(190, 18, 60, 0.35)', pulse: '#fb7185' }  // 6: CTA
+  ];
 
-    for (let i = 0; i < count; i++) {
+  let particles = [];
+
+  function initWorldAssets() {
+    particles = [];
+    const pCount = Math.min(Math.floor(w / 28), 65);
+    for (let i = 0; i < pCount; i++) {
       particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: Math.random() * 2 + 0.6,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: -Math.random() * 0.4 - 0.15,
-        alpha: Math.random() * 0.6 + 0.2,
-        pulseSpeed: Math.random() * 0.02 + 0.008,
-        angle: Math.random() * Math.PI * 2
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2.2 + 1.2,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: -Math.random() * 0.45 - 0.12,
+        alpha: Math.random() * 0.55 + 0.35,
+        pulseOffset: Math.random() * Math.PI * 2
       });
     }
-
-    function renderParticles() {
-      ctx.clearRect(0, 0, width, height);
-
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.angle += p.pulseSpeed;
-
-        if (p.y < -10) {
-          p.y = height + 10;
-          p.x = Math.random() * width;
-        }
-        if (p.x < -10) p.x = width + 10;
-        if (p.x > width + 10) p.x = -10;
-
-        const currentAlpha = p.alpha * (0.6 + 0.4 * Math.sin(p.angle));
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = Math.max(0, Math.min(1, currentAlpha));
-        ctx.fill();
-      });
-
-      requestAnimationFrame(renderParticles);
-    }
-    renderParticles();
   }
 
-  // 2. Ambient Mouse Follower Spotlight
-  const ambientSpot = document.getElementById('ambientSpotlight');
-  if (ambientSpot) {
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let spotX = mouseX;
-    let spotY = mouseY;
+  function resize() {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+    initWorldAssets();
+  }
+  window.addEventListener('resize', resize);
+  resize();
 
-    window.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+  function render() {
+    time += 0.016;
+    ctx.clearRect(0, 0, w, h);
+
+    const curTheme = worldThemes[currentWorld] || worldThemes[0];
+    const tgtTheme = worldThemes[targetWorld] || curTheme;
+    const activeNeon = morphProgress < 1 ? tgtTheme.neon : curTheme.neon;
+    const activeLine = morphProgress < 1 ? tgtTheme.line : curTheme.line;
+    const activePulse = morphProgress < 1 ? tgtTheme.pulse : curTheme.pulse;
+
+    // 1. Subtle Horizon Perspective Glow Wave (Very gentle bottom atmosphere)
+    const horizonY = h * 0.92;
+    const grad = ctx.createLinearGradient(0, horizonY - 60, 0, h);
+    grad.addColorStop(0, 'transparent');
+    grad.addColorStop(1, activeLine);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, horizonY - 60, w, h - (horizonY - 60));
+
+    // 2. Dynamic Expanding Shockwave Sonar Ripples on World Morph
+    for (let i = shockwaves.length - 1; i >= 0; i--) {
+      const sw = shockwaves[i];
+      sw.radius += (sw.maxRadius - sw.radius) * 0.055;
+      sw.alpha -= 0.022;
+
+      if (sw.alpha <= 0 || sw.radius >= sw.maxRadius * 0.98) {
+        shockwaves.splice(i, 1);
+        continue;
+      }
+
+      ctx.save();
+      ctx.globalAlpha = sw.alpha * 0.7;
+      ctx.strokeStyle = activePulse;
+      ctx.lineWidth = 2.4;
+      ctx.shadowColor = activePulse;
+      ctx.shadowBlur = 16;
+      ctx.beginPath();
+      ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      if (sw.radius > 60) {
+        ctx.globalAlpha = sw.alpha * 0.35;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(sw.x, sw.y, sw.radius * 0.72, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // 3. Connective Constellation Laser Links between nearby particles
+    const maxDist = 95;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          const linkAlpha = (1 - dist / maxDist) * 0.32;
+          ctx.strokeStyle = activeLine;
+          ctx.globalAlpha = linkAlpha;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // 4. Floating Ambient Cyber Light Motes (Glowing energy motes)
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.y < -15) { p.y = h + 15; p.x = Math.random() * w; }
+      if (p.x < -15) p.x = w + 15;
+      if (p.x > w + 15) p.x = -15;
+
+      const pulse = Math.sin(time * 2 + p.pulseOffset) * 0.25 + 0.75;
+      ctx.save();
+      ctx.globalAlpha = p.alpha * pulse;
+      ctx.fillStyle = activeNeon;
+      ctx.shadowColor = activeNeon;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      // White hot core
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowBlur = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
     });
 
-    function updateAmbient() {
-      spotX += (mouseX - spotX) * 0.06;
-      spotY += (mouseY - spotY) * 0.06;
-      ambientSpot.style.transform = `translate(${spotX - 250}px, ${spotY - 250}px)`;
-      requestAnimationFrame(updateAmbient);
-    }
-    updateAmbient();
+    requestAnimationFrame(render);
   }
+  requestAnimationFrame(render);
+
+  // Transition controller
+  function morphToWorld(newWorldIdx, duration = 1.15, shockX = w * 0.5, shockY = h * 0.5) {
+    if (newWorldIdx === targetWorld && morphProgress >= 1) return;
+    targetWorld = newWorldIdx;
+    morphProgress = 0;
+
+    shockwaves.push({
+      x: shockX,
+      y: shockY,
+      radius: 15,
+      maxRadius: Math.max(w, h) * 1.35,
+      alpha: 1
+    });
+
+    gsap.killTweensOf(window.cyberWorldEngineState || {});
+    window.cyberWorldEngineState = { p: 0 };
+    gsap.to(window.cyberWorldEngineState, {
+      p: 1,
+      duration: duration,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        morphProgress = window.cyberWorldEngineState.p;
+      },
+      onComplete: () => {
+        currentWorld = newWorldIdx;
+        morphProgress = 1;
+      }
+    });
+  }
+
+  window.cyberWorldEngine = {
+    morphToWorld,
+    getCurrentWorld: () => currentWorld
+  };
+}
+
+function initEffects() {
+  // 1. High-Performance Cyber World Background Engine
+  initCyberWorldEngine();
+
+  // (Mouse follower spotlight removed per user request)
+
 
   // 3. Header Progress Bar & Scrolled State
   const progressBar = document.getElementById('scrollProgress');
@@ -475,9 +593,13 @@ function initHeroShowcase() {
         heroSpecsList.innerHTML = data.specs
           .map(
             s => `
-          <div class="hero-spec-chip">
-            <small>${s.label}</small>
-            <b>${s.val}</b>
+          <div class="hero-spec-tag-floating ${s.pos || ''}">
+            <div class="spec-tag-icon-box">${s.icon || '✦'}</div>
+            <div class="spec-tag-texts">
+              <span class="spec-tag-cat">${s.label}</span>
+              <b class="spec-tag-title">${s.val}</b>
+            </div>
+            <div class="spec-tag-leader-line"></div>
           </div>
         `
           )
@@ -675,12 +797,12 @@ function initRobotScrollJourney() {
 
     return {
       0: { x: Math.min(w - 95, w * 0.86), y: h * 0.22, facing: 'left' },   // Stage 0 (Hero): Upper Right
-      1: { x: leftMarginX,                y: h * 0.25, facing: 'right' },  // Stage 1 (Services Bento): Left Margin
-      2: { x: rightMarginX,               y: h * 0.30, facing: 'left' },   // Stage 2 (Configurator): Right Margin
-      3: { x: leftMarginX,                y: h * 0.28, facing: 'right' },  // Stage 3 (Showcase Banners): Left Margin
-      4: { x: rightMarginX,               y: h * 0.24, facing: 'left' },   // Stage 4 (Featured Products): Right Margin
-      5: { x: leftMarginX,                y: h * 0.28, facing: 'right' },  // Stage 5 (Craftsmanship Process): Left Margin
-      6: { x: rightMarginX,               y: h * 0.52, facing: 'left' }    // Stage 6 (Final CTA): Right Margin
+      1: { x: leftMarginX, y: h * 0.25, facing: 'right' },  // Stage 1 (Services Bento): Left Margin
+      2: { x: rightMarginX, y: h * 0.30, facing: 'left' },   // Stage 2 (Configurator): Right Margin
+      3: { x: leftMarginX, y: h * 0.28, facing: 'right' },  // Stage 3 (Showcase Banners): Left Margin
+      4: { x: rightMarginX, y: h * 0.24, facing: 'left' },   // Stage 4 (Featured Products): Right Margin
+      5: { x: leftMarginX, y: h * 0.28, facing: 'right' },  // Stage 5 (Craftsmanship Process): Left Margin
+      6: { x: rightMarginX, y: h * 0.52, facing: 'left' }    // Stage 6 (Final CTA): Right Margin
     };
   }
 
@@ -768,6 +890,27 @@ function initRobotScrollJourney() {
     if (stageDialogues[stageIdx]) {
       showSpeech(stageDialogues[stageIdx]);
     }
+
+    // Staggered Block Assembly Entrance ("Mỗi lần di chuyển các khối xây 1 thế giới công nghệ khác")
+    const stageIds = ['hero', 'services', 'configurator', 'showcase', 'products', 'process', 'cta'];
+    const targetSection = document.getElementById(stageIds[stageIdx]);
+    if (targetSection) {
+      const techCards = targetSection.querySelectorAll('.tech-block-item, .product, .showcase-banner, .process-card, .config-wrapper, .final-cta-surface');
+      if (techCards.length) {
+        gsap.fromTo(techCards, {
+          y: 26,
+          scale: 0.96,
+          opacity: 0.55
+        }, {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 0.55,
+          stagger: 0.07,
+          ease: 'back.out(1.3)'
+        });
+      }
+    }
   }
 
   // CINEMATIC FLIGHT ANIMATION: Scroll page and fly robot 100% CÙNG LÚC (simultaneous lockstep)
@@ -785,6 +928,11 @@ function initRobotScrollJourney() {
     if (holoEmitter) holoEmitter.classList.remove('active');
     if (scanBeam) scanBeam.classList.remove('active');
     if (eyeScreen) eyeScreen.className = 'robot-screen-overlay eye-state-fly';
+
+    // Trigger Dynamic Cyber World Background Reconstruction
+    if (window.cyberWorldEngine) {
+      window.cyberWorldEngine.morphToWorld(targetIdx, duration, fromSt.x, fromSt.y);
+    }
 
     // Kill any active robot animations
     gsap.killTweensOf(robotEl);
@@ -1035,7 +1183,6 @@ function shell(page, body) {
 
   document.body.innerHTML = `
     <canvas id="canvasParticles"></canvas>
-    <div class="ambient-spotlight" id="ambientSpotlight"></div>
 
     ${isHome ? `
       <!-- Fixed Stage Dots for Section Snapping -->
@@ -1121,24 +1268,25 @@ function home() {
     'home',
     `
 <main>
-  <!-- 1. HERO SHOWCASE: THE HOLO-DECK STAGE -->
+  <!-- 1. HERO SHOWCASE: THE WHITE CYBER SHOWROOM -->
   <section class="hero hero-showcase home-section-stage" id="hero">
     <div class="container hero-content">
+      <!-- Left Column: Typography, Modes, Actions -->
       <div class="hero-copy reveal">
-        <div class="eyebrow">
+        <div class="eyebrow-pill">
           <span>◆</span> THIẾT KẾ PC CAO CẤP × NGHỆ THUẬT IN 3D
         </div>
-        <h1>
+        <h1 class="hero-title-main">
           ĐỈNH CAO HIỆU NĂNG,<br>
-          <span class="gradient">THẨM MỸ BẬC THẦY</span>
+          <span class="gradient-cyan-purple">THẨM MỸ BẬC THẦY</span>
         </h1>
         <p class="hero-description">
-          NEXUS PC kiến tạo không gian công nghệ đậm chất cá nhân: Từ những dàn PC Gaming Panoramic tản nước rực rỡ đến các tác phẩm mô hình 3D Resin 8K độc bản được hoàn thiện tinh xảo.
+          NEXUS PC kiến tạo không gian công nghệ đậm chất cá nhân. Từ những dàn PC Gaming hiệu năng mạnh mẽ đến các tác phẩm mô hình 3D Resin 8K độc bản, chúng tôi biến ý tưởng thành hiện thực.
         </p>
 
         <!-- Mode Switcher Tabs right in Hero -->
         <div class="hero-mode-switcher-wrap">
-          <span class="switcher-label">CHỌN CHẾ ĐỘ TRÌNH DIỄN:</span>
+          <span class="switcher-label">CHỌN CHẾ ĐỘ TRẢI NGHIỆM:</span>
           <div class="hero-mode-switcher">
             <button class="hero-mode-btn active" data-mode="aurora">
               <span class="btn-icon">⚡</span> PC Gaming RGB
@@ -1157,46 +1305,31 @@ function home() {
 
         <!-- Hero Actions -->
         <div class="hero-actions">
-          <a class="btn primary" href="#configurator">⚡ Dự toán cấu hình theo ngân sách →</a>
-          <a class="btn secondary" href="contact.html">Liên hệ tư vấn 1-1</a>
-        </div>
-
-        <!-- Trust Badges -->
-        <div class="hero-trust-bar">
-          <div class="trust-item">
-            <span class="trust-check">✓</span>
-            <div><b>100% Chính Hãng</b><small>Linh kiện mới Fullbox</small></div>
-          </div>
-          <div class="trust-item">
-            <span class="trust-check">✓</span>
-            <div><b>Stress Test 24H</b><small>Tối ưu nhiệt độ & xung nhịp</small></div>
-          </div>
-          <div class="trust-item">
-            <span class="trust-check">✓</span>
-            <div><b>In 3D Chuẩn 8K</b><small>Độ chi tiết đến 0.02mm</small></div>
-          </div>
+          <a class="btn primary hero-cta-pill" href="#configurator">⚡ Dự toán cấu hình theo ngân sách →</a>
+          <a class="btn secondary hero-sub-pill" href="contact.html">Liên hệ tư vấn 1-1 →</a>
         </div>
       </div>
 
-      <!-- Hero Visual: Cinematic 2.5D Holo-Deck -->
+      <!-- Right Column: Centerpiece PC on Glowing Tech Podium & Floating Specs -->
       <div class="hero-holo-deck">
         <div class="hero-holo-stage" id="heroHoloStage">
-          <!-- Cyber Holo Base & Lighting Rings -->
+          <!-- Luminous Circular Tech Podium Stage on the Floor -->
           <div class="holo-pedestal">
-            <div class="pedestal-grid-plane"></div>
+            <div class="pedestal-disc-glow"></div>
             <div class="pedestal-ring ring-outer"></div>
+            <div class="pedestal-ring ring-mid"></div>
             <div class="pedestal-ring ring-inner"></div>
             <div class="pedestal-light-aura"></div>
           </div>
 
-          <!-- Main Object Showcase -->
+          <!-- Main Object Showcase Centerpiece -->
           <div class="holo-centerpiece">
             <img id="heroMainImg" src="${img('pc-white-rgb.png')}" alt="NEXUS Aurora Gaming PC">
             <div class="holo-contact-shadow"></div>
           </div>
 
-          <!-- Interactive Hotspots Overlay -->
-          <div class="holo-hotspots-container" id="heroHotspotsWrap"></div>
+          <!-- Floating Spec Badges with Leader Lines around PC -->
+          <div class="hero-floating-specs-wrap" id="heroSpecsList"></div>
 
           <!-- Quick Telemetry HUD Header on Stage -->
           <div class="holo-telemetry-hud">
@@ -1206,75 +1339,181 @@ function home() {
             <span id="heroModeTitle" class="hud-mode-title">NEXUS Aurora Gaming</span>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Real-time Specs Bar below Stage -->
-        <div class="hero-specs-strip" id="heroSpecsList"></div>
+    <!-- Full-Width Horizontal Trust Bar (Directly below Hero grid) -->
+    <div class="container">
+      <div class="hero-trust-capsule-row reveal">
+        <div class="trust-capsule-item">
+          <div class="trust-capsule-icon">🛡️</div>
+          <div class="trust-capsule-text">
+            <b>100% Chính Hãng</b>
+            <small>Linh kiện mới Fullbox</small>
+          </div>
+        </div>
+        <div class="trust-capsule-item">
+          <div class="trust-capsule-icon">🚚</div>
+          <div class="trust-capsule-text">
+            <b>Giao Hàng Toàn Quốc</b>
+            <small>Nhanh chóng, an toàn</small>
+          </div>
+        </div>
+        <div class="trust-capsule-item">
+          <div class="trust-capsule-icon">⚙️</div>
+          <div class="trust-capsule-text">
+            <b>Bảo Hành Uy Tín</b>
+            <small>Hỗ trợ tận tâm</small>
+          </div>
+        </div>
+        <div class="trust-capsule-item">
+          <div class="trust-capsule-icon">👥</div>
+          <div class="trust-capsule-text">
+            <b>Tư Vấn Chuyên Sâu</b>
+            <small>Đồng hành cùng bạn</small>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. CORE PILLARS: 4 GIẢI PHÁP TẠO NÊN NEXUS PC -->
+  <!-- 1.5 HIGHLIGHT CATEGORIES (DANH MỤC NỔI BẬT) -->
+  <section class="container section section-categories-preview reveal">
+    <div class="categories-header-flex">
+      <div>
+        <span class="eyebrow">• DANH MỤC NỔI BẬT</span>
+        <h2>Khám phá hệ sinh thái <span class="gradient-cyan-purple">NEXUS PC</span></h2>
+        <p class="section-sub">Từ PC Gaming, linh kiện cao cấp đến mô hình 3D và phụ kiện setup.</p>
+      </div>
+      <a class="btn-outline-pill" href="pc.html">Xem tất cả danh mục →</a>
+    </div>
+
+    <div class="categories-quad-cards">
+      <a class="cat-card-item" href="pc.html">
+        <div class="cat-card-thumb"><img src="${img('pc-white-rgb.png')}" alt="PC Gaming"></div>
+        <div class="cat-card-info">
+          <b>PC Gaming Theo Yêu Cầu</b>
+          <span class="cat-card-arrow">→</span>
+        </div>
+      </a>
+      <a class="cat-card-item" href="product.html?id=2">
+        <div class="cat-card-thumb"><img src="${img('gpu-white-rgb.png')}" alt="Linh Kiện"></div>
+        <div class="cat-card-info">
+          <b>Linh Kiện PC Chính Hãng</b>
+          <span class="cat-card-arrow">→</span>
+        </div>
+      </a>
+      <a class="cat-card-item" href="models.html">
+        <div class="cat-card-thumb"><img src="${img('figure-crystal-blue.png')}" alt="Mô Hình 3D"></div>
+        <div class="cat-card-info">
+          <b>Mô Hình 3D Resin 8K</b>
+          <span class="cat-card-arrow">→</span>
+        </div>
+      </a>
+      <a class="cat-card-item" href="product.html?id=3">
+        <div class="cat-card-thumb"><img src="${img('gear-setup-white.png')}" alt="Setup Gear"></div>
+        <div class="cat-card-info">
+          <b>Setup Gear & Phụ Kiện</b>
+          <span class="cat-card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <div class="cyber-section-divider"></div>
+
+  <!-- 2. CORE PILLARS: 4 DỊCH VỤ CỐT LÕI (4-COLUMN BALANCED DECK) -->
   <section class="container section home-section-stage" id="services">
-    <div class="section-title-center reveal" style="margin-bottom: 24px;">
+    <div class="section-title-center reveal" style="margin-bottom: 22px;">
       <span class="eyebrow">DỊCH VỤ CỐT LÕI</span>
       <h2>Không Gian Giải Pháp <span class="gradient">Công Nghệ Toàn Diện</span></h2>
       <p class="section-sub">Đồng hành cùng bạn từ ý tưởng ban đầu đến góc máy hoàn thiện đẳng cấp nhất.</p>
     </div>
 
-    <div class="bento-grid reveal">
-      <div class="bento-item bento-large">
-        <div class="bento-content">
-          <span class="bento-tag">✦ THẾ MẠNH DẪN ĐẦU</span>
-          <h3>Tư Vấn & Lắp Ráp PC Theo Nhu Cầu</h3>
-          <p>Tối ưu cấu hình chuẩn chỉ đến từng đồng ngân sách. Đi dây thẩm mỹ giấu kín, cân chỉnh luồng gió đối lưu và stress test nhiệt độ 24 giờ trước khi bàn giao.</p>
-          <div class="bento-features">
-            <span>✓ Cân đối CPU / GPU không nghẽn cổ chai</span>
-            <span>✓ Cáp nguồn bọc lưới custom cao cấp</span>
-            <span>✓ Cài đặt sẵn Windows & Game tối ưu</span>
+    <div class="services-quad-deck reveal">
+      <!-- 01: PC Custom -->
+      <div class="service-quad-card tech-block-item" data-world-block="1">
+        <div class="service-card-glow"></div>
+        <div class="service-card-top">
+          <span class="service-pill-badge blue">✦ THẾ MẠNH DẪN ĐẦU</span>
+          <div class="service-visual-wrap">
+            <img class="service-card-img" src="${img('pc-white-rgb.png')}" alt="PC Gaming Build">
           </div>
-          <a class="btn primary small" href="pc.html">Khám phá các mẫu PC Build →</a>
         </div>
-        <div class="bento-visual">
-          <img src="${img('pc-white-rgb.png')}" alt="PC Gaming Build">
-        </div>
-      </div>
-
-      <div class="bento-item bento-large">
-        <div class="bento-content">
-          <span class="bento-tag purple">✦ ĐỘC BẢN SÁNG TẠO</span>
-          <h3>Dịch Vụ In Mô Hình 3D Resin 8K</h3>
-          <p>Hiện thực hóa nhân vật anime, game, linh kiện trang trí case PC và giá đỡ VGA độc quyền. Độ phân giải 8K cho bề mặt láng mịn không tì vết.</p>
-          <div class="bento-features">
-            <span>✓ Độ chính xác tinh xảo 0.02mm</span>
-            <span>✓ Vật liệu Resin cao cấp chống ố vàng</span>
-            <span>✓ Dịch vụ sơn màu mỹ thuật thủ công</span>
+        <div class="service-card-body">
+          <h3>Tư Vấn & Lắp Ráp PC</h3>
+          <p>Tối ưu cấu hình chuẩn chỉ đến từng đồng ngân sách. Đi dây giấu kín, cân chỉnh luồng gió đối lưu và stress test nhiệt độ 24H.</p>
+          <div class="service-spec-chips">
+            <span class="spec-tag">✓ Chuẩn Game 2K/4K</span>
+            <span class="spec-tag">✓ Cáp lưới custom cao cấp</span>
           </div>
-          <a class="btn secondary small" href="models.html">Xem bộ sưu tập mô hình →</a>
-        </div>
-        <div class="bento-visual">
-          <img src="${img('combo-printer-figure.png')}" alt="3D Printing & Figure">
+          <a class="service-card-action" href="pc.html">Khám phá các mẫu PC Build →</a>
         </div>
       </div>
 
-      <div class="bento-item">
-        <div class="bento-card-compact">
-          <img class="compact-icon-img" src="${img('gpu-white-rgb.png')}" alt="Nâng cấp VGA">
-          <h4>Nâng Cấp & Tối Ưu Linh Kiện</h4>
-          <p>Tư vấn nâng cấp VGA, nâng RAM, bổ sung SSD hoặc đổi sang vỏ case kính nghệ thuật với chi phí tiết kiệm nhất.</p>
-          <a class="compact-link" href="contact.html?type=upgrade">Tư vấn nâng cấp →</a>
+      <!-- 02: In 3D Resin 8K -->
+      <div class="service-quad-card tech-block-item" data-world-block="2">
+        <div class="service-card-glow purple"></div>
+        <div class="service-card-top">
+          <span class="service-pill-badge purple">✦ ĐỘC BẢN SÁNG TẠO</span>
+          <div class="service-visual-wrap">
+            <img class="service-card-img" src="${img('combo-printer-figure.png')}" alt="3D Printing & Figure">
+          </div>
+        </div>
+        <div class="service-card-body">
+          <h3>In Mô Hình 3D Resin 8K</h3>
+          <p>Hiện thực hóa nhân vật anime, game và linh kiện trang trí độc quyền. Độ phân giải 8K cho bề mặt láng mịn không tì vết.</p>
+          <div class="service-spec-chips">
+            <span class="spec-tag">✓ Chi tiết tinh xảo 0.02mm</span>
+            <span class="spec-tag">✓ Sơn phủ mỹ thuật thủ công</span>
+          </div>
+          <a class="service-card-action purple" href="models.html">Xem bộ sưu tập mô hình →</a>
         </div>
       </div>
 
-      <div class="bento-item">
-        <div class="bento-card-compact">
-          <img class="compact-icon-img" src="${img('gear-setup-white.png')}" alt="Setup gear">
-          <h4>Setup Góc Máy & Gear Đồng Bộ</h4>
-          <p>Hỗ trợ lựa chọn bàn nâng hạ, ghế công thái học, đèn ambient RGB và gear tone-sur-tone chuẩn gu.</p>
-          <a class="compact-link" href="contact.html?type=other">Tối ưu góc máy →</a>
+      <!-- 03: Nâng cấp linh kiện -->
+      <div class="service-quad-card tech-block-item" data-world-block="3">
+        <div class="service-card-glow cyan"></div>
+        <div class="service-card-top">
+          <span class="service-pill-badge cyan">✦ TỐI ƯU HIỆU NĂNG</span>
+          <div class="service-visual-wrap">
+            <img class="service-card-img" src="${img('gpu-white-rgb.png')}" alt="Nâng cấp VGA">
+          </div>
+        </div>
+        <div class="service-card-body">
+          <h3>Nâng Cấp & Tối Ưu</h3>
+          <p>Tư vấn nâng cấp VGA, bổ sung RAM DDR5, thêm SSD NVMe Gen5 hoặc đổi vỏ case kính nghệ thuật với chi phí hợp lý nhất.</p>
+          <div class="service-spec-chips">
+            <span class="spec-tag">✓ Chống nghẽn cổ chai</span>
+            <span class="spec-tag">✓ Đổi case nghệ thuật</span>
+          </div>
+          <a class="service-card-action" href="contact.html?type=upgrade">Tư vấn nâng cấp →</a>
+        </div>
+      </div>
+
+      <!-- 04: Setup Gear -->
+      <div class="service-quad-card tech-block-item" data-world-block="4">
+        <div class="service-card-glow pink"></div>
+        <div class="service-card-top">
+          <span class="service-pill-badge pink">✦ ĐỒNG BỘ GÓC MÁY</span>
+          <div class="service-visual-wrap">
+            <img class="service-card-img" src="${img('gear-setup-white.png')}" alt="Setup gear">
+          </div>
+        </div>
+        <div class="service-card-body">
+          <h3>Setup Góc Máy & Gear</h3>
+          <p>Hỗ trợ lựa chọn bàn nâng hạ thông minh, ghế công thái học, đèn ambient RGB Aura Sync và gear tone-sur-tone chuẩn gu.</p>
+          <div class="service-spec-chips">
+            <span class="spec-tag">✓ Công thái học VIP</span>
+            <span class="spec-tag">✓ Đèn Ambient RGB</span>
+          </div>
+          <a class="service-card-action" href="contact.html?type=other">Tối ưu góc máy →</a>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="cyber-section-divider"></div>
 
   <!-- 3. INTERACTIVE CONFIGURATOR: DỰ TOÁN CẤU HÌNH THEO NHU CẦU -->
   <section class="container section home-section-stage" id="configurator">
@@ -1322,6 +1561,8 @@ function home() {
     </div>
   </section>
 
+  <div class="cyber-section-divider"></div>
+
   <!-- 4. DUAL SHOWCASE SPLIT BANNERS -->
   <section class="container section home-section-stage" id="showcase">
     <div class="section-title-center reveal" style="margin-bottom: 24px;">
@@ -1359,6 +1600,8 @@ function home() {
     </div>
   </section>
 
+  <div class="cyber-section-divider"></div>
+
   <!-- 5. FEATURED PRODUCTS: CÁC MẪU NỔI BẬT ĐẦY ĐỦ -->
   <section class="container section home-section-stage" id="products">
     <div class="title-row" style="margin-bottom: 20px;">
@@ -1373,6 +1616,8 @@ function home() {
       ${[items[0], items[1], items[6], items[7]].map(card).join('')}
     </div>
   </section>
+
+  <div class="cyber-section-divider"></div>
 
   <!-- 6. CRAFTSMANSHIP PROCESS: QUY TRÌNH CHUẨN 4 BƯỚC -->
   <section class="container section home-section-stage" id="process">
@@ -1409,6 +1654,8 @@ function home() {
     </div>
   </section>
 
+  <div class="cyber-section-divider"></div>
+
   <!-- 7. FINAL CALL TO ACTION -->
   <section class="container section home-section-stage final-cta-section reveal" id="cta">
     <div class="final-cta-surface">
@@ -1438,7 +1685,7 @@ function catalog(which) {
     pc ? 'pc' : 'figure',
     `
 <main>
-  <section class="hero inner" style="background-image:url('${img(pc ? 'pcstudio.webp' : 'studio3d.webp')}')">
+  <section class="hero inner">
     <div class="container hero-content">
       <div class="hero-copy reveal">
         <span class="eyebrow">Trang chủ › ${pc ? 'PC Build' : 'Mô hình 3D'}</span>
@@ -1454,20 +1701,20 @@ function catalog(which) {
   <div class="container">
     <div class="filters" id="filterRow">
       ${(pc
-        ? [
-            ['all', 'Tất cả'],
-            ['gaming', 'Gaming & Esports'],
-            ['creative', 'Đồ họa & 3D'],
-            ['office', 'Văn phòng & Tối giản']
-          ]
-        : [
-            ['all', 'Tất cả'],
-            ['figure', 'Figure có sẵn'],
-            ['service', 'Dịch vụ in theo yêu cầu']
-          ]
-      )
-        .map(([k, v]) => `<button data-filter="${k}" class="chip ${k === 'all' ? 'active' : ''}">${v}</button>`)
-        .join('')}
+      ? [
+        ['all', 'Tất cả'],
+        ['gaming', 'Gaming & Esports'],
+        ['creative', 'Đồ họa & 3D'],
+        ['office', 'Văn phòng & Tối giản']
+      ]
+      : [
+        ['all', 'Tất cả'],
+        ['figure', 'Figure có sẵn'],
+        ['service', 'Dịch vụ in theo yêu cầu']
+      ]
+    )
+      .map(([k, v]) => `<button data-filter="${k}" class="chip ${k === 'all' ? 'active' : ''}">${v}</button>`)
+      .join('')}
     </div>
 
     <div class="catalog-layout">
@@ -1566,8 +1813,8 @@ function detail() {
       </div>
       <div class="thumbs">
         ${[x.img, x.category === 'pc' ? 'pc-white-rgb.png' : 'figure-crystal-blue.png', x.category === 'pc' ? 'combo-pc-figure.png' : 'figure-fairy-stand.png']
-          .map((a, i) => `<button class="${i === 0 ? 'active' : ''}" data-img="${a}"><img src="${img(a)}" alt="Thumb"></button>`)
-          .join('')}
+      .map((a, i) => `<button class="${i === 0 ? 'active' : ''}" data-img="${a}"><img src="${img(a)}" alt="Thumb"></button>`)
+      .join('')}
       </div>
     </div>
     
@@ -1579,9 +1826,8 @@ function detail() {
       
       <div class="surface config">
         <h3>${x.category === 'pc' ? 'Tùy chọn cấu hình tham khảo' : 'Tùy chọn in ấn & hoàn thiện'}</h3>
-        ${
-          x.category === 'pc'
-            ? `<label>Vi xử lý (CPU)</label>
+        ${x.category === 'pc'
+      ? `<label>Vi xử lý (CPU)</label>
                <select class="form-field"><option>Intel Core i5-14600KF</option><option>Intel Core i7-14700K</option><option>AMD Ryzen 7 7800X3D</option></select>
                <label>Card đồ họa (VGA)</label>
                <select class="form-field"><option>RTX 4060 Ti White 8GB</option><option>RTX 4070 Ti Super White 16GB</option><option>RTX 4080 Super White</option></select>
@@ -1589,13 +1835,13 @@ function detail() {
                <select class="form-field"><option>32GB DDR5 6000MHz White RGB</option><option>64GB DDR5 6400MHz White RGB</option></select>
                <label>Tản nhiệt nước (AIO)</label>
                <select class="form-field"><option>AIO 360 Liquid ARGB White</option><option>AIO 240 Liquid ARGB White</option></select>`
-            : `<label>Kích thước mô hình</label>
+      : `<label>Kích thước mô hình</label>
                <select class="form-field"><option>Cao 18cm (Tỷ lệ 1/10)</option><option>Cao 25cm (Tỷ lệ 1/7)</option><option>Cao 32cm (Tỷ lệ 1/6)</option></select>
                <label>Vật liệu chế tác</label>
                <select class="form-field"><option>Resin 8K Cao Cấp (Bề mặt siêu láng)</option><option>Resin Trong Suốt Pha Lê</option></select>
                <label>Mức độ hoàn thiện</label>
                <select class="form-field"><option>Sơn màu nghệ thuật thủ công</option><option>Phôi thô đánh bóng sẵn</option></select>`
-        }
+    }
       </div>
     </div>
 
@@ -1644,7 +1890,7 @@ function contact() {
     'contact',
     `
 <main>
-  <section class="hero inner" style="background-image:url('${img('showroom.webp')}')">
+  <section class="hero inner">
     <div class="container hero-content">
       <div class="hero-copy reveal">
         <span class="eyebrow">NEXUS PC › LIÊN HỆ & TƯ VẤN</span>
@@ -1712,7 +1958,7 @@ function contact() {
     e.preventDefault();
     const d = new FormData(e.target);
     let s = `=== YÊU CẦU TƯ VẤN NEXUS PC ===\nHọ tên: ${d.get('name')}\nSố liên hệ: ${d.get('phone')}\nNhu cầu: ${d.get('type')}\nNgân sách: ${d.get('budget')}\nGhi chú: ${d.get('note')}\nThời gian: ${new Date().toLocaleString('vi-VN')}`;
-    
+
     $('#requestResult').innerHTML = `
       <div style="background:rgba(0,102,255,0.08);border:1px solid #b5d4fe;padding:16px;border-radius:14px;margin-top:12px;">
         <p style="color:#0052e0;font-weight:800;margin-bottom:8px;">✓ Đã tạo thành công nội dung yêu cầu!</p>
