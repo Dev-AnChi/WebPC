@@ -307,7 +307,6 @@ function initEffects() {
       });
     }
 
-    let pAnimId;
     function renderParticles() {
       ctx.clearRect(0, 0, width, height);
 
@@ -331,7 +330,7 @@ function initEffects() {
         ctx.fill();
       });
 
-      pAnimId = requestAnimationFrame(renderParticles);
+      requestAnimationFrame(renderParticles);
     }
     renderParticles();
   }
@@ -435,13 +434,6 @@ function initHeroShowcase() {
 
   if (!heroStage || !heroImg) return;
 
-  let currentModeKey = 'aurora';
-  let targetRotX = 0;
-  let targetRotY = 0;
-  let currentRotX = 0;
-  let currentRotY = 0;
-
-  // Render Hotspots for a specific mode
   function renderHotspots(modeData) {
     if (!heroHotspotsWrap) return;
     heroHotspotsWrap.innerHTML = modeData.hotspots
@@ -465,16 +457,11 @@ function initHeroShowcase() {
       .join('');
   }
 
-  // Switch Mode Function
   function switchHeroMode(key) {
     const data = heroModes[key];
     if (!data) return;
-    currentModeKey = key;
 
-    // Active button state
     modeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.mode === key));
-
-    // Shimmer effect on switch
     heroStage.classList.add('mode-switching');
 
     setTimeout(() => {
@@ -484,7 +471,6 @@ function initHeroShowcase() {
       if (heroTagline) heroTagline.textContent = data.tagline;
       if (heroBadge) heroBadge.textContent = data.badge;
 
-      // Update Specs
       if (heroSpecsList) {
         heroSpecsList.innerHTML = data.specs
           .map(
@@ -498,37 +484,30 @@ function initHeroShowcase() {
           .join('');
       }
 
-      // Update Stage Pedestal Glow
       heroStage.style.setProperty('--stage-glow', data.auraGlow);
       heroStage.style.setProperty('--stage-accent', data.accentColor);
-
-      // Render new hotspots
       renderHotspots(data);
-
       heroStage.classList.remove('mode-switching');
     }, 180);
   }
 
-  // Bind Mode Buttons
   modeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       switchHeroMode(btn.dataset.mode);
     });
   });
 
-  // Initial render of hotspots & specs
   switchHeroMode('aurora');
 
-  // Mouse Parallax on Hero Stage
+  let targetRotX = 0, targetRotY = 0, currentRotX = 0, currentRotY = 0;
   const heroWrapper = heroStage.closest('.hero');
   if (heroWrapper) {
     heroWrapper.addEventListener('mousemove', e => {
       const rect = heroWrapper.getBoundingClientRect();
       const normX = (e.clientX - rect.left) / rect.width - 0.5;
       const normY = (e.clientY - rect.top) / rect.height - 0.5;
-
-      targetRotY = normX * 10; // Max tilt 10deg
-      targetRotX = -normY * 8;  // Max tilt 8deg
+      targetRotY = normX * 10;
+      targetRotX = -normY * 8;
     });
 
     heroWrapper.addEventListener('mouseleave', () => {
@@ -537,19 +516,16 @@ function initHeroShowcase() {
     });
   }
 
-  // Smooth Animation Loop
   function animateShowcase() {
     currentRotX += (targetRotX - currentRotX) * 0.08;
     currentRotY += (targetRotY - currentRotY) * 0.08;
 
     const scrollY = window.scrollY;
-    // Elegant compression as user scrolls down
     const scrollFactor = Math.min(1, Math.max(0, scrollY / 500));
     const translateY = scrollFactor * 40;
     const scale = 1 - scrollFactor * 0.05;
 
     heroStage.style.transform = `perspective(1200px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
-
     requestAnimationFrame(animateShowcase);
   }
   animateShowcase();
@@ -651,19 +627,493 @@ function initConfigurator() {
     });
   });
 
-  // Default render
   renderPreset('gaming');
 }
 
+// ==========================================================================
+// INTERACTIVE ROBOT SCROLL JOURNEY & PREVIEW CONTROLLER
+// ==========================================================================
+// ==========================================================================
+// INTERACTIVE ROBOT SCROLL JOURNEY & CINEMATIC STAGE FLIGHT CONTROLLER
+// ==========================================================================
+let globalGoToStage = null;
+
+function initRobotScrollJourney() {
+  const robotEl = document.getElementById('nexusRobotCompanion');
+  const speechBubble = document.getElementById('robotSpeechBubble');
+  const speechText = document.getElementById('robotSpeechText');
+  const holoEmitter = document.getElementById('robotHoloEmitter');
+  const scanBeam = document.getElementById('robotScanBeam');
+  const eyeScreen = document.getElementById('robotScreenOverlay');
+
+  if (!robotEl) return;
+
+  if (window.gsap && window.MotionPathPlugin) {
+    gsap.registerPlugin(MotionPathPlugin);
+  }
+
+  // Safe landing stations that alternate dynamically across sections ("di chuyển qua lại")
+  function getStations() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const isMobile = w < 850;
+
+    if (isMobile) {
+      return {
+        0: { x: w * 0.84, y: h * 0.16, facing: 'left' },
+        1: { x: w * 0.84, y: h * 0.26, facing: 'left' },
+        2: { x: w * 0.84, y: h * 0.32, facing: 'left' },
+        3: { x: w * 0.84, y: h * 0.26, facing: 'left' },
+        4: { x: w * 0.84, y: h * 0.70, facing: 'left' }
+      };
+    }
+
+    // On Desktop: Alternate between Right and Left outer margin airspace ("di chuyển qua lại")
+    const containerMargin = Math.max(50, (w - Math.min(1480, w * 0.93)) / 2);
+    const leftMarginX = Math.max(70, Math.min(110, containerMargin / 2));
+    const rightMarginX = Math.min(w - 70, Math.max(w - 110, w - containerMargin / 2));
+
+    return {
+      0: { x: Math.min(w - 95, w * 0.86), y: h * 0.22, facing: 'left' },   // Stage 0 (Hero): Upper Right
+      1: { x: leftMarginX,                y: h * 0.25, facing: 'right' },  // Stage 1 (Services Bento): Left Margin
+      2: { x: rightMarginX,               y: h * 0.30, facing: 'left' },   // Stage 2 (Configurator): Right Margin
+      3: { x: leftMarginX,                y: h * 0.28, facing: 'right' },  // Stage 3 (Showcase Banners): Left Margin
+      4: { x: rightMarginX,               y: h * 0.24, facing: 'left' },   // Stage 4 (Featured Products): Right Margin
+      5: { x: leftMarginX,                y: h * 0.28, facing: 'right' },  // Stage 5 (Craftsmanship Process): Left Margin
+      6: { x: rightMarginX,               y: h * 0.52, facing: 'left' }    // Stage 6 (Final CTA): Right Margin
+    };
+  }
+
+  let speechFadeTimer = null;
+  let effectTimer = null;
+  let currentStageIndex = 0;
+  let isFlying = false;
+
+  const stageDialogues = [
+    'Xin chào! Mình là NEXUS Bot ✨ Cùng khám phá dàn máy ước mơ nhé!',
+    'Khu vực PC Build độc quyền nè! Đi dây giấu kín cực chuẩn ⚡',
+    'Xem chip & GPU khủng ở đây nhé! Cân mượt mọi tựa game 4K 🎮',
+    'Hai tuyệt tác đỉnh cao: PC Panoramic và Xưởng In 3D Độc Bản! 💎',
+    'Top sản phẩm tuyển chọn! Cấu hình tối ưu và figure siêu chi tiết ✨',
+    'Quy trình 4 bước chuẩn chỉ, bảo hành 1-đổi-1 an tâm tuyệt đối! 🛡️',
+    'Sẵn sàng build góc máy trong mơ chưa? Nhắn ngay cho chúng mình nha! ✉️'
+  ];
+
+  function showSpeech(text, duration = 3500) {
+    if (!speechBubble || !speechText) return;
+    speechText.textContent = text;
+    speechBubble.classList.add('bubble-visible');
+    clearTimeout(speechFadeTimer);
+    speechFadeTimer = setTimeout(() => {
+      speechBubble.classList.remove('bubble-visible');
+    }, duration);
+  }
+
+  // Set initial position
+  const initialStations = getStations();
+  const initSt = initialStations[0];
+  gsap.set(robotEl, {
+    xPercent: -50,
+    yPercent: -50,
+    transformOrigin: '50% 50%',
+    x: initSt.x,
+    y: initSt.y,
+    scale: 1,
+    rotateZ: 0
+  });
+  robotEl.classList.add('facing-left');
+  robotEl.classList.remove('facing-right');
+  showSpeech(stageDialogues[0]);
+
+  // Set arrival state & effects
+  function onArrival(stageIdx) {
+    isFlying = false;
+    robotEl.classList.remove('is-flying');
+
+    // Direction facing: if on right half of screen, face left toward content, and vice versa
+    const stations = getStations();
+    const st = stations[stageIdx];
+    if (st && st.x > window.innerWidth * 0.5) {
+      robotEl.classList.add('facing-left');
+      robotEl.classList.remove('facing-right');
+    } else {
+      robotEl.classList.add('facing-right');
+      robotEl.classList.remove('facing-left');
+    }
+
+    // Dynamic eyes per stage
+    if (eyeScreen) {
+      if (stageIdx === 1) eyeScreen.className = 'robot-screen-overlay eye-state-scan';
+      else if (stageIdx === 2) eyeScreen.className = 'robot-screen-overlay eye-state-telemetry';
+      else if (stageIdx === 3) eyeScreen.className = 'robot-screen-overlay eye-state-heart';
+      else if (stageIdx === 4) eyeScreen.className = 'robot-screen-overlay eye-state-scan';
+      else if (stageIdx === 5) eyeScreen.className = 'robot-screen-overlay eye-state-telemetry';
+      else eyeScreen.className = 'robot-screen-overlay eye-state-happy';
+    }
+
+    // Hologram / Scan beam special stage activations
+    if (stageIdx === 2 && holoEmitter) {
+      holoEmitter.classList.add('active');
+    } else if (holoEmitter) {
+      holoEmitter.classList.remove('active');
+    }
+
+    if ((stageIdx === 1 || stageIdx === 4) && scanBeam) {
+      scanBeam.classList.add('active');
+    } else if (scanBeam) {
+      scanBeam.classList.remove('active');
+    }
+
+    // Speech dialogue for current stage
+    if (stageDialogues[stageIdx]) {
+      showSpeech(stageDialogues[stageIdx]);
+    }
+  }
+
+  // CINEMATIC FLIGHT ANIMATION: Scroll page and fly robot 100% CÙNG LÚC (simultaneous lockstep)
+  function flyToStage(targetIdx, targetY, duration = 1.15) {
+    if (targetIdx === currentStageIndex) return;
+    const stations = getStations();
+    const fromSt = stations[currentStageIndex];
+    const toSt = stations[targetIdx];
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    isFlying = true;
+    robotEl.classList.add('is-flying');
+    if (speechBubble) speechBubble.classList.remove('bubble-visible');
+    if (holoEmitter) holoEmitter.classList.remove('active');
+    if (scanBeam) scanBeam.classList.remove('active');
+    if (eyeScreen) eyeScreen.className = 'robot-screen-overlay eye-state-fly';
+
+    // Kill any active robot animations
+    gsap.killTweensOf(robotEl);
+
+    const isDown = targetIdx > currentStageIndex;
+    const isMovingLeft = toSt.x < fromSt.x;
+
+    // Dynamic bank angle: steep dive when descending
+    const bankAngle = isMovingLeft ? -22 : 22;
+
+    // Deep downward dive across the screen when scrolling down ("Lướt xuống trang")
+    const midX = (fromSt.x + toSt.x) / 2 + (isMovingLeft ? -w * 0.06 : w * 0.06);
+    const midY = isDown
+      ? Math.min(h * 0.72, Math.max(fromSt.y, toSt.y) + h * 0.35)
+      : Math.max(h * 0.12, Math.min(fromSt.y, toSt.y) - h * 0.16);
+
+    const flightTl = gsap.timeline({
+      onComplete: () => {
+        currentStageIndex = targetIdx;
+        onArrival(targetIdx);
+      }
+    });
+
+    // 0. Synchronized Page Scroll on the EXACT same timeline starting at frame 0
+    if (typeof targetY === 'number') {
+      const scrollObj = { y: window.scrollY };
+      flightTl.to(scrollObj, {
+        y: targetY,
+        duration: duration,
+        ease: 'power2.inOut',
+        onUpdate: () => {
+          window.scrollTo({ top: scrollObj.y, left: 0, behavior: 'auto' });
+        }
+      }, 0);
+    }
+
+    // 1. Initial take-off burst & steep dive bank at time 0
+    flightTl.to(robotEl, {
+      rotateZ: bankAngle,
+      scale: 0.82,
+      duration: duration * 0.38,
+      ease: 'power2.in'
+    }, 0);
+
+    // 2. Majestic 2.5D curved swoop diving down through the screen at time 0
+    flightTl.to(robotEl, {
+      motionPath: {
+        path: [
+          { x: fromSt.x, y: fromSt.y },
+          { x: midX, y: midY },
+          { x: toSt.x, y: toSt.y }
+        ],
+        curviness: 1.6
+      },
+      duration: duration,
+      ease: 'power2.inOut'
+    }, 0);
+
+    // 3. Flare thrusters to brake, pitch up, expand and buoyant settle
+    flightTl.to(robotEl, {
+      rotateZ: isMovingLeft ? 6 : -6,
+      scale: 1.06,
+      duration: duration * 0.38,
+      ease: 'power1.out'
+    }, duration * 0.62);
+
+    flightTl.to(robotEl, {
+      rotateZ: 0,
+      scale: 1,
+      duration: duration * 0.25,
+      ease: 'back.out(1.5)'
+    }, duration * 0.85);
+  }
+
+  // Handle window resize
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const stations = getStations();
+      const currentSt = stations[currentStageIndex];
+      gsap.to(robotEl, {
+        x: currentSt.x,
+        y: currentSt.y,
+        duration: 0.4,
+        ease: 'power2.out'
+      });
+    }, 150);
+  });
+
+  // Interactive Hover: Show speech
+  robotEl.addEventListener('mouseenter', () => {
+    if (!isFlying) {
+      showSpeech(stageDialogues[currentStageIndex], 3000);
+    }
+  });
+
+  // Interactive Click: Joy Bounce & Easter egg
+  robotEl.addEventListener('click', () => {
+    robotEl.classList.add('robot-joy-bounce');
+    setTimeout(() => robotEl.classList.remove('robot-joy-bounce'), 800);
+
+    const easterQuotes = [
+      'NEXUS PC: Đỉnh cao hiệu năng, thẩm mỹ bậc thầy! 💎',
+      'Được thiết kế tỉ mỉ từng chi tiết cho góc máy của bạn! 🚀',
+      'Cần tư vấn cấu hình hãy nhắn cho chúng mình nhé! ✉️',
+      'In 3D Resin 8K sắc nét từng sợi tóc luôn đó! ✨'
+    ];
+    showSpeech(easterQuotes[Math.floor(Math.random() * easterQuotes.length)], 4000);
+  });
+
+  // Expose flight controller
+  window.nexusFlightController = {
+    flyToStage,
+    getCurrentStage: () => currentStageIndex
+  };
+}
+
+// ==========================================================================
+// SECTION SCROLL SNAP & STAGE TRANSITION COORDINATOR
+// ==========================================================================
+function initSectionScrollSnap() {
+  const stageIds = ['hero', 'services', 'configurator', 'showcase', 'products', 'process', 'cta'];
+  const stages = stageIds.map(id => document.getElementById(id)).filter(Boolean);
+  if (stages.length === 0) return;
+
+  const dots = document.querySelectorAll('.stage-dot');
+  let currentStageIndex = 0;
+  let isSnapping = false;
+  let snapCooldownTimer = null;
+  const FLIGHT_DURATION = 1.15; // 1.15 seconds of synchronized flight & scroll
+
+  function getStageTargetY(index) {
+    if (index === 0) return 0;
+    const stage = stages[index];
+    if (!stage) return 0;
+    return Math.max(0, stage.offsetTop - 75);
+  }
+
+  function updateActiveDot(index) {
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === index);
+    });
+  }
+
+  function goToStage(targetIndex) {
+    if (targetIndex < 0 || targetIndex >= stages.length) return;
+    if (targetIndex === currentStageIndex && !isSnapping) return;
+
+    isSnapping = true;
+    currentStageIndex = targetIndex;
+    updateActiveDot(targetIndex);
+
+    const targetY = getStageTargetY(targetIndex);
+
+    // Trigger 100% concurrent flight & scroll on the exact same timeline
+    if (window.nexusFlightController) {
+      window.nexusFlightController.flyToStage(targetIndex, targetY, FLIGHT_DURATION);
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'auto' });
+    }
+
+    clearTimeout(snapCooldownTimer);
+    snapCooldownTimer = setTimeout(() => {
+      isSnapping = false;
+    }, FLIGHT_DURATION * 1000 + 40);
+  }
+
+  globalGoToStage = goToStage;
+
+  // Click on dots to jump directly to section
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const stageIdx = parseInt(dot.dataset.stage, 10);
+      goToStage(stageIdx);
+    });
+  });
+
+  // Intercept in-page anchor links (e.g. #configurator, #services)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const href = anchor.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const targetId = href.substring(1);
+        const targetIdx = stageIds.indexOf(targetId);
+        if (targetIdx !== -1) {
+          e.preventDefault();
+          goToStage(targetIdx);
+        }
+      }
+    });
+  });
+
+  // Wheel intercept: Clean, deliberate stage-by-stage snap (Không lướt tự do, không dịch chuyển)
+  window.addEventListener('wheel', e => {
+    if (document.body.dataset.page !== 'home') return;
+    if (Math.abs(e.deltaY) < 18) return;
+
+    e.preventDefault();
+    if (isSnapping) return;
+
+    const direction = e.deltaY > 0 ? 1 : -1;
+    const nextIndex = Math.max(0, Math.min(stages.length - 1, currentStageIndex + direction));
+
+    if (nextIndex !== currentStageIndex) {
+      goToStage(nextIndex);
+    }
+  }, { passive: false });
+
+  // Keyboard navigation
+  window.addEventListener('keydown', e => {
+    if (document.body.dataset.page !== 'home') return;
+    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
+      e.preventDefault();
+      if (isSnapping) return;
+      const nextIndex = Math.min(stages.length - 1, currentStageIndex + 1);
+      goToStage(nextIndex);
+    } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
+      e.preventDefault();
+      if (isSnapping) return;
+      const prevIndex = Math.max(0, currentStageIndex - 1);
+      goToStage(prevIndex);
+    }
+  });
+
+  // Touch swipe on mobile
+  let touchStartY = 0;
+  window.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchend', e => {
+    if (document.body.dataset.page !== 'home') return;
+    const touchEndY = e.changedTouches[0].clientY;
+    const diff = touchStartY - touchEndY;
+    if (Math.abs(diff) > 40 && !isSnapping) {
+      const direction = diff > 0 ? 1 : -1;
+      const nextIndex = Math.max(0, Math.min(stages.length - 1, currentStageIndex + direction));
+      if (nextIndex !== currentStageIndex) {
+        goToStage(nextIndex);
+      }
+    }
+  }, { passive: true });
+}
+
 function shell(page, body) {
+  const isHome = page === 'home';
+
   document.body.innerHTML = `
     <canvas id="canvasParticles"></canvas>
     <div class="ambient-spotlight" id="ambientSpotlight"></div>
+
+    ${isHome ? `
+      <!-- Fixed Stage Dots for Section Snapping -->
+      <nav class="home-stage-dots" id="homeStageDots" aria-label="Điều hướng phân khúc">
+        <button class="stage-dot active" data-stage="0" aria-label="Hero"><span class="stage-tooltip">01 · Hero</span></button>
+        <button class="stage-dot" data-stage="1" aria-label="Dịch vụ"><span class="stage-tooltip">02 · Dịch vụ</span></button>
+        <button class="stage-dot" data-stage="2" aria-label="Cấu hình"><span class="stage-tooltip">03 · Cấu hình</span></button>
+        <button class="stage-dot" data-stage="3" aria-label="Tiêu biểu"><span class="stage-tooltip">04 · Tiêu biểu</span></button>
+        <button class="stage-dot" data-stage="4" aria-label="Sản phẩm"><span class="stage-tooltip">05 · Sản phẩm</span></button>
+        <button class="stage-dot" data-stage="5" aria-label="Quy trình"><span class="stage-tooltip">06 · Quy trình</span></button>
+        <button class="stage-dot" data-stage="6" aria-label="Liên hệ"><span class="stage-tooltip">07 · Liên hệ</span></button>
+      </nav>
+
+      <!-- Invisible SVG Motion Path for GSAP MotionPathPlugin -->
+      <svg id="robotMotionCanvas" class="robot-motion-canvas-hidden" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path id="robotFlightTrack" fill="none" />
+      </svg>
+
+      <!-- 2.5D Layered Interactive Robot Companion -->
+      <div id="nexusRobotCompanion" class="nexus-robot-companion" aria-label="NEXUS Robot Mascot">
+        <!-- Buoyant Idle Floating Sub-Container -->
+        <div class="robot-buoyant-rig">
+          <!-- Jet Thruster Exhaust Glow -->
+          <div class="robot-thruster-exhaust">
+            <div class="thruster-ring ring-1"></div>
+            <div class="thruster-ring ring-2"></div>
+            <div class="thruster-flame"></div>
+          </div>
+
+          <!-- Robot Body Sprite Image -->
+          <div class="robot-body-wrapper">
+            <img class="robot-sprite-main" src="assets/robot-mascot.png" alt="NEXUS Robot Companion">
+            
+            <!-- LED Face Screen Overlay with Dynamic Expressions -->
+            <div class="robot-screen-overlay eye-state-happy" id="robotScreenOverlay">
+              <div class="robot-led-eye eye-left"></div>
+              <div class="robot-led-eye eye-right"></div>
+            </div>
+
+            <!-- Holographic Telemetry Projector from Hand -->
+            <div class="robot-holo-emitter" id="robotHoloEmitter">
+              <div class="holo-cone-light"></div>
+              <div class="holo-floating-card">
+                <span class="holo-chip-tag">⚡ HARDWARE TELEMETRY</span>
+                <b>RTX 4070 Ti Super 16G</b>
+                <p>16GB GDDR6X · PCIe 5.0 · DLSS 3.5</p>
+              </div>
+            </div>
+
+            <!-- Laser Scan Beam for 3D Figures -->
+            <div class="robot-scan-beam" id="robotScanBeam">
+              <div class="scan-laser-cone"></div>
+              <div class="scan-reticle-ring"></div>
+            </div>
+          </div>
+
+          <!-- Contextual Robot Speech Bubble -->
+          <div class="robot-speech-bubble" id="robotSpeechBubble">
+            <div class="speech-speaker-row">
+              <span class="speech-badge">AI MASCOT</span>
+              <span class="speech-name">NEXUS-01</span>
+            </div>
+            <p id="robotSpeechText">Xin chào! Mình là NEXUS Bot ✨ Cùng khám phá dàn máy ước mơ nhé!</p>
+          </div>
+        </div>
+      </div>
+    ` : ''}
+
     ${header(page)}
     ${body}
     ${footer()}
   `;
+
   initEffects();
+  if (isHome) {
+    initRobotScrollJourney();
+    initSectionScrollSnap();
+  }
 }
 
 function home() {
@@ -672,7 +1122,7 @@ function home() {
     `
 <main>
   <!-- 1. HERO SHOWCASE: THE HOLO-DECK STAGE -->
-  <section class="hero hero-showcase">
+  <section class="hero hero-showcase home-section-stage" id="hero">
     <div class="container hero-content">
       <div class="hero-copy reveal">
         <div class="eyebrow">
@@ -764,8 +1214,8 @@ function home() {
   </section>
 
   <!-- 2. CORE PILLARS: 4 GIẢI PHÁP TẠO NÊN NEXUS PC -->
-  <section class="container section" id="services">
-    <div class="section-title-center reveal">
+  <section class="container section home-section-stage" id="services">
+    <div class="section-title-center reveal" style="margin-bottom: 24px;">
       <span class="eyebrow">DỊCH VỤ CỐT LÕI</span>
       <h2>Không Gian Giải Pháp <span class="gradient">Công Nghệ Toàn Diện</span></h2>
       <p class="section-sub">Đồng hành cùng bạn từ ý tưởng ban đầu đến góc máy hoàn thiện đẳng cấp nhất.</p>
@@ -827,7 +1277,7 @@ function home() {
   </section>
 
   <!-- 3. INTERACTIVE CONFIGURATOR: DỰ TOÁN CẤU HÌNH THEO NHU CẦU -->
-  <section class="container section" id="configurator">
+  <section class="container section home-section-stage" id="configurator">
     <div class="config-wrapper surface reveal">
       <div class="config-intro">
         <span class="eyebrow">BỘ CÔNG CỤ TƯƠNG TÁC</span>
@@ -873,7 +1323,13 @@ function home() {
   </section>
 
   <!-- 4. DUAL SHOWCASE SPLIT BANNERS -->
-  <section class="container section">
+  <section class="container section home-section-stage" id="showcase">
+    <div class="section-title-center reveal" style="margin-bottom: 24px;">
+      <span class="eyebrow">KHÔNG GIAN NGHỆ THUẬT & CÔNG NGHỆ</span>
+      <h2>Định Hình Không Gian <span class="gradient">Trải Nghiệm Toàn Diện</span></h2>
+      <p class="section-sub">Khám phá hai thế mạnh cốt lõi định hình nên thương hiệu NEXUS PC.</p>
+    </div>
+
     <div class="banner-showcase-grid reveal">
       <div class="showcase-banner pc-banner">
         <div class="banner-overlay"></div>
@@ -903,9 +1359,9 @@ function home() {
     </div>
   </section>
 
-  <!-- 5. FEATURED PRODUCTS: CÁC MẪU NỔI BẬT -->
-  <section class="container section">
-    <div class="title-row">
+  <!-- 5. FEATURED PRODUCTS: CÁC MẪU NỔI BẬT ĐẦY ĐỦ -->
+  <section class="container section home-section-stage" id="products">
+    <div class="title-row" style="margin-bottom: 20px;">
       <div>
         <span class="eyebrow">BỘ SƯU TẬP TIÊU BIỂU</span>
         <h2>Tác Phẩm & Sản Phẩm <span class="gradient">Nổi Bật</span></h2>
@@ -919,8 +1375,8 @@ function home() {
   </section>
 
   <!-- 6. CRAFTSMANSHIP PROCESS: QUY TRÌNH CHUẨN 4 BƯỚC -->
-  <section class="container section" id="process">
-    <div class="section-title-center reveal">
+  <section class="container section home-section-stage" id="process">
+    <div class="section-title-center reveal" style="margin-bottom: 28px;">
       <span class="eyebrow">CAM KẾT CHẤT LƯỢNG</span>
       <h2>Quy Trình Hoàn Thiện <span class="gradient">Chuẩn Mực & Minh Bạch</span></h2>
       <p class="section-sub">Chúng tôi tỉ mỉ trong từng khâu để trao đến bạn sản phẩm vượt mong đợi.</p>
@@ -954,7 +1410,7 @@ function home() {
   </section>
 
   <!-- 7. FINAL CALL TO ACTION -->
-  <section class="container section final-cta-section reveal">
+  <section class="container section home-section-stage final-cta-section reveal" id="cta">
     <div class="final-cta-surface">
       <div class="cta-glow-bg"></div>
       <div class="final-cta-content">
@@ -1060,7 +1516,6 @@ function catalog(which) {
       ? filtered.map(card).join('')
       : '<div class="empty surface">Không có sản phẩm phù hợp bộ lọc. Hãy thử tìm từ khóa khác.</div>';
 
-    // Tilt for newly rendered cards
     const newCards = $$('#list .product');
     newCards.forEach(c => {
       c.addEventListener('mousemove', e => {
