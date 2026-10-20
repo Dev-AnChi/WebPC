@@ -2,96 +2,189 @@ const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 const money = n => Number(n).toLocaleString('vi-VN') + 'đ';
 
+// PRODUCT CATALOG DATA
 const items = [
-  { id: 1, category: 'pc', name: 'NEXUS Aurora Gaming', price: 24990000, desc: 'PC gaming RGB, thiết kế kính trong, cấu hình cân đối.', img: 'pc-white-rgb.png', badge: 'Nổi bật', tags: ['Gaming', '32GB RAM', '1TB SSD'], kind: 'gaming' },
-  { id: 2, category: 'pc', name: 'NEXUS Creator White', price: 32990000, desc: 'Case trắng thanh lịch cho đồ họa và sáng tạo.', img: 'combo-pc-figure.png', badge: 'Mới', tags: ['Đồ họa', '32GB RAM', 'RTX'], kind: 'creative' },
-  { id: 3, category: 'pc', name: 'NEXUS Sky Studio', price: 18990000, desc: 'Góc làm việc gọn đẹp, hiệu năng ổn định.', img: 'pc-white-rgb.png', badge: 'Đề xuất', tags: ['Văn phòng', 'Tiết kiệm'], kind: 'office' },
-  { id: 4, category: 'pc', name: 'NEXUS Dream Setup', price: 39990000, desc: 'Bộ PC gaming cao cấp với không gian thiết kế riêng.', img: 'combo-pc-figure.png', badge: 'Showcase', tags: ['Gaming', 'RGB'], kind: 'gaming' },
-  { id: 5, category: 'pc', name: 'NEXUS Frost White', price: 29990000, desc: 'PC RGB trắng với hệ thống tản nhiệt nổi bật.', img: 'pc-white-rgb.png', badge: 'Mới', tags: ['Gaming', '32GB RAM'], kind: 'gaming' },
-  { id: 6, category: 'pc', name: 'NEXUS Compact Custom', price: 15990000, desc: 'Cấu hình minh họa để tùy chỉnh theo nhu cầu.', img: 'hero.webp', badge: 'Build riêng', tags: ['Văn phòng', 'Tiết kiệm'], kind: 'office' },
-  { id: 7, category: 'figure', name: 'Crystal Blue Fantasy', price: 1290000, desc: 'Figure phong cách pha lê xanh, làm điểm nhấn setup.', img: 'figure-crystal-blue.png', badge: 'Figure', tags: ['Resin', 'Trưng bày'], kind: 'figure' },
-  { id: 8, category: 'figure', name: 'Fairy Crystal Statue', price: 1590000, desc: 'Mô hình fantasy chi tiết dùng để trưng bày.', img: 'figure-fairy-stand.png', badge: 'Yêu thích', tags: ['Resin', 'Fantasy'], kind: 'figure' },
-  { id: 9, category: 'figure', name: 'Ice Cat Girl', price: 890000, desc: 'Mô hình chủ đề anime tông trắng xanh.', img: 'cat.webp', badge: 'Mới', tags: ['Anime', 'Decor'], kind: 'figure' },
-  { id: 10, category: 'figure', name: 'NEXUS Studio Edition', price: 1990000, desc: 'Tác phẩm mô hình lấy cảm hứng studio in 3D.', img: 'combo-printer-figure.png', badge: 'Studio', tags: ['In theo yêu cầu'], kind: 'service' },
-  { id: 11, category: 'figure', name: 'Custom Resin Figure', price: 0, desc: 'Nhận in mô hình theo bản vẽ hoặc yêu cầu.', img: 'printer-figure.png', badge: 'Đặt riêng', tags: ['Resin', 'Tư vấn'], kind: 'service' },
-  { id: 12, category: 'figure', name: 'Creative Idol Concept', price: 990000, desc: 'Mẫu minh họa phong cách anime cho bộ sưu tập.', img: 'figure-crystal-blue.png', badge: 'Concept', tags: ['Anime', 'Resin'], kind: 'figure' }
+  { id: 1, category: 'pc', name: 'NEXUS Aurora Gaming', price: 24990000, desc: 'PC gaming RGB kính vô cực Panoramic 270°, tản nhiệt nước AIO 360.', img: 'pc-white-rgb.png', badge: 'Nổi bật', tags: ['Gaming 2K', 'Core i5-14600KF', 'RTX 4060Ti White', '32GB DDR5'], kind: 'gaming' },
+  { id: 2, category: 'pc', name: 'NEXUS Creator White', price: 34990000, desc: 'Setup đồ họa & 3D render chuyên nghiệp kết hợp figure pha lê.', img: 'combo-pc-figure.png', badge: 'Showcase', tags: ['Đồ họa 3D', 'Core i7-14700K', 'RTX 4070Ti Super', '64GB DDR5'], kind: 'creative' },
+  { id: 3, category: 'pc', name: 'NEXUS Sky Studio', price: 18990000, desc: 'Góc làm việc hiện đại, vận hành êm ái, tối ưu không gian bàn làm việc.', img: 'pc-white-rgb.png', badge: 'Đề xuất', tags: ['Văn phòng VIP', 'Core i5-13400', '16GB RAM', '1TB NVMe'], kind: 'office' },
+  { id: 4, category: 'pc', name: 'NEXUS Dream Extreme', price: 45990000, desc: 'Cỗ máy gaming tối thượng, tản nhiệt nước đồng bộ đèn ARGB Aura Sync.', img: 'combo-pc-figure.png', badge: 'Flagship', tags: ['Ultra 4K', 'Core i9-14900K', 'RTX 4080 Super', '64GB RGB'], kind: 'gaming' },
+  { id: 5, category: 'pc', name: 'NEXUS Frost Valkyrie', price: 29990000, desc: 'Tone trắng tuyết sang trọng, cáp bọc lưới custom, luồng gió đối lưu cao.', img: 'pc-white-rgb.png', badge: 'Bán chạy', tags: ['Gaming Esports', 'Ryzen 7 7800X3D', 'RTX 4070 White'], kind: 'gaming' },
+  { id: 6, category: 'pc', name: 'NEXUS Compact Mini', price: 16990000, desc: 'Case nhỏ gọn thanh lịch, phù hợp góc làm việc tinh tế và tối giản.', img: 'hero.webp', badge: 'Build riêng', tags: ['Mini-ITX', 'Tiết kiệm điện', 'Gọn gàng'], kind: 'office' },
+  { id: 7, category: 'figure', name: 'Crystal Blue Fantasy', price: 1290000, desc: 'Figure phong cách pha lê xanh, hoàn thiện resin 8K siêu sắc nét.', img: 'figure-crystal-blue.png', badge: 'Figure 8K', tags: ['Resin Cao Cấp', 'Đế Led Pha Lê', 'Trưng bày Setup'], kind: 'figure' },
+  { id: 8, category: 'figure', name: 'Fairy Crystal Statue', price: 1590000, desc: 'Mô hình fantasy điêu khắc tinh xảo, sơn phủ mờ chống bám vân tay.', img: 'figure-fairy-stand.png', badge: 'Yêu thích', tags: ['Resin 8K', 'Chi tiết tóc siêu nét', 'Fantasy'], kind: 'figure' },
+  { id: 9, category: 'figure', name: 'Ice Cat Girl Anime', price: 890000, desc: 'Mô hình anime tone trắng xanh pastel, điểm nhấn dễ thương cho góc máy.', img: 'cat.webp', badge: 'Mới', tags: ['Anime Decor', 'Resin UV', 'Trưng bày VGA'], kind: 'figure' },
+  { id: 10, category: 'figure', name: 'NEXUS Studio Edition', price: 1990000, desc: 'Tác phẩm độc bản sản xuất giới hạn kèm chứng nhận số thứ tự.', img: 'combo-printer-figure.png', badge: 'Studio Limit', tags: ['Sơn thủ công', 'Resin 8K', 'Độc bản'], kind: 'service' },
+  { id: 11, category: 'figure', name: 'Dịch Vụ In 3D Theo File', price: 0, desc: 'Nhận in mô hình resin độ chính xác 0.02mm theo file 3D hoặc ý tưởng riêng.', img: 'printer-figure.png', badge: 'Đặt riêng', tags: ['Độ chính xác 0.02mm', 'Resin 8K', 'Tư vấn 1-1'], kind: 'service' },
+  { id: 12, category: 'figure', name: 'Creative Idol Concept', price: 990000, desc: 'Mẫu thiết kế mô hình thần tượng phong cách tương lai Cyberpunk.', img: 'figure-crystal-blue.png', badge: 'Concept', tags: ['Cyberpunk', 'Resin', 'Góc máy đẹp'], kind: 'figure' }
 ];
 
 const img = n => 'assets/' + n;
 
-// Tech Vector Sprites & Hologram Generators
-const sprites = {
-  fan: () => `
-    <div class="tech-sprite sprite-fan" title="ARGB Infinity Fan">
-      <svg viewBox="0 0 100 100" class="fan-svg">
-        <defs>
-          <linearGradient id="fanGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#00d2ff"/>
-            <stop offset="50%" stop-color="#9055ff"/>
-            <stop offset="100%" stop-color="#f472b6"/>
-          </linearGradient>
-        </defs>
-        <circle cx="50" cy="50" r="46" class="fan-frame"/>
-        <circle cx="50" cy="50" r="38" class="fan-ring"/>
-        <circle cx="50" cy="50" r="28" class="fan-ring-inner"/>
-        <g class="fan-blades">
-          <path d="M 50 50 C 45 35, 30 25, 20 20 C 35 15, 48 25, 50 50 Z" class="blade"/>
-          <path d="M 50 50 C 65 45, 75 30, 80 20 C 85 35, 75 48, 50 50 Z" class="blade"/>
-          <path d="M 50 50 C 55 65, 70 75, 80 80 C 65 85, 52 75, 50 50 Z" class="blade"/>
-          <path d="M 50 50 C 35 55, 25 70, 20 80 C 15 65, 25 52, 50 50 Z" class="blade"/>
-        </g>
-        <circle cx="50" cy="50" r="14" class="fan-hub"/>
-        <circle cx="50" cy="50" r="6" class="fan-hub-core"/>
-      </svg>
-    </div>`,
-  ram: () => `
-    <div class="tech-sprite sprite-ram" title="DDR5 6400MHz RGB">
-      <div class="ram-heatsink">
-        <div class="ram-rgb-bar"></div>
-        <div class="ram-body">
-          <span class="ram-text">DDR5</span>
-          <div class="ram-notch"></div>
-        </div>
-        <div class="ram-pins"></div>
-      </div>
-    </div>`,
-  cpu: () => `
-    <div class="tech-sprite sprite-cpu" title="Holographic CPU Die">
-      <svg viewBox="0 0 80 80" class="cpu-svg">
-        <rect x="6" y="6" width="68" height="68" rx="8" class="cpu-substrate"/>
-        <rect x="18" y="18" width="44" height="44" rx="4" class="cpu-die"/>
-        <path d="M 6 25 H 18 M 6 40 H 18 M 6 55 H 18 M 62 25 H 74 M 62 40 H 74 M 62 55 H 74" class="circuit-trace"/>
-        <path d="M 25 6 V 18 M 40 6 V 18 M 55 6 V 18 M 25 62 V 74 M 40 62 V 74 M 55 62 V 74" class="circuit-trace"/>
-        <circle cx="40" cy="40" r="8" class="cpu-core-pulse"/>
-      </svg>
-    </div>`,
-  crystal: (shardClass = 'shard-1') => `
-    <div class="tech-sprite sprite-crystal ${shardClass}" title="Prismatic Crystal Shard">
-      <div class="crystal-facet"></div>
-    </div>`,
-  ribbon: () => `
-    <svg viewBox="0 0 600 600" class="light-ribbon-orbit">
-      <defs>
-        <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.9"/>
-          <stop offset="50%" stop-color="#9055ff" stop-opacity="0.8"/>
-          <stop offset="100%" stop-color="#f472b6" stop-opacity="0.9"/>
-        </linearGradient>
-        <linearGradient id="ribbonGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#f472b6" stop-opacity="0.8"/>
-          <stop offset="50%" stop-color="#0066ff" stop-opacity="0.7"/>
-          <stop offset="100%" stop-color="#00f2fe" stop-opacity="0.85"/>
-        </linearGradient>
-      </defs>
-      <path d="M 100 320 C 20 180, 160 30, 360 40 C 560 50, 610 220, 500 360 C 390 500, 190 460, 100 320 Z" class="ribbon-path"/>
-      <path d="M 500 140 C 620 270, 460 440, 270 410 C 90 370, 20 210, 130 100 C 240 -10, 410 -10, 500 140 Z" class="ribbon-path-2"/>
-    </svg>`
+// HERO SHOWCASE PRESETS DATA
+const heroModes = {
+  aurora: {
+    title: 'NEXUS Aurora Gaming',
+    badge: 'PC GAMING FLAGSHIP',
+    accentColor: '#00d2ff',
+    auraGlow: 'rgba(0, 210, 255, 0.35)',
+    tagline: 'Cỗ máy toàn cảnh Panoramic 270° · Tản nước ARGB Aura Sync',
+    desc: 'Thiết kế kính trong suốt hai mặt không cột chắn góc, trang bị luồng gió 9 quạt ARGB đối lưu và linh kiện tone trắng nguyên khối cực kỳ cuốn hút.',
+    image: 'pc-white-rgb.png',
+    specs: [
+      { label: 'CPU', val: 'Intel Core i7-14700KF' },
+      { label: 'VGA', val: 'RTX 4070 Ti Super 16G White' },
+      { label: 'RAM', val: '32GB DDR5-6400 ARGB' },
+      { label: 'Tản nhiệt', val: 'AIO 360 Liquid Infinity Mirror' }
+    ],
+    hotspots: [
+      { top: '24%', left: '50%', title: 'AIO Liquid 360', desc: 'Mặt gương vô cực Infinity Mirror, 3 fan ARGB thủy lực êm ái dưới 22dB.' },
+      { top: '63%', left: '46%', title: 'VGA RTX White Dựng Đứng', desc: 'Cáp Riser PCIe 4.0 bọc bạc chống nhiễu, show trọn dải LED 3 quạt ARGB.' },
+      { top: '42%', left: '68%', title: 'DDR5 6400MHz XMP 3.0', desc: 'Đồng bộ hiệu ứng led Asus Aura / MSI Mystic Light qua phần mềm.' },
+      { top: '78%', left: '26%', title: 'Kính Panoramic 270°', desc: 'Kính cường lực vát góc siêu trong, không dùng trụ kim loại cản tầm nhìn.' }
+    ]
+  },
+  combo: {
+    title: 'NEXUS Creator & Crystal Figure',
+    badge: 'SHOWCASE NGHỆ THUẬT',
+    accentColor: '#a855f7',
+    auraGlow: 'rgba(168, 85, 247, 0.4)',
+    tagline: 'Sự giao thoa hoàn hảo giữa PC Đỉnh Cao & Figure Điêu Khắc 3D',
+    desc: 'Mang tinh hoa nghệ thuật vào góc máy: Mô hình Crystal Blue sắc nét từng đường nét seated bên cạnh cỗ máy gaming tone trắng băng tuyết.',
+    image: 'combo-pc-figure.png',
+    specs: [
+      { label: 'Chủ đề', val: 'Crystal Blue & Snow White' },
+      { label: 'Figure', val: 'Resin 8K Điêu Khắc Thủ Công' },
+      { label: 'Đế Led', val: 'Pha Lê Tròn Chiếu Sáng Đa Tầng' },
+      { label: 'Hiệu năng', val: 'Render 3D & Gaming 4K Siêu Mượt' }
+    ],
+    hotspots: [
+      { top: '56%', left: '33%', title: 'Figure Resin 8K Thủ Công', desc: 'Tái hiện sắc nét từng sợi tóc và nếp gấp váy, phủ bóng nano chống trầy.' },
+      { top: '38%', left: '74%', title: 'Case PC Tone Trắng Đồng Điệu', desc: 'Ánh sáng ARGB xanh pha lê đồng bộ hoàn toàn với màu sắc mô hình.' },
+      { top: '88%', left: '32%', title: 'Đế Pha Lê Chiếu Đèn LED', desc: 'Phản chiếu hiệu ứng ánh sáng quang sai lung linh lên không gian làm việc.' }
+    ]
+  },
+  printer: {
+    title: 'Trạm In 3D Resin 8K Ultra',
+    badge: 'DỊCH VỤ IN 3D CHUYÊN NGHIỆP',
+    accentColor: '#00f2fe',
+    auraGlow: 'rgba(0, 242, 254, 0.35)',
+    tagline: 'Độ chính xác 0.02mm · Hiện thực hóa mọi bản vẽ & ý tưởng nhân vật',
+    desc: 'Hệ thống máy in 3D công nghệ Resin 8K công nghiệp khép kín, lọc mùi than hoạt tính và kiểm soát nhiệt độ buồng in chuẩn xác cho độ mịn màng bề mặt tuyệt đối.',
+    image: 'printer-figure.png',
+    specs: [
+      { label: 'Độ phân giải', val: 'Màn hình 8K đơn sắc (0.02mm)' },
+      { label: 'Vật liệu', val: 'Resin dẻo chống giòn cao cấp' },
+      { label: 'Xử lý', val: 'Rửa siêu âm & Sấy UV 360°' },
+      { label: 'Dịch vụ', val: 'Sơn phủ chi tiết theo yêu cầu' }
+    ],
+    hotspots: [
+      { top: '28%', left: '50%', title: 'Cụm Đầu In Trục Z Kép', desc: 'Thanh trượt tuyến tính kép khử hoàn toàn rung lắc và vân ngang bề mặt.' },
+      { top: '58%', left: '46%', title: 'Buồng In Nhiệt Độ Cố Định', desc: 'Đảm bảo nhựa resin lưu hóa đồng đều, không bị biến dạng chi tiết nhỏ.' },
+      { top: '80%', left: '26%', title: 'Sản Phẩm Mẫu Hoàn Thiện', desc: 'Bề mặt láng mịn sẵn sàng cho các công đoạn đánh bóng và lên màu.' }
+    ]
+  },
+  gear: {
+    title: 'Góc Máy & Gear White Edition',
+    badge: 'SETUP GEAR ĐỒNG BỘ',
+    accentColor: '#3b82f6',
+    auraGlow: 'rgba(59, 130, 246, 0.35)',
+    tagline: 'Phím cơ Custom · Chuột không dây công thái học · Tai nghe ARGB',
+    desc: 'Hoàn thiện góc setup mơ ước với bộ phụ kiện gaming tone trắng cao cấp, switch bôi trơn sẵn mượt mà và hệ thống led viền huyền ảo.',
+    image: 'gear-setup-white.png',
+    specs: [
+      { label: 'Bàn phím', val: 'Gasket Mount Custom White' },
+      { label: 'Chuột', val: 'Paw3395 26000DPI Siêu Nhẹ 55g' },
+      { label: 'Tai nghe', val: 'Âm thanh vòm 7.1 Surround' },
+      { label: 'Kết nối', val: 'Tri-Mode: 2.4G / BT 5.2 / Type-C' }
+    ],
+    hotspots: [
+      { top: '65%', left: '28%', title: 'Bàn Phím Cơ Vỏ Trong Suốt', desc: 'Keycap PBT Double-shot xuyên led, cấu trúc Gasket tiêu âm đầm tay.' },
+      { top: '78%', left: '72%', title: 'Chuột Gaming Ergonomic', desc: 'Form cầm ôm sát bàn tay, phủ lớp phủ chống mồ hôi và switch quang học.' },
+      { top: '30%', left: '76%', title: 'Headset Vành Nhôm Cao Cấp', desc: 'Đệm tai memory foam thoáng khí, mic khử ồn AI lọc âm trong trẻo.' }
+    ]
+  }
+};
+
+// INTERACTIVE CONFIGURATOR DATA
+const configPresets = {
+  gaming: {
+    name: 'Cấu Hình Esports & Gaming 2K',
+    target: 'Chuyên game FPS, MOBA và game AAA đồ họa cao ở độ phân giải 2K',
+    price: 24990000,
+    cpu: 'Intel Core i5-14600KF (14 nhân 20 luồng, Turbo 5.3GHz)',
+    gpu: 'NVIDIA GeForce RTX 4060 Ti 8GB White OC',
+    ram: '32GB DDR5 6000MHz RGB TeamGroup T-Force (2x16GB)',
+    ssd: '1TB M.2 PCIe Gen4 NVMe (Tốc độ đọc 5000MB/s)',
+    main: 'B760M Steel Legend WiFi White Edition',
+    psu: '750W 80 Plus Bronze / Gold Modular',
+    caseCooler: 'Case Kính Bể Cá Trắng + Tản Nước AIO 240 ARGB',
+    games: [
+      { name: 'CS2 (2K High)', fps: '320+ FPS' },
+      { name: 'Valorant (2K Max)', fps: '450+ FPS' },
+      { name: 'Black Myth: Wukong (2K DLSS)', fps: '85+ FPS' },
+      { name: 'Cyberpunk 2077 (2K RT Ultra)', fps: '78+ FPS' }
+    ]
+  },
+  creative: {
+    name: 'Cấu Hình Đồ Họa 3D & Video 4K',
+    target: 'Chuyên Premiere 4K, After Effects, Blender, 3Ds Max, Photoshop',
+    price: 36990000,
+    cpu: 'Intel Core i7-14700K (20 nhân 28 luồng, Turbo 5.6GHz)',
+    gpu: 'NVIDIA GeForce RTX 4070 Super 12GB GDDR6X',
+    ram: '64GB DDR5 6400MHz Corsair Vengeance White (2x32GB)',
+    ssd: '2TB Kingston KC3000 PCIe 4.0 (Đọc 7000MB/s - Ghi 7000MB/s)',
+    main: 'Z790 White Gaming WiFi',
+    psu: '850W 80 Plus Gold ATX 3.0 PCIe 5.0',
+    caseCooler: 'Case Dual-Chamber Kính Panoramic + Tản Nước AIO 360',
+    games: [
+      { name: 'Blender Viewport', fps: 'Render Siêu Tốc' },
+      { name: 'Premiere Pro 4K', fps: 'Live Playback 100%' },
+      { name: 'Wukong (4K DLSS Balanced)', fps: '75+ FPS' },
+      { name: 'Forza Horizon 5 (4K Extreme)', fps: '110+ FPS' }
+    ]
+  },
+  ai: {
+    name: 'Cấu Hình Streamer & AI Workstation',
+    target: 'Livestream đa nền tảng, chạy Stable Diffusion, V-Tuber, Local LLM',
+    price: 49990000,
+    cpu: 'AMD Ryzen 9 7900X3D hoặc Core i9-14900K',
+    gpu: 'NVIDIA GeForce RTX 4080 Super 16GB GDDR6X White',
+    ram: '64GB DDR5 6400MHz RGB CL32',
+    ssd: '2TB PCIe 4.0 NVMe + 2TB Lưu trữ video stream',
+    main: 'X670E / Z790 Creator WiFi cao cấp',
+    psu: '1000W 80 Plus Platinum Chuẩn ATX 3.0',
+    caseCooler: 'Case Full Tower Trắng Tuyết + Tản Nước AIO 360 LCD Display',
+    games: [
+      { name: 'OBS Stream + Game 2K', fps: '0 Giật Lag' },
+      { name: 'Stable Diffusion XL', fps: '1.8s / bức ảnh' },
+      { name: 'Cyberpunk 2077 (4K Pathtracing)', fps: '80+ FPS' },
+      { name: 'Black Myth (4K Cinematic)', fps: '95+ FPS' }
+    ]
+  },
+  minimal: {
+    name: 'Cấu Hình Tối Giản & Văn Phòng Sang',
+    target: 'Góc làm việc tinh tế, lướt web, xử lý tài liệu, giải trí nhẹ nhàng',
+    price: 15990000,
+    cpu: 'Intel Core i5-13400 (10 nhân 16 luồng)',
+    gpu: 'Intel UHD Graphics 730 hoặc GTX 1650 / RTX 3050',
+    ram: '16GB DDR4/DDR5 3200-5200MHz',
+    ssd: '512GB M.2 NVMe Tốc độ cao',
+    main: 'B760M White Edition',
+    psu: '550W 80 Plus Bronze Chứng nhận chuẩn',
+    caseCooler: 'Case Mini m-ATX Kính cường lực + Fan Led êm ru',
+    games: [
+      { name: 'LOL / FO4 (Max Setting)', fps: '200+ FPS' },
+      { name: 'Khởi động Windows', fps: '5 Giây' },
+      { name: 'Nhiệt độ văn phòng', fps: 'Dưới 48°C' },
+      { name: 'Độ ồn hoạt động', fps: 'Hoàn toàn tĩnh lặng' }
+    ]
+  }
 };
 
 const card = x => `
 <article class="product" data-tilt="card">
   <span class="badge">${x.badge}</span>
-  <span class="product-tech-chip">✦ ${x.category === 'pc' ? 'PCIe 5.0' : 'RESIN 8K'}</span>
+  <span class="product-tech-chip">✦ ${x.category === 'pc' ? 'PCIe 5.0 · ARGB' : 'RESIN 8K · 0.02mm'}</span>
   <figure>
     <img loading="lazy" src="${img(x.img)}" alt="${x.name}">
   </figure>
@@ -104,7 +197,7 @@ const card = x => `
     <div class="price">${x.price ? money(x.price) : 'Liên hệ báo giá'}</div>
     <div class="product-actions">
       <a class="btn primary small" href="product.html?id=${x.id}">Xem chi tiết →</a>
-      <a class="btn small" href="contact.html?type=${x.category}">Tư vấn</a>
+      <a class="btn secondary small" href="contact.html?type=${x.category}">Tư vấn</a>
     </div>
   </div>
 </article>`;
@@ -118,19 +211,20 @@ function header(page) {
       <span class="logoicon">N</span>
       <span>
         <b>NEXUS PC</b>
-        <small>SHOP PC CÁ NHÂN · BUILD · IN 3D</small>
+        <small>PC CUSTOM · HIỆU NĂNG · IN 3D NGHỆ THUẬT</small>
       </span>
     </a>
     <nav class="links">
       <a class="${page === 'home' ? 'active' : ''}" href="index.html">Trang chủ</a>
       <a class="${page === 'pc' ? 'active' : ''}" href="pc.html">PC Build</a>
       <a class="${page === 'figure' ? 'active' : ''}" href="models.html">Mô hình 3D</a>
+      <a href="index.html#configurator">Dự toán cấu hình</a>
       <a href="index.html#services">Dịch vụ</a>
       <a class="${page === 'contact' ? 'active' : ''}" href="contact.html">Liên hệ</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn secondary small" href="index.html#services">⚙ Dịch vụ</a>
-      <a class="btn primary small" href="contact.html">✉ Liên hệ tư vấn →</a>
+      <a class="btn secondary small" href="index.html#configurator">⚡ Tự chọn cấu hình</a>
+      <a class="btn primary small" href="contact.html">✉ Tư vấn ngay →</a>
     </div>
   </div>
 </header>`;
@@ -140,24 +234,44 @@ function footer() {
   return `
 <footer class="foot">
   <div class="container footer-flex">
-    <div>
-      <b>NEXUS PC</b>
-      <p>Shop PC cá nhân kết hợp dịch vụ in mô hình 3D. Đây là website demo với hình minh họa và giá tham khảo giả định, chưa có tồn kho và thanh toán trực tuyến.</p>
+    <div class="foot-col-main">
+      <a href="index.html" class="logo foot-logo">
+        <span class="logoicon">N</span>
+        <span>
+          <b>NEXUS PC</b>
+          <small>NÂNG TẦM GÓC MÁY CÔNG NGHỆ</small>
+        </span>
+      </a>
+      <p>NEXUS PC định hình trải nghiệm PC Gaming và Góc Làm Việc hiện đại: Sự kết hợp giữa cấu hình tối ưu hiệu năng, thẩm mỹ tinh tế và mô hình nghệ thuật in 3D độc bản.</p>
+      <div class="foot-trust-badges">
+        <span>✓ 100% Linh kiện chính hãng</span>
+        <span>✓ Bảo hành tận tâm 36T</span>
+        <span>✓ Hỗ trợ kỹ thuật trọn đời</span>
+      </div>
     </div>
-    <div>
-      <b>Khám phá</b>
-      <p><a href="pc.html">PC Build</a> · <a href="models.html">Mô hình 3D</a> · <a href="contact.html">Liên hệ</a></p>
+    <div class="foot-col">
+      <b>Sản Phẩm & Dịch Vụ</b>
+      <p><a href="pc.html">✦ PC Gaming Cao Cấp</a></p>
+      <p><a href="pc.html">✦ PC Đồ Họa & 3D Render</a></p>
+      <p><a href="models.html">✦ Dịch Vụ In 3D Resin 8K</a></p>
+      <p><a href="models.html">✦ Mô Hình Anime Sưu Tầm</a></p>
     </div>
-    <div>
-      <b>Chăm sóc khách hàng</b>
-      <p>Tư vấn cấu hình · Nâng cấp · In 3D theo yêu cầu</p>
+    <div class="foot-col">
+      <b>Hỗ Trợ Khách Hàng</b>
+      <p><a href="contact.html">Tư vấn cấu hình theo ngân sách</a></p>
+      <p><a href="contact.html">Yêu cầu báo giá in file 3D</a></p>
+      <p><a href="contact.html">Chính sách bảo hành & nâng cấp</a></p>
+      <p><a href="index.html#process">Quy trình làm việc chuẩn</a></p>
     </div>
+  </div>
+  <div class="container foot-bottom">
+    <p>© 2026 NEXUS PC. All rights reserved. Website trải nghiệm tương tác cao cấp.</p>
   </div>
 </footer>`;
 }
 
 function initEffects() {
-  // 1. Particle Canvas System
+  // 1. High Performance Subtle Particle System
   const canvas = document.getElementById('canvasParticles');
   if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -170,29 +284,30 @@ function initEffects() {
     });
 
     const particles = [];
-    const count = Math.min(Math.floor(width / 32), 48);
+    const count = Math.min(Math.floor(width / 36), 36);
 
     const colors = [
-      'rgba(0, 210, 255, 0.45)',
-      'rgba(0, 102, 255, 0.35)',
-      'rgba(168, 85, 247, 0.4)',
-      'rgba(244, 114, 182, 0.35)'
+      'rgba(0, 210, 255, 0.35)',
+      'rgba(0, 102, 255, 0.25)',
+      'rgba(168, 85, 247, 0.3)',
+      'rgba(255, 255, 255, 0.4)'
     ];
 
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        r: Math.random() * 2.2 + 0.8,
+        r: Math.random() * 2 + 0.6,
         color: colors[Math.floor(Math.random() * colors.length)],
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: -Math.random() * 0.55 - 0.2,
-        alpha: Math.random() * 0.7 + 0.3,
-        pulseSpeed: Math.random() * 0.02 + 0.01,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -Math.random() * 0.4 - 0.15,
+        alpha: Math.random() * 0.6 + 0.2,
+        pulseSpeed: Math.random() * 0.02 + 0.008,
         angle: Math.random() * Math.PI * 2
       });
     }
 
+    let pAnimId;
     function renderParticles() {
       ctx.clearRect(0, 0, width, height);
 
@@ -213,18 +328,15 @@ function initEffects() {
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.globalAlpha = Math.max(0, Math.min(1, currentAlpha));
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
         ctx.fill();
-        ctx.shadowBlur = 0;
       });
 
-      requestAnimationFrame(renderParticles);
+      pAnimId = requestAnimationFrame(renderParticles);
     }
     renderParticles();
   }
 
-  // 2. Ambient Mouse Glow Follower
+  // 2. Ambient Mouse Follower Spotlight
   const ambientSpot = document.getElementById('ambientSpotlight');
   if (ambientSpot) {
     let mouseX = window.innerWidth / 2;
@@ -238,15 +350,15 @@ function initEffects() {
     });
 
     function updateAmbient() {
-      spotX += (mouseX - spotX) * 0.08;
-      spotY += (mouseY - spotY) * 0.08;
+      spotX += (mouseX - spotX) * 0.06;
+      spotY += (mouseY - spotY) * 0.06;
       ambientSpot.style.transform = `translate(${spotX - 250}px, ${spotY - 250}px)`;
       requestAnimationFrame(updateAmbient);
     }
     updateAmbient();
   }
 
-  // 3. Header Scroll & Progress Bar
+  // 3. Header Progress Bar & Scrolled State
   const progressBar = document.getElementById('scrollProgress');
   const headerElem = document.getElementById('mainHeader');
 
@@ -264,7 +376,7 @@ function initEffects() {
     }
   });
 
-  // 4. Reveal on Scroll with Smooth Staggering
+  // 4. Reveal on Scroll with Smooth Stagger
   const io = new IntersectionObserver(
     entries => {
       entries.forEach(entry => {
@@ -273,35 +385,33 @@ function initEffects() {
         }
       });
     },
-    { threshold: 0.01, rootMargin: '0px 0px 60px 0px' }
+    { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
   );
   $$('.reveal').forEach(x => {
     const rect = x.getBoundingClientRect();
-    if (rect.top < window.innerHeight + 50) {
+    if (rect.top < window.innerHeight - 30) {
       x.classList.add('visible');
     }
     io.observe(x);
   });
 
-  // 5. 3D Card Tilt & Dynamic Spotlight Reaction
-  const tiltCards = $$('.product, .service, .promo, .contact-card, .feature-strip');
+  // 5. 3D Card Hover Perspective Tilt
+  const tiltCards = $$('.product, .service-card, .promo, .contact-card, .process-card, .bento-item');
   tiltCards.forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // Card spotlight position
       card.style.setProperty('--mouse-x', `${x}px`);
       card.style.setProperty('--mouse-y', `${y}px`);
 
-      // Gentle 3D Tilt calculation
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -5.5;
-      const rotateY = ((x - centerX) / centerX) * 5.5;
+      const rotateX = ((y - centerY) / centerY) * -4;
+      const rotateY = ((x - centerX) / centerX) * 4;
 
-      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+      card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-5px)`;
     });
 
     card.addEventListener('mouseleave', () => {
@@ -312,111 +422,237 @@ function initEffects() {
   });
 }
 
-function initHeroParallax() {
-  const heroStage = document.getElementById('heroStage');
-  const heroScene = document.getElementById('heroScene');
-  if (!heroStage || !heroScene) return;
+// HERO INTERACTIVE SHOWCASE CONTROLLER
+function initHeroShowcase() {
+  const heroStage = document.getElementById('heroHoloStage');
+  const heroImg = document.getElementById('heroMainImg');
+  const heroTitle = document.getElementById('heroModeTitle');
+  const heroTagline = document.getElementById('heroModeTagline');
+  const heroBadge = document.getElementById('heroModeBadge');
+  const heroSpecsList = document.getElementById('heroSpecsList');
+  const heroHotspotsWrap = document.getElementById('heroHotspotsWrap');
+  const modeButtons = $$('.hero-mode-btn');
 
-  const pcCase = document.getElementById('stagePc');
-  const pcShadow = document.querySelector('.pc-shadow');
-  const printer = document.getElementById('stagePrinter');
-  const gpu = document.getElementById('stageGpu');
-  const badge1 = document.getElementById('stageBadge1');
-  const badge2 = document.getElementById('stageBadge2');
-  const badge3 = document.getElementById('stageBadge3');
-  const orbitHalo = document.querySelector('.orbit-halo');
+  if (!heroStage || !heroImg) return;
 
+  let currentModeKey = 'aurora';
   let targetRotX = 0;
   let targetRotY = 0;
   let currentRotX = 0;
   let currentRotY = 0;
-  let isHovered = false;
 
+  // Render Hotspots for a specific mode
+  function renderHotspots(modeData) {
+    if (!heroHotspotsWrap) return;
+    heroHotspotsWrap.innerHTML = modeData.hotspots
+      .map(
+        (h, idx) => `
+      <div class="holo-hotspot" style="top: ${h.top}; left: ${h.left};" data-idx="${idx}">
+        <div class="hotspot-beacon">
+          <span class="beacon-pulse"></span>
+          <span class="beacon-core"></span>
+        </div>
+        <div class="hotspot-hud-card">
+          <div class="hud-header">
+            <span class="hud-indicator"></span>
+            <b>${h.title}</b>
+          </div>
+          <p>${h.desc}</p>
+        </div>
+      </div>
+    `
+      )
+      .join('');
+  }
+
+  // Switch Mode Function
+  function switchHeroMode(key) {
+    const data = heroModes[key];
+    if (!data) return;
+    currentModeKey = key;
+
+    // Active button state
+    modeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.mode === key));
+
+    // Shimmer effect on switch
+    heroStage.classList.add('mode-switching');
+
+    setTimeout(() => {
+      heroImg.src = img(data.image);
+      heroImg.alt = data.title;
+      if (heroTitle) heroTitle.textContent = data.title;
+      if (heroTagline) heroTagline.textContent = data.tagline;
+      if (heroBadge) heroBadge.textContent = data.badge;
+
+      // Update Specs
+      if (heroSpecsList) {
+        heroSpecsList.innerHTML = data.specs
+          .map(
+            s => `
+          <div class="hero-spec-chip">
+            <small>${s.label}</small>
+            <b>${s.val}</b>
+          </div>
+        `
+          )
+          .join('');
+      }
+
+      // Update Stage Pedestal Glow
+      heroStage.style.setProperty('--stage-glow', data.auraGlow);
+      heroStage.style.setProperty('--stage-accent', data.accentColor);
+
+      // Render new hotspots
+      renderHotspots(data);
+
+      heroStage.classList.remove('mode-switching');
+    }, 180);
+  }
+
+  // Bind Mode Buttons
+  modeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchHeroMode(btn.dataset.mode);
+    });
+  });
+
+  // Initial render of hotspots & specs
+  switchHeroMode('aurora');
+
+  // Mouse Parallax on Hero Stage
   const heroWrapper = heroStage.closest('.hero');
-
   if (heroWrapper) {
     heroWrapper.addEventListener('mousemove', e => {
-      isHovered = true;
       const rect = heroWrapper.getBoundingClientRect();
       const normX = (e.clientX - rect.left) / rect.width - 0.5;
       const normY = (e.clientY - rect.top) / rect.height - 0.5;
 
-      targetRotY = normX * 14; // Horizontal tilt
-      targetRotX = -normY * 12; // Vertical tilt
+      targetRotY = normX * 10; // Max tilt 10deg
+      targetRotX = -normY * 8;  // Max tilt 8deg
     });
 
     heroWrapper.addEventListener('mouseleave', () => {
-      isHovered = false;
       targetRotX = 0;
       targetRotY = 0;
     });
   }
 
-  function animateHeroParallax() {
+  // Smooth Animation Loop
+  function animateShowcase() {
     currentRotX += (targetRotX - currentRotX) * 0.08;
     currentRotY += (targetRotY - currentRotY) * 0.08;
 
     const scrollY = window.scrollY;
-    const heroProgress = Math.min(1.2, Math.max(0, scrollY / 650));
+    // Elegant compression as user scrolls down
+    const scrollFactor = Math.min(1, Math.max(0, scrollY / 500));
+    const translateY = scrollFactor * 40;
+    const scale = 1 - scrollFactor * 0.05;
 
-    // 3D Scene tilt combining cursor position and scroll depth
-    heroScene.style.transform = `rotateX(${(currentRotX - heroProgress * 4).toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg)`;
+    heroStage.style.transform = `perspective(1200px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
 
-    const px = currentRotY;
-    const py = currentRotX;
-
-    // Centerpiece PC Case: Lifts upward, slightly rotates and scales on scroll
-    if (pcCase) {
-      const pcY = -heroProgress * 65 - py * 1.5;
-      const pcX = px * 1.5;
-      const pcScale = 1 - heroProgress * 0.075;
-      const pcRot = heroProgress * 4.2;
-      pcCase.style.transform = `translate(-50%, -50%) translateZ(40px) translate3d(${pcX.toFixed(1)}px, ${pcY.toFixed(1)}px, 0) scale(${pcScale.toFixed(3)}) rotate(${pcRot.toFixed(2)}deg)`;
-    }
-
-    // Dynamic PC Shadow reacts to anti-gravity elevation
-    if (pcShadow) {
-      const shadowScale = Math.max(0.4, 1 - heroProgress * 0.4);
-      const shadowOpacity = Math.max(0.1, 0.6 - heroProgress * 0.45);
-      pcShadow.style.transform = `translateX(-50%) scale(${shadowScale.toFixed(3)})`;
-      pcShadow.style.opacity = shadowOpacity.toFixed(2);
-    }
-
-    // Foreground High-End White RGB GPU drifts with enhanced parallax
-    if (gpu) {
-      const gpuY = -heroProgress * 95 + py * 3.2;
-      const gpuX = -px * 3.2;
-      const gpuScale = 1 + heroProgress * 0.06;
-      const gpuRot = -heroProgress * 6.5;
-      gpu.style.transform = `translateZ(110px) translate3d(${gpuX.toFixed(1)}px, ${gpuY.toFixed(1)}px, 0) scale(${gpuScale.toFixed(3)}) rotate(${gpuRot.toFixed(2)}deg)`;
-    }
-
-    // 3D Printer floats independently
-    if (printer) {
-      const printerY = -heroProgress * 45 - py * 2.8;
-      const printerX = px * 2.8;
-      printer.style.transform = `translateZ(75px) translate3d(${printerX.toFixed(1)}px, ${printerY.toFixed(1)}px, 0)`;
-    }
-
-    // Holographic Orbital Rings spin dynamically with scroll velocity
-    if (orbitHalo) {
-      orbitHalo.style.transform = `translate(-50%, -50%) rotateX(68deg) rotateY(15deg) rotateZ(${(scrollY * 0.12).toFixed(1)}deg)`;
-    }
-
-    // Holographic Telemetry Badges depth drift
-    if (badge1) {
-      badge1.style.transform = `translateZ(90px) translate3d(${(px * 2.2).toFixed(1)}px, ${(-py * 2.2 - heroProgress * 30).toFixed(1)}px, 0)`;
-    }
-    if (badge2) {
-      badge2.style.transform = `translateZ(95px) translate3d(${(-px * 2.4).toFixed(1)}px, ${(py * 2.4 - heroProgress * 50).toFixed(1)}px, 0)`;
-    }
-    if (badge3) {
-      badge3.style.transform = `translateZ(65px) translate3d(${(px * 1.8).toFixed(1)}px, ${(-py * 1.8 - heroProgress * 20).toFixed(1)}px, 0)`;
-    }
-
-    requestAnimationFrame(animateHeroParallax);
+    requestAnimationFrame(animateShowcase);
   }
-  animateHeroParallax();
+  animateShowcase();
+}
+
+// INTERACTIVE CONFIGURATOR CONTROLLER
+function initConfigurator() {
+  const tabs = $$('.config-tab-btn');
+  const resultCard = document.getElementById('configResultCard');
+  if (!tabs.length || !resultCard) return;
+
+  function renderPreset(key) {
+    const data = configPresets[key];
+    if (!data) return;
+
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.key === key));
+
+    resultCard.innerHTML = `
+      <div class="config-card-inner">
+        <div class="config-header">
+          <div>
+            <span class="config-badge">✦ CẤU HÌNH ĐỀ XUẤT</span>
+            <h3>${data.name}</h3>
+            <p class="config-target">${data.target}</p>
+          </div>
+          <div class="config-price-box">
+            <small>Mức giá tham khảo</small>
+            <div class="config-price">${money(data.price)}</div>
+          </div>
+        </div>
+
+        <div class="config-specs-grid">
+          <div class="config-spec-row">
+            <span class="spec-icon">🧠</span>
+            <div>
+              <small>Vi xử lý (CPU)</small>
+              <b>${data.cpu}</b>
+            </div>
+          </div>
+          <div class="config-spec-row">
+            <span class="spec-icon">🎮</span>
+            <div>
+              <small>Card đồ họa (VGA)</small>
+              <b>${data.gpu}</b>
+            </div>
+          </div>
+          <div class="config-spec-row">
+            <span class="spec-icon">⚡</span>
+            <div>
+              <small>Bộ nhớ trong (RAM)</small>
+              <b>${data.ram}</b>
+            </div>
+          </div>
+          <div class="config-spec-row">
+            <span class="spec-icon">💾</span>
+            <div>
+              <small>Ổ cứng lưu trữ (SSD)</small>
+              <b>${data.ssd}</b>
+            </div>
+          </div>
+          <div class="config-spec-row">
+            <span class="spec-icon">🔌</span>
+            <div>
+              <small>Bo mạch & Nguồn</small>
+              <b>${data.main} · ${data.psu}</b>
+            </div>
+          </div>
+          <div class="config-spec-row">
+            <span class="spec-icon">❄️</span>
+            <div>
+              <small>Vỏ Case & Tản nhiệt</small>
+              <b>${data.caseCooler}</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="config-benchmarks">
+          <span class="bench-title">Hiệu năng thực tế ước tính:</span>
+          <div class="bench-tags">
+            ${data.games.map(g => `<span class="bench-tag"><b>${g.name}:</b> ${g.fps}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="config-card-actions">
+          <a class="btn primary" href="contact.html?type=pc&build=${encodeURIComponent(data.name)}&budget=${data.price}">
+            ✉ Nhận tư vấn cấu hình này ngay →
+          </a>
+          <a class="btn secondary" href="pc.html">
+            Xem thêm các mẫu PC tương đương
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      renderPreset(tab.dataset.key);
+    });
+  });
+
+  // Default render
+  renderPreset('gaming');
 }
 
 function shell(page, body) {
@@ -431,243 +667,311 @@ function shell(page, body) {
 }
 
 function home() {
-  shell('home', `
+  shell(
+    'home',
+    `
 <main>
-  <!-- 3D ANTI-GRAVITY HERO SECTION -->
-  <section class="hero">
+  <!-- 1. HERO SHOWCASE: THE HOLO-DECK STAGE -->
+  <section class="hero hero-showcase">
     <div class="container hero-content">
       <div class="hero-copy reveal">
-        <span class="eyebrow">
-          <span>◆</span> PC CUSTOM × MÔ HÌNH 3D × SÁNG TẠO
-        </span>
-        <h1>BUILD PC ĐẸP,<br><span class="gradient">MẠNH VÀ ĐÚNG</span><br>NHU CẦU</h1>
-        <p>NEXUS PC là concept cửa hàng PC cá nhân: tư vấn, build máy theo ngân sách, nâng cấp linh kiện và nhận in mô hình 3D theo yêu cầu. Cùng tạo nên góc setup mang phong cách riêng.</p>
+        <div class="eyebrow">
+          <span>◆</span> THIẾT KẾ PC CAO CẤP × NGHỆ THUẬT IN 3D
+        </div>
+        <h1>
+          ĐỈNH CAO HIỆU NĂNG,<br>
+          <span class="gradient">THẨM MỸ BẬC THẦY</span>
+        </h1>
+        <p class="hero-description">
+          NEXUS PC kiến tạo không gian công nghệ đậm chất cá nhân: Từ những dàn PC Gaming Panoramic tản nước rực rỡ đến các tác phẩm mô hình 3D Resin 8K độc bản được hoàn thiện tinh xảo.
+        </p>
+
+        <!-- Mode Switcher Tabs right in Hero -->
+        <div class="hero-mode-switcher-wrap">
+          <span class="switcher-label">CHỌN CHẾ ĐỘ TRÌNH DIỄN:</span>
+          <div class="hero-mode-switcher">
+            <button class="hero-mode-btn active" data-mode="aurora">
+              <span class="btn-icon">⚡</span> PC Gaming RGB
+            </button>
+            <button class="hero-mode-btn" data-mode="combo">
+              <span class="btn-icon">💎</span> PC & Figure 3D
+            </button>
+            <button class="hero-mode-btn" data-mode="printer">
+              <span class="btn-icon">⚙️</span> Trạm In Resin 8K
+            </button>
+            <button class="hero-mode-btn" data-mode="gear">
+              <span class="btn-icon">🎧</span> Setup Gear
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero Actions -->
         <div class="hero-actions">
-          <a class="btn primary" href="#services">Khám phá dịch vụ →</a>
-          <a class="btn" href="contact.html">Liên hệ tư vấn</a>
+          <a class="btn primary" href="#configurator">⚡ Dự toán cấu hình theo ngân sách →</a>
+          <a class="btn secondary" href="contact.html">Liên hệ tư vấn 1-1</a>
         </div>
-        <div class="metrics">
-          <div class="metric">✦ Tư vấn theo nhu cầu</div>
-          <div class="metric">◈ Tùy chỉnh cấu hình</div>
-          <div class="metric">⬡ Thiết kế & in 3D</div>
+
+        <!-- Trust Badges -->
+        <div class="hero-trust-bar">
+          <div class="trust-item">
+            <span class="trust-check">✓</span>
+            <div><b>100% Chính Hãng</b><small>Linh kiện mới Fullbox</small></div>
+          </div>
+          <div class="trust-item">
+            <span class="trust-check">✓</span>
+            <div><b>Stress Test 24H</b><small>Tối ưu nhiệt độ & xung nhịp</small></div>
+          </div>
+          <div class="trust-item">
+            <span class="trust-check">✓</span>
+            <div><b>In 3D Chuẩn 8K</b><small>Độ chi tiết đến 0.02mm</small></div>
+          </div>
         </div>
       </div>
 
-      <!-- 3D Anti-Gravity Holographic Stage -->
-      <div class="hero-stage-wrapper" id="heroStage">
-        <div class="hero-3d-scene" id="heroScene">
-          <!-- Ambient Orbitals & Pedestal Glow -->
-          <div class="pedestal-glow"></div>
-          <div class="orbit-halo"></div>
-          <div class="orbit-halo-2"></div>
-
-          <!-- Light Ribbons & Orbital Energy Trails -->
-          ${sprites.ribbon()}
-
-          <!-- Motion Path Animated Tech Sprites -->
-          <div class="motion-orbit-fan">
-            ${sprites.fan()}
+      <!-- Hero Visual: Cinematic 2.5D Holo-Deck -->
+      <div class="hero-holo-deck">
+        <div class="hero-holo-stage" id="heroHoloStage">
+          <!-- Cyber Holo Base & Lighting Rings -->
+          <div class="holo-pedestal">
+            <div class="pedestal-grid-plane"></div>
+            <div class="pedestal-ring ring-outer"></div>
+            <div class="pedestal-ring ring-inner"></div>
+            <div class="pedestal-light-aura"></div>
           </div>
 
-          <div class="motion-orbit-ram">
-            ${sprites.ram()}
+          <!-- Main Object Showcase -->
+          <div class="holo-centerpiece">
+            <img id="heroMainImg" src="${img('pc-white-rgb.png')}" alt="NEXUS Aurora Gaming PC">
+            <div class="holo-contact-shadow"></div>
           </div>
 
-          <div class="motion-orbit-cpu">
-            ${sprites.cpu()}
-          </div>
+          <!-- Interactive Hotspots Overlay -->
+          <div class="holo-hotspots-container" id="heroHotspotsWrap"></div>
 
-          <!-- Floating Prismatic Crystal Shards on Staggered Motion Paths -->
-          <div class="motion-orbit-crystal-1">
-            ${sprites.crystal('shard-1')}
+          <!-- Quick Telemetry HUD Header on Stage -->
+          <div class="holo-telemetry-hud">
+            <span class="hud-status-dot"></span>
+            <span id="heroModeBadge" class="hud-mode-badge">PC GAMING FLAGSHIP</span>
+            <span class="hud-divider">|</span>
+            <span id="heroModeTitle" class="hud-mode-title">NEXUS Aurora Gaming</span>
           </div>
+        </div>
 
-          <div class="motion-orbit-crystal-2">
-            ${sprites.crystal('shard-2')}
-          </div>
+        <!-- Real-time Specs Bar below Stage -->
+        <div class="hero-specs-strip" id="heroSpecsList"></div>
+      </div>
+    </div>
+  </section>
 
-          <div class="motion-orbit-crystal-3">
-            ${sprites.crystal('shard-3')}
-          </div>
+  <!-- 2. CORE PILLARS: 4 GIẢI PHÁP TẠO NÊN NEXUS PC -->
+  <section class="container section" id="services">
+    <div class="section-title-center reveal">
+      <span class="eyebrow">DỊCH VỤ CỐT LÕI</span>
+      <h2>Không Gian Giải Pháp <span class="gradient">Công Nghệ Toàn Diện</span></h2>
+      <p class="section-sub">Đồng hành cùng bạn từ ý tưởng ban đầu đến góc máy hoàn thiện đẳng cấp nhất.</p>
+    </div>
 
-          <!-- Central Levitating PC Case -->
-          <div class="stage-pc" id="stagePc">
-            <img src="${img('pc-white-rgb.png')}" alt="NEXUS High-End PC RGB" loading="eager">
-            <div class="pc-shadow"></div>
+    <div class="bento-grid reveal">
+      <div class="bento-item bento-large">
+        <div class="bento-content">
+          <span class="bento-tag">✦ THẾ MẠNH DẪN ĐẦU</span>
+          <h3>Tư Vấn & Lắp Ráp PC Theo Nhu Cầu</h3>
+          <p>Tối ưu cấu hình chuẩn chỉ đến từng đồng ngân sách. Đi dây thẩm mỹ giấu kín, cân chỉnh luồng gió đối lưu và stress test nhiệt độ 24 giờ trước khi bàn giao.</p>
+          <div class="bento-features">
+            <span>✓ Cân đối CPU / GPU không nghẽn cổ chai</span>
+            <span>✓ Cáp nguồn bọc lưới custom cao cấp</span>
+            <span>✓ Cài đặt sẵn Windows & Game tối ưu</span>
           </div>
+          <a class="btn primary small" href="pc.html">Khám phá các mẫu PC Build →</a>
+        </div>
+        <div class="bento-visual">
+          <img src="${img('pc-white-rgb.png')}" alt="PC Gaming Build">
+        </div>
+      </div>
 
-          <!-- Independent Floating 3D Printer with Laser Scan -->
-          <div class="stage-printer" id="stagePrinter">
-            <img src="${img('printer-figure.png')}" alt="Resin 8K 3D Printer">
-            <div class="laser-beam"></div>
+      <div class="bento-item bento-large">
+        <div class="bento-content">
+          <span class="bento-tag purple">✦ ĐỘC BẢN SÁNG TẠO</span>
+          <h3>Dịch Vụ In Mô Hình 3D Resin 8K</h3>
+          <p>Hiện thực hóa nhân vật anime, game, linh kiện trang trí case PC và giá đỡ VGA độc quyền. Độ phân giải 8K cho bề mặt láng mịn không tì vết.</p>
+          <div class="bento-features">
+            <span>✓ Độ chính xác tinh xảo 0.02mm</span>
+            <span>✓ Vật liệu Resin cao cấp chống ố vàng</span>
+            <span>✓ Dịch vụ sơn màu mỹ thuật thủ công</span>
           </div>
+          <a class="btn secondary small" href="models.html">Xem bộ sưu tập mô hình →</a>
+        </div>
+        <div class="bento-visual">
+          <img src="${img('combo-printer-figure.png')}" alt="3D Printing & Figure">
+        </div>
+      </div>
 
-          <!-- Foreground Levitating White RGB GPU -->
-          <div class="stage-gpu" id="stageGpu">
-            <img src="${img('gpu-white-rgb.png')}" alt="RTX 40 White RGB Gaming GPU">
-          </div>
+      <div class="bento-item">
+        <div class="bento-card-compact">
+          <img class="compact-icon-img" src="${img('gpu-white-rgb.png')}" alt="Nâng cấp VGA">
+          <h4>Nâng Cấp & Tối Ưu Linh Kiện</h4>
+          <p>Tư vấn nâng cấp VGA, nâng RAM, bổ sung SSD hoặc đổi sang vỏ case kính nghệ thuật với chi phí tiết kiệm nhất.</p>
+          <a class="compact-link" href="contact.html?type=upgrade">Tư vấn nâng cấp →</a>
+        </div>
+      </div>
 
-          <!-- Holographic Floating Glass Badges -->
-          <div class="glass-badge badge-1" id="stageBadge1">
-            <div class="status-dot"></div>
-            <span>✦ RTX 40-SERIES · DLSS 3.5</span>
-          </div>
-
-          <div class="glass-badge badge-2" id="stageBadge2">
-            <div class="status-dot purple"></div>
-            <span>⬡ RESIN 8K · 0.02mm PRECISION</span>
-          </div>
-
-          <div class="glass-badge badge-3" id="stageBadge3">
-            <div class="status-dot green"></div>
-            <span>◈ AURA SYNC · 100% TESTED</span>
-          </div>
-
-          <!-- Hologram HUD Tech Tags -->
-          <div class="hologram-tag" style="top: 24%; left: 2%; z-index: 24;">
-            <span class="tag-signal"></span>
-            <span>PCIe Gen 5.0</span>
-          </div>
-          <div class="hologram-tag" style="bottom: 18%; right: -2%; z-index: 24;">
-            <span class="tag-signal purple"></span>
-            <span>6400 MT/s CL30</span>
-          </div>
+      <div class="bento-item">
+        <div class="bento-card-compact">
+          <img class="compact-icon-img" src="${img('gear-setup-white.png')}" alt="Setup gear">
+          <h4>Setup Góc Máy & Gear Đồng Bộ</h4>
+          <p>Hỗ trợ lựa chọn bàn nâng hạ, ghế công thái học, đèn ambient RGB và gear tone-sur-tone chuẩn gu.</p>
+          <a class="compact-link" href="contact.html?type=other">Tối ưu góc máy →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="section-beam"></div>
+  <!-- 3. INTERACTIVE CONFIGURATOR: DỰ TOÁN CẤU HÌNH THEO NHU CẦU -->
+  <section class="container section" id="configurator">
+    <div class="config-wrapper surface reveal">
+      <div class="config-intro">
+        <span class="eyebrow">BỘ CÔNG CỤ TƯƠNG TÁC</span>
+        <h2>Chọn Cấu Hình <span class="gradient">Đúng Mục Đích & Ngân Sách</span></h2>
+        <p>Bấm chọn mục đích sử dụng bên dưới để xem gợi ý linh kiện tối ưu, mức giá tham khảo và ước tính hiệu năng thực tế.</p>
 
-  <!-- SERVICES SECTION (PC BUILD SHOWCASE) -->
-  <section class="container section center" id="services" style="position: relative;">
-    <!-- Decorative Floating Accents -->
-    <div class="section-floating-accents">
-      <div class="float-accent accent-crystal-left">
-        ${sprites.crystal('shard-2')}
+        <div class="config-tabs-nav">
+          <button class="config-tab-btn active" data-key="gaming">
+            <span class="tab-emoji">🎮</span>
+            <div>
+              <b>Esports & Gaming</b>
+              <small>Chiến mượt mọi tựa game hot</small>
+            </div>
+          </button>
+          <button class="config-tab-btn" data-key="creative">
+            <span class="tab-emoji">🎨</span>
+            <div>
+              <b>Đồ Họa & 3D Render</b>
+              <small>Premiere, 3Ds Max, Blender</small>
+            </div>
+          </button>
+          <button class="config-tab-btn" data-key="ai">
+            <span class="tab-emoji">⚡</span>
+            <div>
+              <b>Streamer & AI Model</b>
+              <small>Livestream mượt, chạy AI cục bộ</small>
+            </div>
+          </button>
+          <button class="config-tab-btn" data-key="minimal">
+            <span class="tab-emoji">💼</span>
+            <div>
+              <b>Văn Phòng & Tối Giản</b>
+              <small>Gọn đẹp, thanh lịch, êm ái</small>
+            </div>
+          </button>
+        </div>
       </div>
-      <div class="float-accent accent-ram-right">
-        ${sprites.ram()}
-      </div>
-      <div class="float-accent accent-fan-center">
-        ${sprites.fan()}
-      </div>
-    </div>
 
-    <span class="eyebrow">DỊCH VỤ NỔI BẬT</span>
-    <h2>Giải pháp <span class="gradient">công nghệ & sáng tạo</span></h2>
-    <p class="section-sub">Từ PC build đến mô hình in 3D, tất cả trong một không gian riêng.</p>
-    
-    <div class="grid4 reveal stagger-grid">
-      ${[
-        ['pc-white-rgb.png', 'Build PC theo yêu cầu', 'Lựa chọn cấu hình hợp ngân sách, đẹp và mạnh.', 'pc.html', '0.08s'],
-        ['gpu-white-rgb.png', 'Nâng cấp linh kiện', 'Tư vấn VGA, CPU, RAM, SSD và nâng cấp hiệu năng.', 'contact.html', '0.2s'],
-        ['gear-setup-white.png', 'Tối ưu góc máy', 'Hỗ trợ lựa chọn thiết bị và setup gọn gàng.', 'contact.html', '0.32s'],
-        ['printer-figure.png', 'In mô hình 3D', 'Nhận ý tưởng, file 3D hoặc in mô hình sưu tầm.', 'models.html', '0.44s']
-      ]
-        .map(
-          z => `
-        <a class="service stagger-child" style="--delay: ${z[4]};" href="${z[3]}">
-          <img src="${img(z[0])}" alt="${z[1]}">
-          <div>
-            <h3>${z[1]}</h3>
-            <p>${z[2]}</p>
-          </div>
-        </a>`
-        )
-        .join('')}
+      <div class="config-display" id="configResultCard">
+        <!-- Rendered by initConfigurator() -->
+      </div>
     </div>
   </section>
 
-  <!-- HIGHLIGHT FEATURE STRIP -->
+  <!-- 4. DUAL SHOWCASE SPLIT BANNERS -->
   <section class="container section">
-    <div class="surface feature-strip reveal">
-      <div>💙 Tư vấn tận tâm<span>Hợp nhu cầu, đúng ngân sách</span></div>
-      <div>⚙ Cấu hình linh hoạt<span>Tuỳ chọn linh kiện, phong cách</span></div>
-      <div>◇ Mô hình sáng tạo<span>Figure, quà tặng và décor</span></div>
-      <div>☏ Hỗ trợ trực tiếp<span>Trao đổi trước khi đặt hàng</span></div>
+    <div class="banner-showcase-grid reveal">
+      <div class="showcase-banner pc-banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-body">
+          <span class="banner-tag">THẾ GIỚI PC GAMING</span>
+          <h3>Trải Nghiệm Sức Mạnh Phần Cứng Đích Thực</h3>
+          <p>Mỗi bộ PC tại NEXUS không chỉ mạnh mẽ mà còn là tác phẩm trang trí công nghệ hoàn mỹ trên bàn làm việc của bạn.</p>
+          <div class="banner-actions">
+            <a class="btn primary small" href="pc.html">Xem danh mục PC mẫu →</a>
+          </div>
+        </div>
+        <img class="banner-photo" src="${img('combo-pc-figure.png')}" alt="PC Gaming Banner">
+      </div>
+
+      <div class="showcase-banner figure-banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-body">
+          <span class="banner-tag purple">XƯỞNG IN 3D NGHỆ THUẬT</span>
+          <h3>Mô Hình Tinh Xảo Cho Không Gian Độc Bản</h3>
+          <p>Từ ý tưởng trong trí tưởng tượng đến hiện vật chân thực đặt trước mắt. Đón nhận tác phẩm mô hình chỉ thuộc về bạn.</p>
+          <div class="banner-actions">
+            <a class="btn secondary small" href="models.html">Khám phá mô hình 3D →</a>
+          </div>
+        </div>
+        <img class="banner-photo" src="${img('combo-printer-figure.png')}" alt="3D Model Banner">
+      </div>
     </div>
   </section>
 
-  <div class="section-beam"></div>
-
-  <!-- PROMO BANNERS -->
-  <section class="container section">
-    <div class="banner-row reveal stagger-grid">
-      <a class="promo stagger-child" style="--delay: 0.1s; background-image:url('${img('combo-pc-figure.png')}')" href="pc.html">
-        <div>
-          <small>KHÁM PHÁ PC</small>
-          <h3>PC Build & Linh kiện</h3>
-          <p>Chọn cấu hình mẫu, tùy biến theo mục đích sử dụng.</p>
-          <span class="pill">Xem PC Build →</span>
-        </div>
-      </a>
-      <a class="promo stagger-child" style="--delay: 0.25s; background-image:url('${img('combo-printer-figure.png')}')" href="models.html">
-        <div>
-          <small>THẾ GIỚI MÔ HÌNH</small>
-          <h3>Mô hình 3D & In theo yêu cầu</h3>
-          <p>Khám phá những mẫu figure sáng tạo và gửi ý tưởng của bạn.</p>
-          <span class="pill">Khám phá mô hình →</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- FEATURED PRODUCTS -->
+  <!-- 5. FEATURED PRODUCTS: CÁC MẪU NỔI BẬT -->
   <section class="container section">
     <div class="title-row">
-      <h2>Một vài mẫu <span class="gradient">nổi bật</span></h2>
-      <a href="pc.html" class="pill">Xem tất cả →</a>
+      <div>
+        <span class="eyebrow">BỘ SƯU TẬP TIÊU BIỂU</span>
+        <h2>Tác Phẩm & Sản Phẩm <span class="gradient">Nổi Bật</span></h2>
+      </div>
+      <a href="pc.html" class="pill">Xem tất cả sản phẩm →</a>
     </div>
-    <div class="grid4 reveal stagger-grid">
-      ${[items[0], items[1], items[6], items[7]].map((x, i) => `
-        <div class="stagger-child" style="--delay: ${(i * 0.12).toFixed(2)}s;">
-          ${card(x)}
-        </div>
-      `).join('')}
+
+    <div class="grid4 reveal">
+      ${[items[0], items[1], items[6], items[7]].map(card).join('')}
     </div>
   </section>
 
-  <div class="section-beam"></div>
+  <!-- 6. CRAFTSMANSHIP PROCESS: QUY TRÌNH CHUẨN 4 BƯỚC -->
+  <section class="container section" id="process">
+    <div class="section-title-center reveal">
+      <span class="eyebrow">CAM KẾT CHẤT LƯỢNG</span>
+      <h2>Quy Trình Hoàn Thiện <span class="gradient">Chuẩn Mực & Minh Bạch</span></h2>
+      <p class="section-sub">Chúng tôi tỉ mỉ trong từng khâu để trao đến bạn sản phẩm vượt mong đợi.</p>
+    </div>
 
-  <!-- SECTION 4: FINAL CTA SHOWCASE SECTION -->
+    <div class="process-grid reveal">
+      <div class="process-card">
+        <div class="step-num">01</div>
+        <h4>Lắng Nghe & Tư Vấn 1-1</h4>
+        <p>Phân tích đúng nhu cầu làm việc, tựa game yêu thích và hạn mức ngân sách để chọn linh kiện cân đối nhất.</p>
+      </div>
+
+      <div class="process-card">
+        <div class="step-num">02</div>
+        <h4>Lên Phối Cảnh & Báo Giá</h4>
+        <p>Lên phương án màu sắc, vỏ case, tản nhiệt và mô hình 3D đi kèm kèm bảng giá chi tiết minh bạch từng món.</p>
+      </div>
+
+      <div class="process-card">
+        <div class="step-num">03</div>
+        <h4>Lắp Ráp & Stress Test 24H</h4>
+        <p>Đi dây giấu kín, cân chỉnh quạt làm mát êm ái, test nhiệt độ FurMark & Cinebench liên tục đảm bảo 100% ổn định.</p>
+      </div>
+
+      <div class="process-card">
+        <div class="step-num">04</div>
+        <h4>Bàn Giao & Bảo Hành Tận Nơi</h4>
+        <p>Đóng gói cẩn thận chống sốc, hỗ trợ cài đặt từ xa và chế độ bảo hành 1-đổi-1 nhanh chóng linh hoạt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FINAL CALL TO ACTION -->
   <section class="container section final-cta-section reveal">
     <div class="final-cta-surface">
-      <!-- Converging Light Streaks -->
-      <div class="cta-light-streaks">
-        <div class="cta-streak streak-left-top"></div>
-        <div class="cta-streak streak-right-top"></div>
-        <div class="cta-streak streak-left-bottom"></div>
-        <div class="cta-streak streak-right-bottom"></div>
-      </div>
-
-      <!-- Motion Path Orbit around CTA -->
-      <div class="cta-orbit-stage">
-        <div class="motion-orbit-cta-fan">
-          ${sprites.fan()}
-        </div>
-        <div class="motion-orbit-cta-ram">
-          ${sprites.ram()}
-        </div>
-        <div class="motion-orbit-cta-crystal">
-          ${sprites.crystal('shard-1')}
-        </div>
-      </div>
-
+      <div class="cta-glow-bg"></div>
       <div class="final-cta-content">
-        <span class="eyebrow">✦ KHỞI TẠO BỘ PC TRONG MƠ CỦA BẠN</span>
-        <h2>Sẵn sàng kiến tạo <span class="gradient">Góc Setup Đẳng Cấp?</span></h2>
-        <p>Từ cấu hình gaming tối thượng đến các tác phẩm in 3D độc bản, đội ngũ NEXUS PC luôn đồng hành cùng bạn để biến mọi ý tưởng thành hiện thực.</p>
+        <span class="eyebrow">✦ KHỞI TẠO BỘ MÁY CỦA BẠN HÔM NAY</span>
+        <h2>Sẵn Sàng Kiến Tạo <span class="gradient">Góc Setup Trong Mơ?</span></h2>
+        <p>Dù bạn cần một dàn máy chiến game đỉnh cao, trạm dựng phim 3D mạnh mẽ hay một mô hình resin độc bản cho góc bàn, NEXUS PC luôn sẵn sàng hiện thực hóa ý tưởng của bạn.</p>
         <div class="final-cta-actions">
-          <a class="btn primary" href="contact.html">Bắt đầu tư vấn cấu hình →</a>
-          <a class="btn secondary" href="pc.html">Khám phá cấu hình mẫu</a>
+          <a class="btn primary" href="contact.html">Bắt đầu trao đổi & nhận báo giá →</a>
+          <a class="btn secondary" href="pc.html">Tham khảo cấu hình mẫu</a>
         </div>
       </div>
     </div>
   </section>
 </main>`);
 
-  initHeroParallax();
+  initHeroShowcase();
+  initConfigurator();
 }
 
 function catalog(which) {
@@ -682,10 +986,10 @@ function catalog(which) {
     <div class="container hero-content">
       <div class="hero-copy reveal">
         <span class="eyebrow">Trang chủ › ${pc ? 'PC Build' : 'Mô hình 3D'}</span>
-        <h1>${pc ? 'PC BUILD <span class="gradient">THEO NHU CẦU</span>' : 'MÔ HÌNH 3D & <span class="gradient">DỊCH VỤ IN 3D</span>'}</h1>
-        <p>${pc ? 'Khám phá cấu hình minh họa cho gaming, đồ họa và văn phòng. Bộ lọc giúp tìm nhanh mẫu phù hợp.' : 'Khám phá mẫu figure, decor và nhận in theo bản vẽ, ý tưởng riêng của bạn.'}</p>
+        <h1>${pc ? 'DANH MỤC PC BUILD <span class="gradient">THEO NHU CẦU</span>' : 'MÔ HÌNH 3D & <span class="gradient">DỊCH VỤ IN RESIN 8K</span>'}</h1>
+        <p>${pc ? 'Khám phá các cấu hình mẫu được tối ưu sẵn cho Esports, Gaming 2K-4K, Đồ họa 3D và Văn phòng sang trọng.' : 'Khám phá các mẫu tượng sưu tầm, decor góc máy và dịch vụ nhận in theo file 3D của bạn.'}</p>
         <div class="hero-actions">
-          <a class="btn primary" href="contact.html?type=${pc ? 'pc' : 'figure'}">${pc ? 'Nhận tư vấn cấu hình' : 'Gửi yêu cầu in 3D'} →</a>
+          <a class="btn primary" href="contact.html?type=${pc ? 'pc' : 'figure'}">${pc ? 'Tư vấn cấu hình riêng' : 'Gửi file yêu cầu in 3D'} →</a>
         </div>
       </div>
     </div>
@@ -696,14 +1000,14 @@ function catalog(which) {
       ${(pc
         ? [
             ['all', 'Tất cả'],
-            ['gaming', 'Gaming'],
-            ['creative', 'Đồ họa'],
-            ['office', 'Văn phòng']
+            ['gaming', 'Gaming & Esports'],
+            ['creative', 'Đồ họa & 3D'],
+            ['office', 'Văn phòng & Tối giản']
           ]
         : [
             ['all', 'Tất cả'],
-            ['figure', 'Figure'],
-            ['service', 'In theo yêu cầu']
+            ['figure', 'Figure có sẵn'],
+            ['service', 'Dịch vụ in theo yêu cầu']
           ]
       )
         .map(([k, v]) => `<button data-filter="${k}" class="chip ${k === 'all' ? 'active' : ''}">${v}</button>`)
@@ -714,10 +1018,10 @@ function catalog(which) {
       <aside class="sidebar surface">
         <h3>⚑ Bộ lọc tìm kiếm</h3>
         <label>Mức giá tối đa</label>
-        <input id="maxPrice" type="number" min="0" placeholder="Không giới hạn">
-        <h3 style="margin-top:20px">Tìm kiếm</h3>
-        <input id="query" class="form-field" placeholder="Tên sản phẩm...">
-        <p class="muted" style="font-size:11.5px;margin-top:22px">Dữ liệu và giá chỉ minh họa, không phải danh sách hàng có sẵn.</p>
+        <input id="maxPrice" type="number" min="0" placeholder="Ví dụ: 30000000">
+        <h3 style="margin-top:20px">Tìm kiếm theo tên</h3>
+        <input id="query" class="form-field" placeholder="Nhập tên sản phẩm...">
+        <p class="muted" style="font-size:12px;margin-top:20px">Dữ liệu và giá mang tính chất tham khảo, sẵn sàng tùy chỉnh theo mọi linh kiện bạn mong muốn.</p>
       </aside>
 
       <section style="padding:0">
@@ -754,9 +1058,9 @@ function catalog(which) {
     $('#count').textContent = `Hiển thị ${filtered.length} sản phẩm mẫu`;
     $('#list').innerHTML = filtered.length
       ? filtered.map(card).join('')
-      : '<div class="empty surface">Không có sản phẩm phù hợp bộ lọc.</div>';
+      : '<div class="empty surface">Không có sản phẩm phù hợp bộ lọc. Hãy thử tìm từ khóa khác.</div>';
 
-    // Rebind tilt to newly rendered cards
+    // Tilt for newly rendered cards
     const newCards = $$('#list .product');
     newCards.forEach(c => {
       c.addEventListener('mousemove', e => {
@@ -767,9 +1071,9 @@ function catalog(which) {
         c.style.setProperty('--mouse-y', `${y}px`);
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -5.5;
-        const rotateY = ((x - centerX) / centerX) * 5.5;
-        c.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
+        c.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
       });
       c.addEventListener('mouseleave', () => {
         c.style.transform = '';
@@ -807,56 +1111,57 @@ function detail() {
       </div>
       <div class="thumbs">
         ${[x.img, x.category === 'pc' ? 'pc-white-rgb.png' : 'figure-crystal-blue.png', x.category === 'pc' ? 'combo-pc-figure.png' : 'figure-fairy-stand.png']
-          .map((a, i) => `<button class="${i === 0 ? 'active' : ''}" data-img="${a}"><img src="${img(a)}"></button>`)
+          .map((a, i) => `<button class="${i === 0 ? 'active' : ''}" data-img="${a}"><img src="${img(a)}" alt="Thumb"></button>`)
           .join('')}
       </div>
     </div>
     
     <div class="detail-main">
-      <span class="eyebrow">${x.category === 'pc' ? 'PC CUSTOM' : '3D CREATIVE'}</span>
+      <span class="eyebrow">${x.category === 'pc' ? 'PC CUSTOM ĐỒNG BỘ' : '3D RESIN ART'}</span>
       <h1>${x.name}</h1>
       <h3 class="muted">${x.desc}</h3>
-      <p>Ảnh và thông tin chỉ dùng để giới thiệu concept cửa hàng. Vui lòng liên hệ để xác nhận linh kiện, mẫu thực tế và mức giá.</p>
+      <p>Mỗi cấu hình và mô hình tại NEXUS PC được chăm chút tỉ mỉ. Bạn có thể linh hoạt thay đổi linh kiện, vỏ case hoặc kích thước in theo mong muốn.</p>
       
       <div class="surface config">
-        <h3>${x.category === 'pc' ? 'Tùy chọn cấu hình demo' : 'Tùy chọn mô hình demo'}</h3>
+        <h3>${x.category === 'pc' ? 'Tùy chọn cấu hình tham khảo' : 'Tùy chọn in ấn & hoàn thiện'}</h3>
         ${
           x.category === 'pc'
-            ? `<label>CPU</label>
-               <select><option>Intel Core i5</option><option>Intel Core i7</option><option>AMD Ryzen 7</option></select>
-               <label>GPU</label>
-               <select><option>RTX 4060</option><option>RTX 4070</option><option>RTX 5070</option></select>
-               <label>RAM</label>
-               <select><option>16GB DDR5</option><option>32GB DDR5</option><option>64GB DDR5</option></select>
-               <label>SSD</label>
-               <select><option>1TB NVMe</option><option>2TB NVMe</option></select>`
-            : `<label>Kích thước</label>
-               <select><option>Nhỏ</option><option>Vừa</option><option>Lớn</option></select>
-               <label>Vật liệu</label>
-               <select><option>Resin</option><option>PLA</option><option>PETG</option></select>
-               <label>Hoàn thiện</label>
-               <select><option>Thô</option><option>Sơn màu</option></select>`
+            ? `<label>Vi xử lý (CPU)</label>
+               <select class="form-field"><option>Intel Core i5-14600KF</option><option>Intel Core i7-14700K</option><option>AMD Ryzen 7 7800X3D</option></select>
+               <label>Card đồ họa (VGA)</label>
+               <select class="form-field"><option>RTX 4060 Ti White 8GB</option><option>RTX 4070 Ti Super White 16GB</option><option>RTX 4080 Super White</option></select>
+               <label>Bộ nhớ (RAM)</label>
+               <select class="form-field"><option>32GB DDR5 6000MHz White RGB</option><option>64GB DDR5 6400MHz White RGB</option></select>
+               <label>Tản nhiệt nước (AIO)</label>
+               <select class="form-field"><option>AIO 360 Liquid ARGB White</option><option>AIO 240 Liquid ARGB White</option></select>`
+            : `<label>Kích thước mô hình</label>
+               <select class="form-field"><option>Cao 18cm (Tỷ lệ 1/10)</option><option>Cao 25cm (Tỷ lệ 1/7)</option><option>Cao 32cm (Tỷ lệ 1/6)</option></select>
+               <label>Vật liệu chế tác</label>
+               <select class="form-field"><option>Resin 8K Cao Cấp (Bề mặt siêu láng)</option><option>Resin Trong Suốt Pha Lê</option></select>
+               <label>Mức độ hoàn thiện</label>
+               <select class="form-field"><option>Sơn màu nghệ thuật thủ công</option><option>Phôi thô đánh bóng sẵn</option></select>`
         }
       </div>
     </div>
 
     <aside class="surface purchase">
-      <span class="muted">Giá mẫu tham khảo</span>
+      <span class="muted">Mức giá tham khảo</span>
       <div class="price">${x.price ? money(x.price) : 'Liên hệ báo giá'}</div>
-      <p class="muted">Chưa áp dụng để thanh toán. Giá cuối cùng phụ thuộc lựa chọn thực tế.</p>
-      <a href="contact.html?type=${x.category}" class="btn primary">Gửi yêu cầu tư vấn →</a>
-      <a href="${x.category === 'pc' ? 'pc.html' : 'models.html'}" class="btn">← Xem các mẫu khác</a>
+      <p class="muted">Giá thực tế có thể thay đổi tùy theo linh kiện bạn chọn và thời điểm thị trường.</p>
+      <a href="contact.html?type=${x.category}&product=${encodeURIComponent(x.name)}" class="btn primary">Gửi yêu cầu tư vấn mẫu này →</a>
+      <a href="${x.category === 'pc' ? 'pc.html' : 'models.html'}" class="btn secondary">← Xem các mẫu khác</a>
       <hr style="border:0;border-top:1px solid #e6edfc;margin:22px 0">
-      <b>◈ Tư vấn theo nhu cầu</b>
-      <p class="muted">Trao đổi để xác nhận thông số và thời gian thực hiện.</p>
+      <b>◈ Cam kết từ NEXUS PC</b>
+      <p class="muted" style="margin-top:6px;font-size:12.5px;">✓ Linh kiện mới 100% bảo hành hãng<br>✓ Đi dây thẩm mỹ giấu kín<br>✓ Hỗ trợ kỹ thuật trọn đời qua Zalo/Phone</p>
     </aside>
   </div>
 
   <div class="surface specs">
-    <h2>Mô tả & thông tin</h2>
-    <div class="spec-row"><b>Loại sản phẩm</b><span>${x.category === 'pc' ? 'PC lắp ráp' : 'Mô hình in 3D'}</span></div>
-    <div class="spec-row"><b>Tình trạng</b><span>Demo chưa xác nhận tồn kho</span></div>
-    <div class="spec-row"><b>Hình ảnh</b><span>Minh họa được tạo cho giao diện</span></div>
+    <h2>Thông tin chi tiết & Cam kết</h2>
+    <div class="spec-row"><b>Phân loại</b><span>${x.category === 'pc' ? 'Máy tính để bàn Custom' : 'Mô hình điêu khắc 3D'}</span></div>
+    <div class="spec-row"><b>Tình trạng</b><span>Lắp ráp mới theo đơn đặt hàng</span></div>
+    <div class="spec-row"><b>Chính sách bảo hành</b><span>Bảo hành theo từng linh kiện từ 24 - 36 tháng</span></div>
+    <div class="spec-row"><b>Đóng gói vận chuyển</b><span>Hộp xốp chuyên dụng, chống sốc 2 lớp an toàn toàn quốc</span></div>
   </div>
 </main>`
   );
@@ -870,7 +1175,15 @@ function detail() {
 }
 
 function contact() {
-  let type = new URLSearchParams(location.search).get('type') || '';
+  let params = new URLSearchParams(location.search);
+  let type = params.get('type') || '';
+  let build = params.get('build') || '';
+  let budget = params.get('budget') ? money(params.get('budget')) : '';
+  let product = params.get('product') || '';
+
+  let initialNote = '';
+  if (build) initialNote += `Tôi quan tâm đến cấu hình: ${build}.\n`;
+  if (product) initialNote += `Tôi muốn tư vấn về sản phẩm: ${product}.\n`;
 
   shell(
     'contact',
@@ -879,9 +1192,9 @@ function contact() {
   <section class="hero inner" style="background-image:url('${img('showroom.webp')}')">
     <div class="container hero-content">
       <div class="hero-copy reveal">
-        <span class="eyebrow">NEXUS PC › LIÊN HỆ</span>
-        <h1>LIÊN HỆ <span class="gradient">TƯ VẤN</span></h1>
-        <p>Cho mình biết bạn cần build PC, nâng cấp máy hay in mô hình 3D. Bản demo này tạo nội dung yêu cầu để bạn có thể sao chép và gửi cho shop.</p>
+        <span class="eyebrow">NEXUS PC › LIÊN HỆ & TƯ VẤN</span>
+        <h1>KẾT NỐI VỚI <span class="gradient">NEXUS PC</span></h1>
+        <p>Cho chúng tôi biết nhu cầu của bạn: build PC gaming, nâng cấp máy tính hay đặt in mô hình 3D độc bản. Chúng tôi sẽ phản hồi cấu hình và báo giá tối ưu nhất.</p>
       </div>
     </div>
   </section>
@@ -889,54 +1202,51 @@ function contact() {
   <div class="container section contact-grid">
     <div class="surface form-panel">
       <h2>Gửi yêu cầu tư vấn</h2>
-      <p class="muted">Form demo chưa gửi dữ liệu đến máy chủ.</p>
+      <p class="muted">Điền thông tin bên dưới để tạo nhanh mẫu yêu cầu gửi trực tiếp qua Zalo / Facebook của shop.</p>
       <form id="contactForm">
         <div class="form-grid">
           <div>
-            <label>Họ tên *</label>
-            <input class="form-field" name="name" required placeholder="Tên của bạn">
+            <label>Họ và tên của bạn *</label>
+            <input class="form-field" name="name" required placeholder="Ví dụ: Hoàng Long">
           </div>
           <div>
-            <label>Số điện thoại *</label>
-            <input class="form-field" name="phone" required placeholder="Số liên hệ">
+            <label>Số điện thoại / Zalo *</label>
+            <input class="form-field" name="phone" required placeholder="Ví dụ: 0912 345 678">
           </div>
           <div>
-            <label>Nhu cầu</label>
+            <label>Nhu cầu chính</label>
             <select class="form-field" name="type">
-              <option value="pc" ${type === 'pc' ? 'selected' : ''}>Build PC</option>
-              <option value="upgrade">Nâng cấp linh kiện</option>
-              <option value="figure" ${type === 'figure' ? 'selected' : ''}>In 3D / Mô hình</option>
-              <option value="other">Tư vấn khác</option>
+              <option value="pc" ${type === 'pc' ? 'selected' : ''}>Build PC Gaming / Đồ họa</option>
+              <option value="upgrade" ${type === 'upgrade' ? 'selected' : ''}>Nâng cấp linh kiện</option>
+              <option value="figure" ${type === 'figure' ? 'selected' : ''}>Đặt in mô hình 3D Resin 8K</option>
+              <option value="other">Tối ưu góc máy & setup gear</option>
             </select>
           </div>
           <div>
             <label>Ngân sách dự kiến</label>
-            <input class="form-field" name="budget" placeholder="Ví dụ 20 triệu">
+            <input class="form-field" name="budget" value="${budget}" placeholder="Ví dụ: 25 triệu">
           </div>
         </div>
-        <label>Ghi chú chi tiết</label>
-        <textarea class="form-field" name="note" placeholder="Mô tả cấu hình muốn build, kích thước mô hình hoặc yêu cầu của bạn..."></textarea>
-        <button class="btn primary full-button" type="submit">Tạo nội dung yêu cầu →</button>
-        <div id="requestResult" class="muted" style="margin-top:16px"></div>
+        <label>Ghi chú chi tiết yêu cầu</label>
+        <textarea class="form-field" name="note" placeholder="Mô tả cụ thể tựa game muốn chơi, phần mềm đồ họa sử dụng hoặc gửi link file 3D...">${initialNote}</textarea>
+        <button class="btn primary full-button" type="submit">Tạo nội dung trao đổi →</button>
+        <div id="requestResult" style="margin-top:16px"></div>
       </form>
     </div>
 
     <div>
       <div class="surface contact-card">
-        <h3>☏ Zalo / Facebook</h3>
-        <p>Thêm kênh liên hệ thật của shop tại đây khi triển khai.</p>
+        <h3>☏ Kênh Trao Đổi Nhanh (Zalo / Hotline)</h3>
+        <p>Liên hệ trao đổi trực tiếp 1-1 để nhận báo giá chi tiết, gửi file 3D hoặc tư vấn cấu hình tức thì.</p>
+        <b style="color:#0055ff;display:block;margin-top:8px;">Zalo: 09xx xxx xxx (NEXUS PC)</b>
       </div>
       <div class="surface contact-card">
-        <h3>✉ Email tư vấn</h3>
-        <p>Chưa được cấu hình — không sử dụng địa chỉ minh họa.</p>
+        <h3>✉ Hỗ Trợ Kỹ Thuật & Báo Giá</h3>
+        <p>Gửi danh sách linh kiện hoặc bản vẽ 3D (.stl, .obj) để nhận báo giá in resin chi tiết trong vòng 2 giờ.</p>
       </div>
       <div class="surface contact-card">
-        <h3>◇ PC Build & nâng cấp</h3>
-        <p>Trao đổi cấu hình, ngân sách và nhu cầu sử dụng.</p>
-      </div>
-      <div class="surface contact-card">
-        <h3>⬡ In mô hình 3D</h3>
-        <p>Gửi bản vẽ, kích thước, vật liệu, màu sắc và số lượng cần in.</p>
+        <h3>◈ Cam Kết Từ NEXUS PC</h3>
+        <p>✓ Tư vấn đúng nhu cầu, không vẽ thêm linh kiện không cần thiết<br>✓ Bảo hành phần cứng chu đáo tận tâm<br>✓ Tặng kèm gói vệ sinh và tra keo tản nhiệt định kỳ</p>
       </div>
     </div>
   </div>
@@ -946,16 +1256,24 @@ function contact() {
   $('#contactForm').onsubmit = e => {
     e.preventDefault();
     const d = new FormData(e.target);
-    let s = `YÊU CẦU TƯ VẤN NEXUS PC\nHọ tên: ${d.get('name')}\nLiên hệ: ${d.get('phone')}\nNhu cầu: ${d.get('type')}\nNgân sách: ${d.get('budget')}\nGhi chú: ${d.get('note')}`;
-    $('#requestResult').innerHTML =
-      '<p style="color:#0055ff;font-weight:700">Đã tạo nội dung yêu cầu. Hãy sao chép và gửi qua kênh liên hệ của shop.</p><textarea class="form-field" readonly id="copyText"></textarea><button class="btn primary" id="copyBtn" type="button" style="margin-top:10px">Sao chép nội dung</button>';
+    let s = `=== YÊU CẦU TƯ VẤN NEXUS PC ===\nHọ tên: ${d.get('name')}\nSố liên hệ: ${d.get('phone')}\nNhu cầu: ${d.get('type')}\nNgân sách: ${d.get('budget')}\nGhi chú: ${d.get('note')}\nThời gian: ${new Date().toLocaleString('vi-VN')}`;
+    
+    $('#requestResult').innerHTML = `
+      <div style="background:rgba(0,102,255,0.08);border:1px solid #b5d4fe;padding:16px;border-radius:14px;margin-top:12px;">
+        <p style="color:#0052e0;font-weight:800;margin-bottom:8px;">✓ Đã tạo thành công nội dung yêu cầu!</p>
+        <p style="font-size:13px;color:#374e78;margin-bottom:10px;">Bạn có thể sao chép đoạn nội dung bên dưới và gửi ngay qua Zalo hoặc Messenger của shop:</p>
+        <textarea class="form-field" readonly id="copyText" style="height:110px;font-size:13px;font-family:monospace;"></textarea>
+        <button class="btn primary small" id="copyBtn" type="button" style="margin-top:10px;">📋 Sao chép nội dung</button>
+      </div>
+    `;
     $('#copyText').value = s;
     $('#copyBtn').onclick = () => {
       navigator.clipboard?.writeText(s)
-        .then(() => ($('#copyBtn').textContent = 'Đã sao chép ✓'))
+        .then(() => ($('#copyBtn').textContent = 'Đã sao chép vào bộ nhớ tạm ✓'))
         .catch(() => {
           $('#copyText').select();
           document.execCommand('copy');
+          $('#copyBtn').textContent = 'Đã sao chép vào bộ nhớ tạm ✓';
         });
     };
   };
